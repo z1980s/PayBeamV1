@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".PayBeam.CreateAccountActivity.CreateAccountActivity" />
-        <activity android:name=".PayBeam.OTPActivity.OtpActivity"></activity>
+        <activity android:name=".PayBeam.OTPActivity.OtpActivity" />
+        <activity android:name=".PayBeam.HomeActivity.HomeActivity"></activity>
     </application>
 
 </manifest>
