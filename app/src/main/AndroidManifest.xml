@@ -18,7 +18,15 @@
         </activity>
         <activity android:name=".PayBeam.CreateAccountActivity.CreateAccountActivity" />
         <activity android:name=".PayBeam.OTPActivity.OtpActivity" />
-        <activity android:name=".PayBeam.HomeActivity.HomeActivity"></activity>
+        <activity android:name=".PayBeam.HomeActivity.HomeActivity" />
+        <activity android:name=".PayBeam.CardManagementActivity.CardActivity" />
+        <activity android:name=".PayBeam.PaymentPhoneActivity.PaymentPhoneActivity" />
+        <activity android:name=".PayBeam.PaymentReaderActivity.PaymentReaderActivity" />
+        <activity android:name=".PayBeam.TransactionActivity.TransactionActivity" />
+        <activity android:name=".PayBeam.SettingsActivity.SettingsActivity" />
+        <activity android:name=".PayBeam.SettingsActivity.EditProfileActivity.EditProfileActivity" />
+        <activity android:name=".PayBeam.SettingsActivity.ChangePasswordActivity.ChangePasswordActivity" />
+        <activity android:name=".PayBeam.AboutActivity.AboutActivity"></activity>
     </application>
 
 </manifest>
