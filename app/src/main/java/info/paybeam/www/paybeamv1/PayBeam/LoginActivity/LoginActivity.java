@@ -10,7 +10,9 @@ import android.widget.EditText;
 
 import info.paybeam.www.paybeamv1.PayBeam.CreateAccountActivity.CreateAccountActivity;
 import info.paybeam.www.paybeamv1.PayBeam.HomeActivity.HomeActivity;
+import info.paybeam.www.paybeamv1.PayBeam.HomeActivity.HomePresenter;
 import info.paybeam.www.paybeamv1.R;
+import info.paybeam.www.paybeamv1.databinding.HomeActivityBinding;
 import info.paybeam.www.paybeamv1.databinding.LoginActivityBinding;
 
 /*
@@ -26,6 +28,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
         LoginActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.login_activity);
@@ -34,6 +38,11 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
 
         username = findViewById(R.id.usernameEditText);
         password = findViewById(R.id.passwordEditText);
+
+
+        //For testing purposes we assume successful login and call menu here
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
     }
 
     public void handleAuthentication()

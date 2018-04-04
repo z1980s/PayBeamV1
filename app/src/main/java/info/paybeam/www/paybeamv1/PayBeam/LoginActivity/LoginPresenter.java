@@ -1,5 +1,6 @@
 package info.paybeam.www.paybeamv1.PayBeam.LoginActivity;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 
@@ -19,8 +20,12 @@ public class LoginPresenter implements LoginContract.LoginPresenter
     @Override
     public void onLoginButtonClick(View view)
     {
-        //establish connection with server and authenticate user
+
+         //establish connection with server and authenticate user
         loginView.handleAuthentication();
+
+
+
     }
 
     @Override
