@@ -17,87 +17,75 @@
         tools:context="info.paybeam.www.paybeamv1.PayBeam.HomeActivity.HomeActivity">
 
 
-        <Button
-            android:id="@+id/button_p2r"
-            android:layout_width="140dp"
-            android:layout_height="0dp"
-            android:background="@color/transparent"
-            android:drawableTop="@drawable/ic_local_atm_black_48dp_2x"
-            android:fontFamily="sans-serif-smallcaps"
-            android:text="pay merchant"
-            android:textAllCaps="false"
-            android:textSize="18dp"
-            tools:layout_editor_absoluteX="40dp"
-            tools:layout_editor_absoluteY="206dp" />
-
-        <Button
-            android:id="@+id/button_p2p"
-            android:layout_width="140dp"
-            android:layout_height="0dp"
-
-            android:background="@color/transparent"
-            android:drawableTop="@drawable/ic_speaker_phone_black_48dp"
-            android:fontFamily="sans-serif-smallcaps"
-            android:text="Phone to Phone"
-            android:textAllCaps="false"
-            android:textSize="18dp"
-            tools:layout_editor_absoluteX="180dp"
-            tools:layout_editor_absoluteY="206dp" />
-
-
-        <Button
-            android:id="@+id/button_cards"
-            android:layout_width="140dp"
+        <ImageButton
+            android:id="@+id/PhoneToReaderImageButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
             android:background="@color/transparent"
-            android:drawableTop="@drawable/ic_credit_card_black_48dp"
-            android:fontFamily="sans-serif-smallcaps"
-            android:text="Cards"
-            android:textAllCaps="false"
-            android:textSize="18dp"
-            tools:layout_editor_absoluteX="40dp"
-            tools:layout_editor_absoluteY="25dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/PhoneToPhoneImageButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_local_atm_black_48dp_2x" />
 
-        <Button
-            android:id="@+id/button_transaction"
-            android:layout_width="140dp"
-            android:layout_height="0dp"
+        <ImageButton
+            android:id="@+id/PhoneToPhoneImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
             android:background="@color/transparent"
-            android:drawableTop="@drawable/ic_receipt_black_48dp"
-            android:fontFamily="sans-serif-smallcaps"
-            android:text="transactions"
-            android:textAllCaps="false"
-            android:textSize="18dp"
-            tools:layout_editor_absoluteX="180dp"
-            tools:layout_editor_absoluteY="25dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/PhoneToReaderImageButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_speaker_phone_black_48dp" />
 
-
-        <Button
-            android:id="@+id/button_profile"
-            android:layout_width="140dp"
-            android:layout_height="0dp"
+        <ImageButton
+            android:id="@+id/ProfileImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="76dp"
+            android:layout_marginStart="14dp"
             android:background="@color/transparent"
-            android:drawableTop="@drawable/ic_account_box_black_48dp"
-            android:fontFamily="sans-serif-smallcaps"
-            android:text="profile"
-            android:textAllCaps="false"
-            android:textSize="18dp"
-            tools:layout_editor_absoluteX="40dp"
-            tools:layout_editor_absoluteY="386dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/SettingsImageButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_account_box_black_48dp" />
 
-        <Button
-            android:id="@+id/button_settings"
-            android:layout_width="140dp"
-            android:layout_height="0dp"
+        <ImageButton
+            android:id="@+id/SettingsImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
             android:background="@color/transparent"
-            android:drawableTop="@drawable/ic_settings_applications_black_48dp"
-            android:fontFamily="sans-serif-smallcaps"
-            android:text="Settings"
-            android:textAllCaps="false"
-            android:textSize="18dp"
-            tools:layout_editor_absoluteX="180dp"
-            tools:layout_editor_absoluteY="386dp" />
+            app:layout_constraintBottom_toBottomOf="@+id/ProfileImageButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ProfileImageButton"
+            app:layout_constraintTop_toTopOf="@+id/ProfileImageButton"
+            app:srcCompat="@drawable/ic_settings_applications_black_48dp" />
 
+        <ImageButton
+            android:id="@+id/CardManagementImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="84dp"
+            android:background="@color/transparent"
+            app:layout_constraintEnd_toEndOf="@+id/PhoneToReaderImageButton"
+            app:layout_constraintStart_toStartOf="@+id/PhoneToReaderImageButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_credit_card_black_48dp" />
+
+        <ImageButton
+            android:id="@+id/TransactionImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="84dp"
+            android:background="@color/transparent"
+            app:layout_constraintStart_toEndOf="@+id/CardManagementImageButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_receipt_black_48dp" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>
