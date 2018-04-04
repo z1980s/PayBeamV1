@@ -9,7 +9,7 @@ import info.paybeam.www.paybeamv1.databinding.OtpActivityBinding;
 
 public class OtpActivity extends AppCompatActivity implements OtpContract.OtpView
 {
-    OtpPresenter otpPresenter;
+    private OtpPresenter otpPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

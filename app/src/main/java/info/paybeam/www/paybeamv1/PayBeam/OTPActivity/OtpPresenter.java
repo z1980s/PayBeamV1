@@ -21,4 +21,5 @@ public class OtpPresenter implements OtpContract.OtpPresenter
         //if valid show successView()
         //if false show FailureView()
     }
+
 }
