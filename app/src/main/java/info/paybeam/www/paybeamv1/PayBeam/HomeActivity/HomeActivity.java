@@ -1,9 +1,18 @@
 package info.paybeam.www.paybeamv1.PayBeam.HomeActivity;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.nfc.NfcAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity;
+import info.paybeam.www.paybeamv1.PayBeam.PaymentPhoneActivity.PaymentPhoneActivity;
+import info.paybeam.www.paybeamv1.PayBeam.PaymentReaderActivity.PaymentReaderActivity;
+import info.paybeam.www.paybeamv1.PayBeam.SettingsActivity.EditProfileActivity.EditProfileActivity;
+import info.paybeam.www.paybeamv1.PayBeam.SettingsActivity.SettingsActivity;
+import info.paybeam.www.paybeamv1.PayBeam.TransactionActivity.TransactionActivity;
 import info.paybeam.www.paybeamv1.R;
 import info.paybeam.www.paybeamv1.databinding.HomeActivityBinding;
 
@@ -24,30 +33,48 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
     @Override
     public void showEditProfileView()
     {
-
+        Toast.makeText(this,"Show Edit Profile View", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, EditProfileActivity.class);
+        startActivity(intent);
     }
 
     @Override
     public void showPaymentPhoneView()
     {
-
+        Toast.makeText(this,"Show Payment Phone View", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, PaymentPhoneActivity.class);
+        startActivity(intent);
     }
 
     @Override
     public void showPaymentReaderView()
     {
-
+        Toast.makeText(this,"Payment Reader", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, PaymentReaderActivity.class);
+        startActivity(intent);
     }
 
     @Override
     public void showCardManagementView()
     {
-
+        Toast.makeText(this,"Show Card Management", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, CardActivity.class);
+        startActivity(intent);
     }
 
     @Override
     public void showTransactionView()
     {
+        Toast.makeText(this,"Show Transaction View", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, TransactionActivity.class);
+        startActivity(intent);
+    }
 
+    @Override
+    public void showSettingsView()
+    {
+        Toast.makeText(this,"Show Settings View", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 }

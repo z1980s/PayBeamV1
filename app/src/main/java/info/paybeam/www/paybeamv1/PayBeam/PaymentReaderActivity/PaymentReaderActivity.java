@@ -21,4 +21,7 @@ public class PaymentReaderActivity extends AppCompatActivity implements PaymentR
         prPresenter = new PaymentReaderPresenter(this);
         binding.setPrPresenter(prPresenter);
     }
+
+
+
 }

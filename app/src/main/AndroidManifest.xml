@@ -9,24 +9,44 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PayBeam.LoginActivity.LoginActivity">
+
+
+        <activity
+            android:name=".PayBeam.SplashPage.SplashScreenActivity"
+            android:label="PayBeamV1"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PayBeam.CreateAccountActivity.CreateAccountActivity" />
-        <activity android:name=".PayBeam.OTPActivity.OtpActivity" />
-        <activity android:name=".PayBeam.HomeActivity.HomeActivity" />
-        <activity android:name=".PayBeam.CardManagementActivity.CardActivity" />
-        <activity android:name=".PayBeam.PaymentPhoneActivity.PaymentPhoneActivity" />
-        <activity android:name=".PayBeam.PaymentReaderActivity.PaymentReaderActivity" />
-        <activity android:name=".PayBeam.TransactionActivity.TransactionActivity" />
-        <activity android:name=".PayBeam.SettingsActivity.SettingsActivity" />
-        <activity android:name=".PayBeam.SettingsActivity.EditProfileActivity.EditProfileActivity" />
-        <activity android:name=".PayBeam.SettingsActivity.ChangePasswordActivity.ChangePasswordActivity" />
-        <activity android:name=".PayBeam.AboutActivity.AboutActivity"></activity>
+
+        <activity android:name=".PayBeam.LoginActivity.LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PayBeam.CreateAccountActivity.CreateAccountActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PayBeam.OTPActivity.OtpActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PayBeam.HomeActivity.HomeActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PayBeam.CardManagementActivity.CardActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PayBeam.PaymentPhoneActivity.PaymentPhoneActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PayBeam.PaymentReaderActivity.PaymentReaderActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PayBeam.TransactionActivity.TransactionActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PayBeam.SettingsActivity.SettingsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PayBeam.SettingsActivity.EditProfileActivity.EditProfileActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PayBeam.SettingsActivity.ChangePasswordActivity.ChangePasswordActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PayBeam.AboutActivity.AboutActivity"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>
