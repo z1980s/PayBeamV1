@@ -14,6 +14,7 @@ public interface LoginContract
         void showCreateAccountView();
         void showErrorMessage();
         void handleAuthentication();
+        void showServerError();
     }
 
     interface LoginPresenter

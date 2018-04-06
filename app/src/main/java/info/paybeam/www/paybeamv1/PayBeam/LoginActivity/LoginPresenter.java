@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 
+import java.util.concurrent.ExecutionException;
+
+import info.paybeam.www.paybeamv1.PayBeam.ConnectionModule.ServerConnection;
+
 /**
  * Presenter handles Login logic
  */
@@ -20,12 +24,8 @@ public class LoginPresenter implements LoginContract.LoginPresenter
     @Override
     public void onLoginButtonClick(View view)
     {
-
-         //establish connection with server and authenticate user
+        //establish connection with server and authenticate user
         loginView.handleAuthentication();
-
-
-
     }
 
     @Override
@@ -37,8 +37,26 @@ public class LoginPresenter implements LoginContract.LoginPresenter
 
     public void handleAuthentication(String username, String password)
     {
+        String[] memberNames = new String[]{"LoginName", "Password"};
+        String[] values = new String[]{username, password};
+        try {
+            String response = new ServerConnection().sendMessage(ServerConnection.createMessage("Login", "User", memberNames, values));
+            if(response.contains("Success")) {
+                //do success
+                System.out.println("Login Success");
+                loginView.showHomeView();
+            } else {
+                //do failure
+                System.out.println("Login Failure");
+                loginView.showErrorMessage();
+            }
+        } catch (Exception e) {
+            loginView.showServerError();
+            e.printStackTrace();
+        }
         //create server connection, check username and password
         //if valid, call loginView.showHomeView
         //if invalid, call loginView.showErrorMessage
+        //if response null, show server error
     }
 }
