@@ -5,12 +5,28 @@
     <data>
         <variable
             name="cardPresenter"
-            type="info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardPresenter"/>
+            type="info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity.CardPresenter"/>
     </data>
-<android.support.constraint.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity.CardActivity">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginBottom="40dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:text="Add Card"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            android:onClick="@{cardPresenter::onAddCardButtonClick}"/>
+
+    </android.support.constraint.ConstraintLayout>
 </layout>

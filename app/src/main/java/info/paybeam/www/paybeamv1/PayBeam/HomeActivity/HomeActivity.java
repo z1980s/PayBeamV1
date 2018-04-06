@@ -2,12 +2,11 @@ package info.paybeam.www.paybeamv1.PayBeam.HomeActivity;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.nfc.NfcAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity;
+import info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity.CardActivity;
 import info.paybeam.www.paybeamv1.PayBeam.PaymentPhoneActivity.PaymentPhoneActivity;
 import info.paybeam.www.paybeamv1.PayBeam.PaymentReaderActivity.PaymentReaderActivity;
 import info.paybeam.www.paybeamv1.PayBeam.SettingsActivity.EditProfileActivity.EditProfileActivity;
