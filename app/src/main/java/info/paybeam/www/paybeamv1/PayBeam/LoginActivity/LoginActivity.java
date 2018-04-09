@@ -1,5 +1,6 @@
 package info.paybeam.www.paybeamv1.PayBeam.LoginActivity;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -40,9 +41,11 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
         password = findViewById(R.id.passwordText);
 
 
+        /*
         //For testing purposes we assume successful login and call menu here
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
+        */
 
     }
 
@@ -109,5 +112,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
                 });
     }
 
-
+    @Override
+    public Activity getActivity() {
+        return this;
+    }
 }

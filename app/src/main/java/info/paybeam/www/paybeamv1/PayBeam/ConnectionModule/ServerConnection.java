@@ -6,30 +6,43 @@ package info.paybeam.www.paybeamv1.PayBeam.ConnectionModule;
 
 //import android.os.AsyncTask;
 
+import android.app.Activity;
+import android.content.Context;
+
 import com.google.gson.JsonObject;
 
 import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.InputStreamReader;
-import java.net.Socket;
-import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
+import java.security.KeyStore;
+import java.security.SecureRandom;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManagerFactory;
+
 public class ServerConnection implements Callable {//extends AsyncTask<Void, Void, Void>{
     private JsonObject msg;
     private String response;
 
+    private Context context;
+
     //empty
     public ServerConnection () { }
 
-    public ServerConnection (JsonObject msg) {
+    public ServerConnection (JsonObject msg, Context context) {
         this.msg = msg;
+        this.context = context;
     }
 
     public static JsonObject createMessage(String header, String dataType, String[] memberNames ,String[] data) {
@@ -46,11 +59,11 @@ public class ServerConnection implements Callable {//extends AsyncTask<Void, Voi
         return msg;
     }
 
-    public String sendMessage(JsonObject msg) throws InterruptedException, ExecutionException {
+    public String sendMessage(JsonObject msg, Context context) throws InterruptedException, ExecutionException {
         // creates thread pool with one thread
         final ExecutorService es = Executors.newSingleThreadExecutor();
         // callable thread starts to execute
-        final Future<String> responseFuture = es.submit(new ServerConnection(msg));
+        final Future<String> responseFuture = es.submit(new ServerConnection(msg, context));
         // gets value of callable thread
         final String response = responseFuture.get();
         return response;
@@ -60,12 +73,31 @@ public class ServerConnection implements Callable {//extends AsyncTask<Void, Voi
     public String call() {
         try {
             System.out.println("ServerConnection Thread Started") ;
+            //get application context and open the keystore file
+            InputStream stream = context.getAssets().open("www_paybeam_info.bks");
+            KeyStore trustStore;
+            trustStore = KeyStore.getInstance("BKS");
+            trustStore.load(stream, "Se4wyhv8@".toCharArray());
+
+            KeyManagerFactory kmfactory = KeyManagerFactory.getInstance(
+                    KeyManagerFactory.getDefaultAlgorithm());
+            kmfactory.init(trustStore, "Se4wyhv8@".toCharArray());
+            KeyManager[] keymanagers =  kmfactory.getKeyManagers();
+
+            TrustManagerFactory tmf=TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+            tmf.init(trustStore);
+            SSLContext sslContext=SSLContext.getInstance("TLSv1.2");
+            sslContext.init(keymanagers, tmf.getTrustManagers(), new SecureRandom());
+            SSLSocketFactory factory=sslContext.getSocketFactory();
+
             //create socket to server
-            Socket clientSocket = new Socket("182.55.236.211", 3333);
+            //SSLSocketFactory factory = (SSLSocketFactory) SSLSocketFactory.getDefault();
+            SSLSocket clientSSLSocket = (SSLSocket) factory.createSocket("182.55.236.211", 3333);
+            clientSSLSocket.startHandshake();
 
             //define outputstream
-            OutputStreamWriter osw = new OutputStreamWriter(clientSocket.getOutputStream(), StandardCharsets.UTF_8);
-            InputStreamReader isr = new InputStreamReader(clientSocket.getInputStream(), StandardCharsets.UTF_8);
+            OutputStreamWriter osw = new OutputStreamWriter(clientSSLSocket.getOutputStream(), StandardCharsets.UTF_8);
+            InputStreamReader isr = new InputStreamReader(clientSSLSocket.getInputStream(), StandardCharsets.UTF_8);
 
             //send Message
             osw.write(msg.toString() + "\n");
@@ -75,12 +107,10 @@ public class ServerConnection implements Callable {//extends AsyncTask<Void, Voi
             BufferedReader br = new BufferedReader(isr);
             response = br.readLine();
             System.out.println("response: " + response);
-            clientSocket.close();
+            clientSSLSocket.close();
             return response;
-        } catch (UnknownHostException uhe) {
-            uhe.printStackTrace();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
