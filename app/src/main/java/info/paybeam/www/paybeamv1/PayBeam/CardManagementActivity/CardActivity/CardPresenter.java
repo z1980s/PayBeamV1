@@ -2,6 +2,8 @@ package info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity;
 
 import android.view.View;
 
+import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
+
 /**
  * Created by zicokuang on 3/4/18.
  */
@@ -13,6 +15,12 @@ public class CardPresenter implements CardContract.CardPresenter
     CardPresenter(CardContract.CardView view)
     {
         cardView = view;
+    }
+
+
+    @Override
+    public void getAllCards() {
+        InternalStorage.read(cardView.getActivity().getApplicationContext(),"cards");
     }
 
     @Override

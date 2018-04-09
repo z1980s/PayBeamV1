@@ -1,5 +1,6 @@
 package info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.AddCardActivity;
 
+import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -64,6 +65,11 @@ public class AddCardActivity extends AppCompatActivity implements AddCardContrac
     public void showServerError()
     {
         //error from server e.g. server returns null object or no response, bring user back to addCardActivity page
+    }
+
+    @Override
+    public Activity getActivity() {
+        return this;
     }
 
 

@@ -1,5 +1,6 @@
 package info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.AddCardActivity;
 
+import android.app.Activity;
 import android.view.View;
 
 import com.braintreepayments.cardform.view.CardForm;
@@ -16,6 +17,7 @@ public interface AddCardContract {
         void showSuccessMessage();
         void showErrorMessage();
         void showServerError();
+        Activity getActivity();
     }
 
     interface AddCardPresenter

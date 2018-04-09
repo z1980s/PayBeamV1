@@ -1,5 +1,6 @@
 package info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity;
 
+import android.app.Activity;
 import android.view.View;
 
 /**
@@ -16,10 +17,12 @@ public interface CardContract
         void showAddCardErrorMessage();
         void showRemoveCardSuccessMessage();
         void showRemoveCardErrorMessage();
+        Activity getActivity();
     }
 
     interface CardPresenter
     {
+        void getAllCards();
         void onAddCardButtonClick(View view);
         void onRemoveCardButtonClick(View view);
     }
