@@ -39,10 +39,11 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
         username = findViewById(R.id.usernameEditText);
         password = findViewById(R.id.passwordEditText);
 
-
+        /*
         //For testing purposes we assume successful login and call menu here
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
+        */
     }
 
     public void handleAuthentication()
