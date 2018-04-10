@@ -41,7 +41,9 @@ public class ServerConnection implements Callable {//extends AsyncTask<Void, Voi
     public ServerConnection () { }
 
     public ServerConnection (JsonObject msg, Context context) {
+        //msg is the JSONObject containing the message that needs to be sent.
         this.msg = msg;
+        //context is used to open file from Assets folder!
         this.context = context;
     }
 
@@ -73,25 +75,29 @@ public class ServerConnection implements Callable {//extends AsyncTask<Void, Voi
     public String call() {
         try {
             System.out.println("ServerConnection Thread Started") ;
-            //get application context and open the keystore file
+
+            //get application context and open the truststore file
             InputStream stream = context.getAssets().open("www_paybeam_info.bks");
             KeyStore trustStore;
             trustStore = KeyStore.getInstance("BKS");
             trustStore.load(stream, "Se4wyhv8@".toCharArray());
 
+            //Create a Key Manager Factory to load the TrustStore using an instance of key manager
             KeyManagerFactory kmfactory = KeyManagerFactory.getInstance(
                     KeyManagerFactory.getDefaultAlgorithm());
             kmfactory.init(trustStore, "Se4wyhv8@".toCharArray());
             KeyManager[] keymanagers =  kmfactory.getKeyManagers();
 
+            //Create a custom trust manager to import the trustStore and initialise the trust manager with the trustStore
             TrustManagerFactory tmf=TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
             tmf.init(trustStore);
+
+            //define protocol to be TLSv1.2 (SSL is no longer secure) and initialise SSLContext
             SSLContext sslContext=SSLContext.getInstance("TLSv1.2");
             sslContext.init(keymanagers, tmf.getTrustManagers(), new SecureRandom());
-            SSLSocketFactory factory=sslContext.getSocketFactory();
 
-            //create socket to server
-            //SSLSocketFactory factory = (SSLSocketFactory) SSLSocketFactory.getDefault();
+            //create SSLSocketfactory and establih SSLSocket to server
+            SSLSocketFactory factory=sslContext.getSocketFactory();
             SSLSocket clientSSLSocket = (SSLSocket) factory.createSocket("182.55.236.211", 3333);
             clientSSLSocket.startHandshake();
 
@@ -99,15 +105,18 @@ public class ServerConnection implements Callable {//extends AsyncTask<Void, Voi
             OutputStreamWriter osw = new OutputStreamWriter(clientSSLSocket.getOutputStream(), StandardCharsets.UTF_8);
             InputStreamReader isr = new InputStreamReader(clientSSLSocket.getInputStream(), StandardCharsets.UTF_8);
 
-            //send Message
+            //Write msg to outputstreamwriter and send it
             osw.write(msg.toString() + "\n");
             osw.flush();
-            //wait for reply
 
+            //Create a BufferedReader to read from the InputStreamReader and print out the response.
             BufferedReader br = new BufferedReader(isr);
             response = br.readLine();
             System.out.println("response: " + response);
+
+            //Close Socket
             clientSSLSocket.close();
+            //return the response to the calling function.
             return response;
         } catch (Exception e) {
             e.printStackTrace();
