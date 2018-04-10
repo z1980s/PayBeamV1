@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 /**
  * Created by dflychew on 9/4/18.
@@ -49,5 +50,42 @@ public class InternalStorage {
         catch(Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void writeCardToFile(Context context, String filename, String string)
+    {
+        FileOutputStream outputStream;
+
+        try {
+            //MODE_PRIVATE FOR WRITE
+            //MODE_APPEND FOR APPEND
+            outputStream = context.openFileOutput(filename, context.MODE_APPEND);
+
+            outputStream.write(string.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static ArrayList<String> readCardsFromFile(Context context, String filename) {
+
+        ArrayList<String> cards = new ArrayList<String>();
+        try {
+            FileInputStream fis = context.openFileInput(filename);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            //StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                //sb.append(line);
+                Toast.makeText(context,line,Toast.LENGTH_SHORT).show();
+                cards.add(line);
+            }
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        return cards;
     }
 }

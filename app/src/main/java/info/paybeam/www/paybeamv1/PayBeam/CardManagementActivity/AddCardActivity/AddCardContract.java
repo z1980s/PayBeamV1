@@ -18,6 +18,7 @@ public interface AddCardContract {
         void showErrorMessage();
         void showServerError();
         Activity getActivity();
+        void finishAddCard();
     }
 
     interface AddCardPresenter

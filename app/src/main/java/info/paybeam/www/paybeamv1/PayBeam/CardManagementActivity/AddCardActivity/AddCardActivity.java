@@ -1,6 +1,7 @@
 package info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.AddCardActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.widget.Button;
 
 import com.braintreepayments.cardform.view.CardForm;
 
+import info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity.CardActivity;
 import info.paybeam.www.paybeamv1.R;
 import info.paybeam.www.paybeamv1.databinding.AddcardActivityBinding;
 
@@ -36,6 +38,8 @@ public class AddCardActivity extends AppCompatActivity implements AddCardContrac
                 .setup(AddCardActivity.this);
     }
 
+
+
     @Override
     public void extractValues()
     {
@@ -47,6 +51,7 @@ public class AddCardActivity extends AppCompatActivity implements AddCardContrac
                                  cardForm.getCountryCode(),
                                  cardForm.getMobileNumber());
     }
+
 
     @Override
     public void showSuccessMessage()
@@ -70,6 +75,12 @@ public class AddCardActivity extends AppCompatActivity implements AddCardContrac
     @Override
     public Activity getActivity() {
         return this;
+    }
+
+
+    @Override
+    public void finishAddCard() {
+        finish();
     }
 
 

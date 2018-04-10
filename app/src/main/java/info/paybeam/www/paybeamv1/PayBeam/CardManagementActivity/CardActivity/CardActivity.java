@@ -5,7 +5,14 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.AddCardActivity.AddCardActivity;
 import info.paybeam.www.paybeamv1.R;
@@ -14,6 +21,11 @@ import info.paybeam.www.paybeamv1.databinding.CardActivityBinding;
 public class CardActivity extends AppCompatActivity implements CardContract.CardView
 {
     CardPresenter cardPresenter;
+
+
+    ListView lst;
+    ArrayList<String> cards;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -24,13 +36,34 @@ public class CardActivity extends AppCompatActivity implements CardContract.Card
         cardPresenter = new CardPresenter(this);
         binding.setCardPresenter(cardPresenter);
 
-
+        cardPresenter.onCardPageDisplayed();
     }
 
     @Override
-    public void displayCards()
+    protected void onResume() {
+
+        super.onResume();
+        cardPresenter.onCardPageDisplayed();
+    }
+
+    @Override
+    public void displayCards(ArrayList<String> cards)
     {
         //display all available cards on screen
+        Toast.makeText(this, "There are "+ cards.size() + " cards", Toast.LENGTH_SHORT).show();
+        this.cards = cards;
+
+        lst= (ListView) findViewById(R.id.cardList);
+        ArrayAdapter<String> arrayadapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, this.cards);
+        lst.setAdapter(arrayadapter);
+
+        lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView tv= (TextView) view;
+                Toast.makeText(CardActivity.this,tv.getText()+"  "+position,Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
