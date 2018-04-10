@@ -1,11 +1,6 @@
 package info.paybeam.www.paybeamv1.PayBeam.LoginActivity;
 
-import android.content.Intent;
 import android.view.View;
-import android.widget.EditText;
-
-import java.util.concurrent.ExecutionException;
-
 import info.paybeam.www.paybeamv1.PayBeam.ConnectionModule.ServerConnection;
 
 /**
@@ -40,7 +35,7 @@ public class LoginPresenter implements LoginContract.LoginPresenter
         String[] memberNames = new String[]{"LoginName", "Password"};
         String[] values = new String[]{username, password};
         try {
-            String response = new ServerConnection().sendMessage(ServerConnection.createMessage("Login", "User", memberNames, values));
+            String response = new ServerConnection().sendMessage(ServerConnection.createMessage("Login", "User", memberNames, values), loginView.getActivity());
             if(response.contains("Success")) {
                 //do success
                 System.out.println("Login Success");

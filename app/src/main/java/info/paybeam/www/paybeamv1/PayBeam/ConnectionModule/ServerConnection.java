@@ -6,30 +6,45 @@ package info.paybeam.www.paybeamv1.PayBeam.ConnectionModule;
 
 //import android.os.AsyncTask;
 
+import android.app.Activity;
+import android.content.Context;
+
 import com.google.gson.JsonObject;
 
 import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.InputStreamReader;
-import java.net.Socket;
-import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
+import java.security.KeyStore;
+import java.security.SecureRandom;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManagerFactory;
+
 public class ServerConnection implements Callable {//extends AsyncTask<Void, Void, Void>{
     private JsonObject msg;
     private String response;
 
+    private Context context;
+
     //empty
     public ServerConnection () { }
 
-    public ServerConnection (JsonObject msg) {
+    public ServerConnection (JsonObject msg, Context context) {
+        //msg is the JSONObject containing the message that needs to be sent.
         this.msg = msg;
+        //context is used to open file from Assets folder!
+        this.context = context;
     }
 
     public static JsonObject createMessage(String header, String dataType, String[] memberNames ,String[] data) {
@@ -46,11 +61,11 @@ public class ServerConnection implements Callable {//extends AsyncTask<Void, Voi
         return msg;
     }
 
-    public String sendMessage(JsonObject msg) throws InterruptedException, ExecutionException {
+    public String sendMessage(JsonObject msg, Context context) throws InterruptedException, ExecutionException {
         // creates thread pool with one thread
         final ExecutorService es = Executors.newSingleThreadExecutor();
         // callable thread starts to execute
-        final Future<String> responseFuture = es.submit(new ServerConnection(msg));
+        final Future<String> responseFuture = es.submit(new ServerConnection(msg, context));
         // gets value of callable thread
         final String response = responseFuture.get();
         return response;
@@ -60,27 +75,51 @@ public class ServerConnection implements Callable {//extends AsyncTask<Void, Voi
     public String call() {
         try {
             System.out.println("ServerConnection Thread Started") ;
-            //create socket to server
-            Socket clientSocket = new Socket("182.55.236.211", 3333);
+
+            //get application context and open the truststore file
+            InputStream stream = context.getAssets().open("www_paybeam_info.bks");
+            KeyStore trustStore;
+            trustStore = KeyStore.getInstance("BKS");
+            trustStore.load(stream, "Se4wyhv8@".toCharArray());
+
+            //Create a Key Manager Factory to load the TrustStore using an instance of key manager
+            KeyManagerFactory kmfactory = KeyManagerFactory.getInstance(
+                    KeyManagerFactory.getDefaultAlgorithm());
+            kmfactory.init(trustStore, "Se4wyhv8@".toCharArray());
+            KeyManager[] keymanagers =  kmfactory.getKeyManagers();
+
+            //Create a custom trust manager to import the trustStore and initialise the trust manager with the trustStore
+            TrustManagerFactory tmf=TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+            tmf.init(trustStore);
+
+            //define protocol to be TLSv1.2 (SSL is no longer secure) and initialise SSLContext
+            SSLContext sslContext=SSLContext.getInstance("TLSv1.2");
+            sslContext.init(keymanagers, tmf.getTrustManagers(), new SecureRandom());
+
+            //create SSLSocketfactory and establih SSLSocket to server
+            SSLSocketFactory factory=sslContext.getSocketFactory();
+            SSLSocket clientSSLSocket = (SSLSocket) factory.createSocket("182.55.236.211", 3333);
+            clientSSLSocket.startHandshake();
 
             //define outputstream
-            OutputStreamWriter osw = new OutputStreamWriter(clientSocket.getOutputStream(), StandardCharsets.UTF_8);
-            InputStreamReader isr = new InputStreamReader(clientSocket.getInputStream(), StandardCharsets.UTF_8);
+            OutputStreamWriter osw = new OutputStreamWriter(clientSSLSocket.getOutputStream(), StandardCharsets.UTF_8);
+            InputStreamReader isr = new InputStreamReader(clientSSLSocket.getInputStream(), StandardCharsets.UTF_8);
 
-            //send Message
+            //Write msg to outputstreamwriter and send it
             osw.write(msg.toString() + "\n");
             osw.flush();
-            //wait for reply
 
+            //Create a BufferedReader to read from the InputStreamReader and print out the response.
             BufferedReader br = new BufferedReader(isr);
             response = br.readLine();
             System.out.println("response: " + response);
-            clientSocket.close();
+
+            //Close Socket
+            clientSSLSocket.close();
+            //return the response to the calling function.
             return response;
-        } catch (UnknownHostException uhe) {
-            uhe.printStackTrace();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
