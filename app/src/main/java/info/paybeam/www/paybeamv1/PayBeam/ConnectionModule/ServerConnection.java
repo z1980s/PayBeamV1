@@ -111,8 +111,14 @@ public class ServerConnection implements Callable {//extends AsyncTask<Void, Voi
 
             //Create a BufferedReader to read from the InputStreamReader and print out the response.
             BufferedReader br = new BufferedReader(isr);
+
+            //read 1st line
             response = br.readLine();
-            System.out.println("response: " + response);
+            //read every other line
+            String temp;
+            while((temp = br.readLine()) != null) {
+                response += "\n" + temp;
+            }
 
             //Close Socket
             clientSSLSocket.close();
