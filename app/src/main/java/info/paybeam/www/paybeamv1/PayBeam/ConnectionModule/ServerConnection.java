@@ -4,9 +4,6 @@ package info.paybeam.www.paybeamv1.PayBeam.ConnectionModule;
  * Created by Dai Wei on 3/4/2018.
  */
 
-//import android.os.AsyncTask;
-
-import android.app.Activity;
 import android.content.Context;
 
 import com.google.gson.JsonObject;
@@ -15,6 +12,8 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.InputStreamReader;
+import java.net.InetSocketAddress;
+import java.net.SocketTimeoutException;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyStore;
 import java.security.SecureRandom;
@@ -37,6 +36,7 @@ public class ServerConnection implements Callable {//extends AsyncTask<Void, Voi
 
     private Context context;
 
+    private static final int DEFAULT_CONNECT_TIMEOUT = 5000;
     //empty
     public ServerConnection () { }
 
@@ -74,7 +74,7 @@ public class ServerConnection implements Callable {//extends AsyncTask<Void, Voi
     @Override
     public String call() {
         try {
-            System.out.println("ServerConnection Thread Started") ;
+            System.out.println("ServerConnection Thread Started");
 
             //get application context and open the truststore file
             InputStream stream = context.getAssets().open("www_paybeam_info.bks");
@@ -86,44 +86,50 @@ public class ServerConnection implements Callable {//extends AsyncTask<Void, Voi
             KeyManagerFactory kmfactory = KeyManagerFactory.getInstance(
                     KeyManagerFactory.getDefaultAlgorithm());
             kmfactory.init(trustStore, "Se4wyhv8@".toCharArray());
-            KeyManager[] keymanagers =  kmfactory.getKeyManagers();
+            KeyManager[] keymanagers = kmfactory.getKeyManagers();
 
             //Create a custom trust manager to import the trustStore and initialise the trust manager with the trustStore
-            TrustManagerFactory tmf=TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+            TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
             tmf.init(trustStore);
 
             //define protocol to be TLSv1.2 (SSL is no longer secure) and initialise SSLContext
-            SSLContext sslContext=SSLContext.getInstance("TLSv1.2");
+            SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
             sslContext.init(keymanagers, tmf.getTrustManagers(), new SecureRandom());
 
             //create SSLSocketfactory and establih SSLSocket to server
-            SSLSocketFactory factory=sslContext.getSocketFactory();
-            SSLSocket clientSSLSocket = (SSLSocket) factory.createSocket("182.55.236.211", 3333);
-            clientSSLSocket.startHandshake();
+            SSLSocketFactory factory = sslContext.getSocketFactory();
+            SSLSocket clientSSLSocket = (SSLSocket) factory.createSocket();
+            try {
+                clientSSLSocket.connect(new InetSocketAddress("182.55.236.211", 3333), DEFAULT_CONNECT_TIMEOUT);
+                clientSSLSocket.startHandshake();
 
-            //define outputstream
-            OutputStreamWriter osw = new OutputStreamWriter(clientSSLSocket.getOutputStream(), StandardCharsets.UTF_8);
-            InputStreamReader isr = new InputStreamReader(clientSSLSocket.getInputStream(), StandardCharsets.UTF_8);
+                //define outputstream
+                OutputStreamWriter osw = new OutputStreamWriter(clientSSLSocket.getOutputStream(), StandardCharsets.UTF_8);
+                InputStreamReader isr = new InputStreamReader(clientSSLSocket.getInputStream(), StandardCharsets.UTF_8);
 
-            //Write msg to outputstreamwriter and send it
-            osw.write(msg.toString() + "\n");
-            osw.flush();
+                //Write msg to outputstreamwriter and send it
+                osw.write(msg.toString() + "\n");
+                osw.flush();
 
-            //Create a BufferedReader to read from the InputStreamReader and print out the response.
-            BufferedReader br = new BufferedReader(isr);
+                //Create a BufferedReader to read from the InputStreamReader and print out the response.
+                BufferedReader br = new BufferedReader(isr);
 
-            //read 1st line
-            response = br.readLine();
-            //read every other line
-            String temp;
-            while((temp = br.readLine()) != null) {
-                response += "\n" + temp;
+                //read 1st line
+                response = br.readLine();
+                //read every other line
+                String temp;
+                while ((temp = br.readLine()) != null) {
+                    response += "\n" + temp;
+                }
+
+                //Close Socket
+                clientSSLSocket.close();
+                //return the response to the calling function.
+                return response;
+            } catch (SocketTimeoutException ste) {
+                System.err.println("[ERROR] Connection timed out (5 seconds)");
+                return "Failure! Connection to Server Timed Out";
             }
-
-            //Close Socket
-            clientSSLSocket.close();
-            //return the response to the calling function.
-            return response;
         } catch (Exception e) {
             e.printStackTrace();
         }

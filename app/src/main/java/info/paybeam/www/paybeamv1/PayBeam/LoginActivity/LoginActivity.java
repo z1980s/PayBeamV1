@@ -92,11 +92,11 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     }
 
     @Override
-    public void showErrorMessage()
+    public void showErrorMessage(String errorMsg)
     {
         AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
 
-        dlgAlert.setMessage("Invalid username or password");
+        dlgAlert.setMessage(errorMsg);
         dlgAlert.setTitle("Error Message");
         dlgAlert.setPositiveButton("OK", null);
         dlgAlert.setCancelable(true);

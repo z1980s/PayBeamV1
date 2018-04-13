@@ -2,7 +2,10 @@ package info.paybeam.www.paybeamv1.PayBeam.CreateAccountActivity;
 
 import android.view.View;
 
+import java.security.MessageDigest;
+
 import info.paybeam.www.paybeamv1.PayBeam.ConnectionModule.ServerConnection;
+import info.paybeam.www.paybeamv1.PayBeam.SecurityModule.MD5;
 
 /**
  * presenter handles create account logic
@@ -40,14 +43,12 @@ public class CreateAccountPresenter implements CreateAccountContract.CreateAccou
 
         try {
             String response = new ServerConnection().sendMessage(ServerConnection.createMessage("CreateAccount", "User", memberNames, values), caView.getActivity());
+            System.out.println("Response: " + response);
             if(response.contains("Success")) {
                 //do success
-                System.out.println("Account Creation Success");
                 caView.onSuccessView();
             } else {
                 //do failure
-                System.out.println("Account Creation Failure");
-                System.out.println("Response: " + response);
                 caView.onFailureView(response);
             }
         } catch (Exception e) {

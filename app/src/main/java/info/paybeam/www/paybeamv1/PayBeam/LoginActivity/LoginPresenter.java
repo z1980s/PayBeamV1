@@ -36,14 +36,13 @@ public class LoginPresenter implements LoginContract.LoginPresenter
         String[] values = new String[]{username, password};
         try {
             String response = new ServerConnection().sendMessage(ServerConnection.createMessage("Login", "User", memberNames, values), loginView.getActivity());
+            System.out.println("Response: " + response);
             if(response.contains("Success")) {
                 //do success
-                System.out.println("Login Success");
                 loginView.showHomeView();
             } else {
                 //do failure
-                System.out.println("Login Failure");
-                loginView.showErrorMessage();
+                loginView.showErrorMessage(response);
             }
         } catch (Exception e) {
             loginView.showServerError();

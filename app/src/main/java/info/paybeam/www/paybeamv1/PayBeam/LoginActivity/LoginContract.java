@@ -13,7 +13,7 @@ public interface LoginContract
     {
         void showHomeView();
         void showCreateAccountView();
-        void showErrorMessage();
+        void showErrorMessage(String errorMsg);
         void handleAuthentication();
         void showServerError();
         Activity getActivity();
