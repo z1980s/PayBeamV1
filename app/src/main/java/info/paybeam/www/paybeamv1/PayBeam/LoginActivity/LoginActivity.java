@@ -29,8 +29,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
         LoginActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.login_activity);
@@ -43,10 +41,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
 
 
         //For testing purposes we assume successful login and call menu here
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
-
-
+        //Intent intent = new Intent(this, HomeActivity.class);
+        //startActivity(intent);
     }
 
     public void handleAuthentication()

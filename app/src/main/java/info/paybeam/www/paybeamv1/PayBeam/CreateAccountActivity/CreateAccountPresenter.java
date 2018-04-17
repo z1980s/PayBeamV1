@@ -1,11 +1,14 @@
 package info.paybeam.www.paybeamv1.PayBeam.CreateAccountActivity;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 
-import java.security.MessageDigest;
-
 import info.paybeam.www.paybeamv1.PayBeam.ConnectionModule.ServerConnection;
-import info.paybeam.www.paybeamv1.PayBeam.SecurityModule.MD5;
+import info.paybeam.www.paybeamv1.PayBeam.OTPModule.GenerateOTP;
 
 /**
  * presenter handles create account logic
@@ -14,10 +17,14 @@ import info.paybeam.www.paybeamv1.PayBeam.SecurityModule.MD5;
 public class CreateAccountPresenter implements CreateAccountContract.CreateAccountPresenter
 {
     private CreateAccountContract.CreateAccountView caView;
+    private Activity caActivity;
+    private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 0;
+    private int OTP;
 
     CreateAccountPresenter(CreateAccountContract.CreateAccountView view)
     {
         caView = view;
+        caActivity = caView.getActivity();
     }
 
     //create account, check server, on success, receive OTP message
@@ -30,6 +37,20 @@ public class CreateAccountPresenter implements CreateAccountContract.CreateAccou
         //if false, show error message
         caView.extractValues();
         //caView.onFailureView();
+    }
+
+    @Override
+    public void checkOTP(int otp)
+    {
+        if(OTP == otp)
+        {
+            caView.onSuccessView();
+            //server connection set account to activated
+        }
+        else
+        {
+            caView.onFailureView("Invalid OTP, please try again ...");
+        }
     }
 
     @Override
@@ -46,7 +67,9 @@ public class CreateAccountPresenter implements CreateAccountContract.CreateAccou
             System.out.println("Response: " + response);
             if(response.contains("Success")) {
                 //do success
-                caView.onSuccessView();
+                //caView.onSuccessView();
+                sendSMSMessage();
+                caView.requestOTP();
             } else {
                 //do failure
                 caView.onFailureView(response);
@@ -54,6 +77,29 @@ public class CreateAccountPresenter implements CreateAccountContract.CreateAccou
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    protected void sendSMSMessage()
+    {
+        OTP = new GenerateOTP().getOTP();
+        String message = "PayBeam OTP: , "+OTP;
+
+        caView.setVariables(message);
+
+        if (ContextCompat.checkSelfPermission(caActivity, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED)
+        {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(caActivity, Manifest.permission.SEND_SMS))
+            {
+
+            }
+            else
+            {
+                ActivityCompat.requestPermissions(caActivity, new String[]{Manifest.permission.SEND_SMS}, MY_PERMISSIONS_REQUEST_SEND_SMS);
+            }
+        }
+        else
+        {
+            ActivityCompat.requestPermissions(caActivity, new String[]{Manifest.permission.SEND_SMS}, MY_PERMISSIONS_REQUEST_SEND_SMS);
+        }
     }
 }

@@ -15,11 +15,14 @@ public interface CreateAccountContract
         void onFailureView(String errorMessage);
         void extractValues();
         Activity getActivity();
+        void setVariables(String message);
+        void requestOTP();
     }
 
     interface CreateAccountPresenter
     {
         void onSubmitButtonClick(View view);
         void verifyDetails(String name, String username, String password, String email, String address, String phoneNo);
+        void checkOTP(int OTP);
     }
 }
