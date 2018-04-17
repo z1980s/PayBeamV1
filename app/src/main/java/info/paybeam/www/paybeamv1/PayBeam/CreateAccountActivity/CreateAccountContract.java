@@ -23,6 +23,6 @@ public interface CreateAccountContract
     {
         void onSubmitButtonClick(View view);
         void verifyDetails(String name, String username, String password, String email, String address, String phoneNo);
-        void checkOTP(int OTP);
+        void checkOTP(int OTP, String username);
     }
 }

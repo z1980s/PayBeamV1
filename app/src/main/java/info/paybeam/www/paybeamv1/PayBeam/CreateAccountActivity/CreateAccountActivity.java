@@ -50,7 +50,7 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
         //remain on the same screen, show failure message
         AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
 
-        dlgAlert.setMessage("Account Successfully Created");
+        dlgAlert.setMessage("Account Successfully Created and Activated");
         dlgAlert.setTitle("Success");
         dlgAlert.setPositiveButton("OK", null);
         dlgAlert.setCancelable(true);
@@ -129,7 +129,7 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String m_Text = input.getText().toString();
-                caPresenter.checkOTP(Integer.parseInt(m_Text));
+                caPresenter.checkOTP(Integer.parseInt(m_Text), username.getText().toString());
             }
         });
 

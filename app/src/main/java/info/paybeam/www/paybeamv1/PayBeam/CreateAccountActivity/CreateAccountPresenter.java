@@ -40,12 +40,27 @@ public class CreateAccountPresenter implements CreateAccountContract.CreateAccou
     }
 
     @Override
-    public void checkOTP(int otp)
+    public void checkOTP(int otp, String username)
     {
         if(OTP == otp)
         {
             caView.onSuccessView();
             //server connection set account to activated
+            String[] memberNames = new String[] {"LoginName"};
+            String[] values = new String[] {username};
+
+            try
+            {
+                String response = new ServerConnection().sendMessage(ServerConnection.createMessage("ActivateAccount", "User", memberNames, values), caView.getActivity());
+                if(response.contains("Success")) {
+                    caView.onSuccessView();
+                } else {
+                    //do failure
+                    caView.onFailureView(response);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         else
         {
@@ -67,7 +82,6 @@ public class CreateAccountPresenter implements CreateAccountContract.CreateAccou
             System.out.println("Response: " + response);
             if(response.contains("Success")) {
                 //do success
-                //caView.onSuccessView();
                 sendSMSMessage();
                 caView.requestOTP();
             } else {
