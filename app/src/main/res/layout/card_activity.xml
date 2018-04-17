@@ -11,7 +11,9 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity.CardActivity">
+        tools:context="info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity.CardActivity"
+        android:background="@drawable/bg_key">
+
 
         <Button
             android:id="@+id/button"

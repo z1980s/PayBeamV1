@@ -25,6 +25,7 @@ public class CardActivity extends AppCompatActivity implements CardContract.Card
 
     ListView lst;
     ArrayList<String> cards;
+    String defaultCard;
 
 
     @Override
@@ -54,17 +55,32 @@ public class CardActivity extends AppCompatActivity implements CardContract.Card
         this.cards = cards;
 
         lst= (ListView) findViewById(R.id.cardList);
+        //ArrayAdapter to create a view for each array item
         ArrayAdapter<String> arrayadapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, this.cards);
+        //Set the adapter to thw listview
         lst.setAdapter(arrayadapter);
 
         lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                view.setSelected(true);
                 TextView tv= (TextView) view;
                 Toast.makeText(CardActivity.this,tv.getText()+"  "+position,Toast.LENGTH_SHORT).show();
+                defaultCard = tv.getText().toString();
             }
         });
+
     }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Toast.makeText(CardActivity.this, "Default card is: "+ defaultCard, Toast.LENGTH_SHORT).show();
+        //When paused, set the default card somewhere to be used in payment
+    }
+
+
 
     @Override
     public void showAddCard()

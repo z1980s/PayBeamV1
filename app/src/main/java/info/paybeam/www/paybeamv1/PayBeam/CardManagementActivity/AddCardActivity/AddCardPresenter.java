@@ -49,20 +49,19 @@ public class AddCardPresenter implements AddCardContract.AddCardPresenter{
         String maskCardNum = "1234 1234 1234 1234";
         int length = maskCardNum.length();
         */
-
+        /*
         char[] chars = maskCardNum.toCharArray();
         for(int i = 0;i<(length-4);i++)
         {
             chars[i]='X';
         }
         maskCardNum = String.valueOf(chars)+ " , " + (expirationMonth+"/"+expirationYear) +'\n';
+        */
+
+        maskCardNum = maskCardNum.substring(length-5,length-1)+ " , " + (expirationMonth+"/"+expirationYear) +'\n';
 
         //write masked cardnumber and the
         InternalStorage.writeCardToFile(addCardView.getActivity().getApplicationContext(),"cards", maskCardNum);
-
-
-
-
 
         addCardView.finishAddCard();
         //InternalStorage.read(addCardView.getActivity().getApplicationContext(),"cards");
