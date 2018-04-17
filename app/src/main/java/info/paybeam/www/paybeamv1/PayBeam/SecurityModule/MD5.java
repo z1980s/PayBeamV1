@@ -1,6 +1,6 @@
 package info.paybeam.www.paybeamv1.PayBeam.SecurityModule;
 
-class MD5
+public class MD5
 {
  
   private static final int INIT_A = 0x67452301;

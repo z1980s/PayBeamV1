@@ -11,81 +11,106 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/blue_splat"
+        android:background="@drawable/textured_white"
         app:layout_constraintEnd_toStartOf="@+id/button_transaction"
         app:layout_constraintStart_toStartOf="@+id/button_transaction"
         tools:context="info.paybeam.www.paybeamv1.PayBeam.HomeActivity.HomeActivity">
 
 
-        <ImageButton
+        <Button
             android:id="@+id/PhoneToReaderImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
+            android:layout_marginStart="18dp"
             android:background="@color/transparent"
+            android:drawableTop="@drawable/ic_local_atm_black_48dp_2x"
+            android:text="Pay Merchant"
+            android:textAllCaps="false"
+            android:textSize="18dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/PhoneToPhoneImageButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_local_atm_black_48dp_2x" />
+            android:onClick="@{homePresenter::onPaymentReaderImageClick}"/>
 
-        <ImageButton
+        <Button
             android:id="@+id/PhoneToPhoneImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="7dp"
             android:background="@color/transparent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:drawableTop="@drawable/ic_speaker_phone_black_48dp"
+            android:text="Phone to Phone"
+            android:textAllCaps="false"
+            android:textSize="18dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/PhoneToReaderImageButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/PhoneToReaderImageButton"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_speaker_phone_black_48dp" />
+            android:onClick="@{homePresenter::onPaymentPhoneImageClick}"/>
 
-        <ImageButton
+        <Button
             android:id="@+id/ProfileImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="76dp"
-            android:layout_marginStart="14dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="25dp"
             android:background="@color/transparent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:drawableTop="@drawable/ic_account_box_black_48dp"
+            android:text="Profile"
+            android:textAllCaps="false"
+            android:textSize="18dp"
             app:layout_constraintEnd_toStartOf="@+id/SettingsImageButton"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/ic_account_box_black_48dp" />
+            app:layout_constraintTop_toBottomOf="@+id/PhoneToReaderImageButton"
+            android:onClick="@{homePresenter::onEditProfileImageClick}"/>
 
-        <ImageButton
+        <Button
             android:id="@+id/SettingsImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
+            android:layout_marginTop="25dp"
             android:background="@color/transparent"
-            app:layout_constraintBottom_toBottomOf="@+id/ProfileImageButton"
+            android:drawableTop="@drawable/ic_settings_applications_black_48dp"
+            android:text="Settings"
+            android:textAllCaps="false"
+            android:textSize="18dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ProfileImageButton"
-            app:layout_constraintTop_toTopOf="@+id/ProfileImageButton"
-            app:srcCompat="@drawable/ic_settings_applications_black_48dp" />
+            app:layout_constraintTop_toBottomOf="@+id/PhoneToPhoneImageButton"
+            android:onClick="@{homePresenter::onSettingsImageClick}"/>
 
-        <ImageButton
+        <Button
             android:id="@+id/CardManagementImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="84dp"
+            android:layout_marginBottom="31dp"
+            android:layout_marginStart="24dp"
             android:background="@color/transparent"
-            app:layout_constraintEnd_toEndOf="@+id/PhoneToReaderImageButton"
-            app:layout_constraintStart_toStartOf="@+id/PhoneToReaderImageButton"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_credit_card_black_48dp" />
+            android:drawableTop="@drawable/ic_credit_card_black_48dp"
+            android:text="Cards"
+            android:textAllCaps="false"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toTopOf="@+id/PhoneToReaderImageButton"
+            app:layout_constraintEnd_toStartOf="@+id/TransactionImageButton"
+            app:layout_constraintStart_toStartOf="parent"
+            android:onClick="@{homePresenter::onCardManagementImageClick}"/>
 
-        <ImageButton
+
+        <Button
             android:id="@+id/TransactionImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="44dp"
-            android:layout_marginTop="84dp"
+            android:layout_marginEnd="11dp"
             android:background="@color/transparent"
+            android:drawableTop="@drawable/ic_receipt_black_48dp"
+            android:text="Transactions"
+            android:textAllCaps="false"
+            android:textSize="18dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/CardManagementImageButton"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/CardManagementImageButton"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_receipt_black_48dp" />
+            android:onClick="@{homePresenter::onTransactionImageClick}"/>
 
     </android.support.constraint.ConstraintLayout>
 </layout>

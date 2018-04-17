@@ -1,5 +1,6 @@
 package info.paybeam.www.paybeamv1.PayBeam.CreateAccountActivity;
 
+import android.app.Activity;
 import android.view.View;
 
 /**
@@ -11,11 +12,14 @@ public interface CreateAccountContract
     interface CreateAccountView
     {
         void onSuccessView();
-        void onFailureView();
+        void onFailureView(String errorMessage);
+        void extractValues();
+        Activity getActivity();
     }
 
     interface CreateAccountPresenter
     {
         void onSubmitButtonClick(View view);
+        void verifyDetails(String name, String username, String password, String email, String address, String phoneNo);
     }
 }

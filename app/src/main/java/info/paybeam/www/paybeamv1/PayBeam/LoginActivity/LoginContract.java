@@ -1,5 +1,6 @@
 package info.paybeam.www.paybeamv1.PayBeam.LoginActivity;
 
+import android.app.Activity;
 import android.view.View;
 
 /**
@@ -12,8 +13,10 @@ public interface LoginContract
     {
         void showHomeView();
         void showCreateAccountView();
-        void showErrorMessage();
+        void showErrorMessage(String errorMsg);
         void handleAuthentication();
+        void showServerError();
+        Activity getActivity();
     }
 
     interface LoginPresenter

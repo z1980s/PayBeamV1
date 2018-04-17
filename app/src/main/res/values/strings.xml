@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PayBeamV1</string>
+    <string name="title_activity_add_card">AddCardActivity</string>
 </resources>
