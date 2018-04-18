@@ -16,6 +16,8 @@ public interface HomeContract
         void showCardManagementView();
         void showTransactionView();
         void showSettingsView();
+        void showWalletView();
+        void showScanQRView();
     }
 
     interface HomePresenter
@@ -26,6 +28,8 @@ public interface HomeContract
         void onCardManagementImageClick(View view);
         void onTransactionImageClick(View view);
         void onSettingsImageClick(View view);
+        void onWalletImageClick(View view);
+        void onScanQRImageClick(View view);
 
     }
 }

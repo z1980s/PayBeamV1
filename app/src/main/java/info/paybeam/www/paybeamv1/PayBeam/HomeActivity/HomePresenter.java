@@ -48,4 +48,14 @@ public class HomePresenter implements HomeContract.HomePresenter
         homeView.showSettingsView();
     }
 
+    @Override
+    public void onWalletImageClick(View view) { homeView.showWalletView(); }
+
+    @Override
+    public void onScanQRImageClick(View view) { homeView.showScanQRView(); }
+
 }
+
+
+
+

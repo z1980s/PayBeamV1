@@ -9,9 +9,11 @@ import android.widget.Toast;
 import info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity.CardActivity;
 import info.paybeam.www.paybeamv1.PayBeam.PaymentPhoneActivity.PaymentPhoneActivity;
 import info.paybeam.www.paybeamv1.PayBeam.PaymentReaderActivity.PaymentReaderActivity;
-import info.paybeam.www.paybeamv1.PayBeam.SettingsActivity.EditProfileActivity.EditProfileActivity;
+import info.paybeam.www.paybeamv1.PayBeam.QRActivity.QRActivity;
+import info.paybeam.www.paybeamv1.PayBeam.SettingsActivity.ProfileActivity.ProfileActivity;
 import info.paybeam.www.paybeamv1.PayBeam.SettingsActivity.SettingsActivity;
 import info.paybeam.www.paybeamv1.PayBeam.TransactionActivity.TransactionActivity;
+import info.paybeam.www.paybeamv1.PayBeam.WalletActivity.WalletActivity;
 import info.paybeam.www.paybeamv1.R;
 import info.paybeam.www.paybeamv1.databinding.HomeActivityBinding;
 
@@ -33,7 +35,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
     public void showEditProfileView()
     {
         Toast.makeText(this,"Show Edit Profile View", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, EditProfileActivity.class);
+        Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
     }
 
@@ -74,6 +76,22 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
     {
         Toast.makeText(this,"Show Settings View", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void showWalletView()
+    {
+        Toast.makeText(this,"Show Wallet View", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, WalletActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void showScanQRView()
+    {
+        Toast.makeText(this,"Show Scan QR View", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, QRActivity.class);
         startActivity(intent);
     }
 }

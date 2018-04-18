@@ -3,7 +3,7 @@ package info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.AddCardActivit
 import android.view.View;
 import android.widget.Toast;
 
-import com.braintreepayments.cardform.view.CardForm;
+import com.braintreepayments.cardform.*;
 
 import info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity.CardActivity;
 import info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity.CardPresenter;
