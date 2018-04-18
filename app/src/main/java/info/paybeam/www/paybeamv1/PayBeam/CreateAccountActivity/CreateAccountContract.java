@@ -14,6 +14,7 @@ public interface CreateAccountContract
         void onSuccessView();
         void onFailureView(String errorMessage);
         void extractValues();
+        String[] extractCredentials();
         Activity getActivity();
         void setVariables(String message);
         void requestOTP();
@@ -27,7 +28,7 @@ public interface CreateAccountContract
     {
         void onSubmitButtonClick(View view);
         void verifyDetails(String name, String username, String password, String email, String address, String phoneNo);
-        void checkOTP(int OTP, String username);
+        void checkOTP(int OTP);
         void otpFailure();
     }
 }

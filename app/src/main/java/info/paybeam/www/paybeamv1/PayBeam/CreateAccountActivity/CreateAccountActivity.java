@@ -166,6 +166,16 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
     }
 
     @Override
+    public String[] extractCredentials() {
+        return new String[] {name.getText().toString(),
+                username.getText().toString(),
+                password.getText().toString(),
+                email.getText().toString(),
+                address.getText().toString(),
+                phoneNo.getText().toString()};
+    }
+
+    @Override
     public Activity getActivity() {
         return this;
     }
@@ -199,7 +209,7 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
                 //progressDialog.setMessage("Verifying OTP ...");
                 //progressDialog.show();
 
-                caPresenter.checkOTP(Integer.parseInt(m_Text), username.getText().toString());
+                caPresenter.checkOTP(Integer.parseInt(m_Text));
             }
         });
 

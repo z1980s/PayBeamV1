@@ -40,19 +40,18 @@ public class CreateAccountPresenter implements CreateAccountContract.CreateAccou
     }
 
     @Override
-    public void checkOTP(int otp, String username)
+    public void checkOTP(int otp)
     {
         if(OTP == otp)
         {
             //caView.onSuccessView();
             //server connection set account to activated
-            String[] memberNames = new String[] {"LoginName"};
-            String[] values = new String[] {username};
-
+            String[] memberNames = new String[]{"Name", "LoginName", "Password", "Email", "Address", "PhoneNumber"};
+            String[] values = caView.extractCredentials();
             try
             {
                 //change this line, upon OTP verification, store account details
-                String response = new ServerConnection().sendMessage(ServerConnection.createMessage("ActivateAccount", "User", memberNames, values), caView.getActivity());
+                String response = new ServerConnection().sendMessage(ServerConnection.createMessage("CreateAccount", "User", memberNames, values), caView.getActivity());
                 if(response.contains("Success")) {
                     caView.onSuccessView();
                 } else {
@@ -88,7 +87,7 @@ public class CreateAccountPresenter implements CreateAccountContract.CreateAccou
 
         try {
             //change this line to only verfiy details and not store
-            String response = new ServerConnection().sendMessage(ServerConnection.createMessage("CreateAccount", "User", memberNames, values), caView.getActivity());
+            String response = new ServerConnection().sendMessage(ServerConnection.createMessage("CheckAccountExists", "User", memberNames, values), caView.getActivity());
             System.out.println("Response: " + response);
             if(response.contains("Success")) {
                 //do success
