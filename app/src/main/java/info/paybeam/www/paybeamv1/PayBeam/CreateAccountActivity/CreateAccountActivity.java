@@ -1,7 +1,10 @@
 package info.paybeam.www.paybeamv1.PayBeam.CreateAccountActivity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AlertDialog;
@@ -11,6 +14,10 @@ import android.telephony.SmsManager;
 import android.text.InputType;
 import android.widget.EditText;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import info.paybeam.www.paybeamv1.PayBeam.LoginActivity.LoginActivity;
 import info.paybeam.www.paybeamv1.R;
 import info.paybeam.www.paybeamv1.databinding.CreateAccountActivityBinding;
 
@@ -24,6 +31,7 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
     private EditText phoneNo;
     private EditText address;
 
+    private ProgressDialog progressDialog;
     private String message;
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 0;
 
@@ -42,10 +50,16 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
         email = findViewById(R.id.emailEditText);
         phoneNo = findViewById(R.id.phoneNoEditText);
         address = findViewById(R.id.addressEditText);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
     }
 
     public void onSuccessView()
     {
+        //progressDialog.hide();
+        //this.finish();
         //bring user to OTP screen, validate OTP
         //remain on the same screen, show failure message
         AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
@@ -54,21 +68,29 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
         dlgAlert.setTitle("Success");
         dlgAlert.setPositiveButton("OK", null);
         dlgAlert.setCancelable(true);
-        dlgAlert.create().show();
 
         dlgAlert.setPositiveButton("Ok",
                 new DialogInterface.OnClickListener()
                 {
                     public void onClick(DialogInterface dialog, int which)
                     {
-
+                        //CreateAccountActivity.this.finish();
+                        finish();
                     }
                 });
+
+        dlgAlert.create().show();
+    }
+
+    public void finishActivity()
+    {
+        this.finish();
     }
 
     @Override
     public void onFailureView(String errorMessage)
     {
+        //progressDialog.hide();
         //remain on the same screen, show failure message
         AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
 
@@ -91,13 +113,56 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
     }
 
     @Override
+    public void otpFailure(String errorMessage)
+    {
+        //remain on the same screen, show failure message
+        AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+
+        dlgAlert.setMessage(errorMessage);
+        dlgAlert.setTitle("Error Message");
+        dlgAlert.setPositiveButton("OK", null);
+        dlgAlert.setCancelable(true);
+
+        dlgAlert.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+
+                    }
+                });
+
+        dlgAlert.create().show();
+    }
+
+    @Override
+    public void startLoginActivity()
+    {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void showProgressDialog(String message)
+    {
+        progressDialog.setMessage(message);
+        progressDialog.show();
+    }
+
+    @Override
+    public void hideProgressDialog()
+    {
+        progressDialog.dismiss();
+    }
+
+    @Override
     public void extractValues() {
         caPresenter.verifyDetails(name.getText().toString(),
-                                  username.getText().toString(),
-                                  password.getText().toString(),
-                                  email.getText().toString(),
-                                  address.getText().toString(),
-                                  phoneNo.getText().toString());
+                username.getText().toString(),
+                password.getText().toString(),
+                email.getText().toString(),
+                address.getText().toString(),
+                phoneNo.getText().toString());
     }
 
     @Override
@@ -114,6 +179,8 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
     @Override
     public void requestOTP()
     {
+        //progressDialog.dismiss();
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Please Enter OTP to verify your phone no.");
 
@@ -129,6 +196,9 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String m_Text = input.getText().toString();
+                //progressDialog.setMessage("Verifying OTP ...");
+                //progressDialog.show();
+
                 caPresenter.checkOTP(Integer.parseInt(m_Text), username.getText().toString());
             }
         });

@@ -17,6 +17,10 @@ public interface CreateAccountContract
         Activity getActivity();
         void setVariables(String message);
         void requestOTP();
+        void otpFailure(String errorMessage);
+        void startLoginActivity();
+        void showProgressDialog(String message);
+        void hideProgressDialog();
     }
 
     interface CreateAccountPresenter
@@ -24,5 +28,6 @@ public interface CreateAccountContract
         void onSubmitButtonClick(View view);
         void verifyDetails(String name, String username, String password, String email, String address, String phoneNo);
         void checkOTP(int OTP, String username);
+        void otpFailure();
     }
 }

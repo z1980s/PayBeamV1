@@ -44,13 +44,14 @@ public class CreateAccountPresenter implements CreateAccountContract.CreateAccou
     {
         if(OTP == otp)
         {
-            caView.onSuccessView();
+            //caView.onSuccessView();
             //server connection set account to activated
             String[] memberNames = new String[] {"LoginName"};
             String[] values = new String[] {username};
 
             try
             {
+                //change this line, upon OTP verification, store account details
                 String response = new ServerConnection().sendMessage(ServerConnection.createMessage("ActivateAccount", "User", memberNames, values), caView.getActivity());
                 if(response.contains("Success")) {
                     caView.onSuccessView();
@@ -64,13 +65,21 @@ public class CreateAccountPresenter implements CreateAccountContract.CreateAccou
         }
         else
         {
-            caView.onFailureView("Invalid OTP, please try again ...");
+            caView.otpFailure("Invalid OTP, please try again ...");
         }
+    }
+
+    @Override
+    public void otpFailure()
+    {
+        sendSMSMessage();
+        caView.requestOTP();
     }
 
     @Override
     public void verifyDetails(String name, String username, String password, String email, String address, String phoneNo)
     {
+        //caView.showProgressDialog("Verifying details ...");
         //create connection to server
         //verify details, check if username, email, phone number already exists
         //return boolean value
@@ -78,14 +87,17 @@ public class CreateAccountPresenter implements CreateAccountContract.CreateAccou
         String[] values = new String[]{name, username, password, email, address, phoneNo};
 
         try {
+            //change this line to only verfiy details and not store
             String response = new ServerConnection().sendMessage(ServerConnection.createMessage("CreateAccount", "User", memberNames, values), caView.getActivity());
             System.out.println("Response: " + response);
             if(response.contains("Success")) {
                 //do success
                 sendSMSMessage();
+                //caView.hideProgressDialog();
                 caView.requestOTP();
             } else {
                 //do failure
+                //caView.hideProgressDialog();
                 caView.onFailureView(response);
             }
         } catch (Exception e) {
@@ -96,7 +108,7 @@ public class CreateAccountPresenter implements CreateAccountContract.CreateAccou
     protected void sendSMSMessage()
     {
         OTP = new GenerateOTP().getOTP();
-        String message = "PayBeam OTP: , "+OTP;
+        String message = "PayBeam OTP: "+OTP;
 
         caView.setVariables(message);
 
