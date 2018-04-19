@@ -1,8 +1,4 @@
-package info.paybeam.www.paybeamv1.PayBeam.SettingsActivity.ProfileActivity;
-
-/**
- * Created by zicokuang on 3/4/18.
- */
+package info.paybeam.www.paybeamv1.PayBeam.ProfileActivity;
 
 public interface ProfileContract
 {

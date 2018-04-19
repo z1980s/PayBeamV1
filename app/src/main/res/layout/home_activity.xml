@@ -56,7 +56,7 @@
             android:id="@+id/ScanQRButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="15dp"
             android:background="@color/transparent"
             android:drawableTop="@drawable/ic_texture_black_48dp"
             android:onClick="@{homePresenter::onScanQRImageClick}"

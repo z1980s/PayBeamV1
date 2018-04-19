@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="editProfilePresenter"
-            type="info.paybeam.www.paybeamv1.PayBeam.SettingsActivity.ProfileActivity.ProfilePresenter"/>
+            name="profilePresenter"
+            type="info.paybeam.www.paybeamv1.PayBeam.ProfileActivity.ProfileContract.ProfilePresenter"/>
     </data>
+
 <android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="info.paybeam.www.paybeamv1.PayBeam.SettingsActivity.ProfileActivity.ProfileActivity">
+    tools:context=".PayBeam.ProfileActivity.ProfileActivity">
 
 </android.support.constraint.ConstraintLayout>
 </layout>

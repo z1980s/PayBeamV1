@@ -1,8 +1,6 @@
-package info.paybeam.www.paybeamv1.PayBeam.SettingsActivity.ProfileActivity;
+package info.paybeam.www.paybeamv1.PayBeam.ProfileActivity;
 
-/**
- * Created by zicokuang on 3/4/18.
- */
+import android.provider.ContactsContract;
 
 public class ProfilePresenter implements ProfileContract.ProfilePresenter
 {

@@ -54,9 +54,6 @@
             android:name=".PayBeam.SettingsActivity.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PayBeam.SettingsActivity.ProfileActivity.ProfileActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".PayBeam.SettingsActivity.ChangePasswordActivity.ChangePasswordActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -65,7 +62,8 @@
         <activity
             android:name=".PayBeam.CardManagementActivity.AddCardActivity.AddCardActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".PayBeam.SettingsActivity.EditProfileActivity.EditProfileActivity"></activity>
+        <activity android:name=".PayBeam.ProfileActivity.EditProfileActivity.EditProfileActivity" />
+        <activity android:name=".PayBeam.ProfileActivity.ProfileActivity"></activity>
     </application>
 
 </manifest>
