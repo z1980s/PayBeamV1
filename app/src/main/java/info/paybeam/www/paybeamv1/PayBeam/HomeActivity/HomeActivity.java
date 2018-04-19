@@ -32,9 +32,9 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
     }
 
     @Override
-    public void showEditProfileView()
+    public void showProfileView()
     {
-        Toast.makeText(this,"Show Edit Profile View", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"Show Profile View", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
     }
@@ -90,7 +90,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
     @Override
     public void showScanQRView()
     {
-        Toast.makeText(this,"Show Scan QR View", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"Show QR View", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, QRActivity.class);
         startActivity(intent);
     }

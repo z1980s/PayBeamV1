@@ -16,10 +16,7 @@ public class HomePresenter implements HomeContract.HomePresenter
     }
 
     @Override
-    public void onEditProfileImageClick(View view)
-    {
-        homeView.showEditProfileView();
-    }
+    public void onProfileImageClick(View view) { homeView.showProfileView(); }
 
     @Override
     public void onPaymentPhoneImageClick(View view)

@@ -63,10 +63,20 @@
         <activity
             android:name=".PayBeam.CardManagementActivity.AddCardActivity.AddCardActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".PayBeam.ProfileActivity.EditProfileActivity.EditProfileActivity" />
-        <activity android:name=".PayBeam.ProfileActivity.ProfileActivity" />
-        <activity android:name=".PayBeam.QRActivity.GenerateQRActivity.GenerateQRActivity" />
-        <activity android:name=".PayBeam.QRActivity.ScanQRActivity.ScanQRActivity"></activity>
+        <activity android:name=".PayBeam.ProfileActivity.EditProfileActivity.EditProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".PayBeam.ProfileActivity.ProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".PayBeam.QRActivity.QRActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".PayBeam.QRActivity.GenerateQRActivity.GenerateQRActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".PayBeam.QRActivity.ScanQRActivity.ScanQRActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".PayBeam.WalletActivity.WalletActivity"
+            android:screenOrientation="portrait" >
+
+        </activity>
     </application>
 
 </manifest>

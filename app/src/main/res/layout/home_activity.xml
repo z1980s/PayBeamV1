@@ -92,7 +92,7 @@
             android:layout_marginStart="8dp"
             android:background="@color/transparent"
             android:drawableTop="@drawable/ic_account_box_black_48dp"
-            android:onClick="@{homePresenter::onEditProfileImageClick}"
+            android:onClick="@{homePresenter::onProfileImageClick}"
             android:text="Profile"
             android:textAllCaps="false"
             android:textSize="18dp"
