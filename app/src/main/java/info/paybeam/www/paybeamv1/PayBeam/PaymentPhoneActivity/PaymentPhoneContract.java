@@ -14,6 +14,7 @@ public interface PaymentPhoneContract
     {
         void addMessage();
         void handleIncomingMessage();
+        void showSuccess(String message);
     }
 
     interface PaymentPhonePresenter
