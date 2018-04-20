@@ -15,6 +15,36 @@ import java.util.ArrayList;
  */
 
 public class InternalStorage {
+    //Write a string to a file
+    public static void writeToken(Context context, String filename, String token)
+    {
+        FileOutputStream outputStream;
+        try {
+            //MODE_PRIVATE FOR WRITE
+            //MODE_APPEND FOR APPEND
+            outputStream = context.openFileOutput(filename, context.MODE_PRIVATE);
+            outputStream.write(token.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String readToken (Context context, String filename)
+    {
+        //
+        String token = null;
+        try {
+            FileInputStream fis = context.openFileInput(filename);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            token = bufferedReader.readLine();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        return token;
+    }
 
     //Write a string array to a file
     public static void write(Context context, String filename, ArrayList<String>stringArray)
@@ -35,6 +65,7 @@ public class InternalStorage {
             e.printStackTrace();
         }
     }
+
 
     //Append a string array to a file
     public static void append(Context context, String filename, ArrayList<String>stringArray)

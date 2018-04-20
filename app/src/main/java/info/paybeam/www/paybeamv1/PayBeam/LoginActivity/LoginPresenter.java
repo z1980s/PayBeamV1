@@ -1,7 +1,12 @@
 package info.paybeam.www.paybeamv1.PayBeam.LoginActivity;
 
 import android.view.View;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import info.paybeam.www.paybeamv1.PayBeam.ConnectionModule.ServerConnection;
+import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
 
 /**
  * Presenter handles Login logic
@@ -36,13 +41,23 @@ public class LoginPresenter implements LoginContract.LoginPresenter
         String[] values = new String[]{username, password};
         try {
             String response = new ServerConnection().sendMessage(ServerConnection.createMessage("Login", "User", memberNames, values), loginView.getActivity());
-            System.out.println("Response: " + response);
-            if(response.contains("Success")) {
+            JsonParser jParser = new JsonParser();
+            JsonObject jResponse = (JsonObject)jParser.parse(response);
+            if(jResponse.get("result").getAsString().equals("Success")) {
                 //do success
+                String token = jResponse.get("token").getAsString();
+
+                InternalStorage.writeToken(loginView.getActivity(), "Token", token);
+                String iToken = InternalStorage.readToken(loginView.getActivity(), "Token");
+                if (iToken != null) {
+                    System.out.println("Base64 Token: " + iToken);
+                } else {
+                    System.out.println("Token file doesn't Exist");
+                }
                 loginView.showHomeView();
             } else {
                 //do failure
-                loginView.showErrorMessage(response);
+                loginView.showErrorMessage(jResponse.get("reason").getAsString());
             }
         } catch (Exception e) {
             loginView.showServerError();

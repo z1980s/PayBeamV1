@@ -119,7 +119,7 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
         AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
 
         dlgAlert.setMessage(errorMessage);
-        dlgAlert.setTitle("Error Message");
+        dlgAlert.setTitle("Error");
         dlgAlert.setPositiveButton("OK", null);
         dlgAlert.setCancelable(true);
 

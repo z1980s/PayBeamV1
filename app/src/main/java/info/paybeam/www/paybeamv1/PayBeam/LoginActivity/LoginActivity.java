@@ -55,8 +55,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     {
         AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
 
-        dlgAlert.setMessage("Server error, please try again later...");
-        dlgAlert.setTitle("Error Message");
+        dlgAlert.setMessage("Server error, Please try again later...");
+        dlgAlert.setTitle("Error");
         dlgAlert.setPositiveButton("OK", null);
         dlgAlert.setCancelable(true);
         dlgAlert.create().show();

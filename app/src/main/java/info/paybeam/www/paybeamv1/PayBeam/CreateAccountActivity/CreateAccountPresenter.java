@@ -7,6 +7,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import info.paybeam.www.paybeamv1.PayBeam.ConnectionModule.ServerConnection;
 import info.paybeam.www.paybeamv1.PayBeam.OTPModule.GenerateOTP;
 
@@ -52,11 +55,14 @@ public class CreateAccountPresenter implements CreateAccountContract.CreateAccou
             {
                 //change this line, upon OTP verification, store account details
                 String response = new ServerConnection().sendMessage(ServerConnection.createMessage("CreateAccount", "User", memberNames, values), caView.getActivity());
-                if(response.contains("Success")) {
+                JsonParser jParser = new JsonParser();
+                JsonObject jResponse = (JsonObject) jParser.parse(response);
+
+                if(jResponse.get("result").getAsString().equals("Success")) {
                     caView.onSuccessView();
                 } else {
                     //do failure
-                    caView.onFailureView(response);
+                    caView.onFailureView(jResponse.get("reason").getAsString());
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -88,8 +94,9 @@ public class CreateAccountPresenter implements CreateAccountContract.CreateAccou
         try {
             //change this line to only verfiy details and not store
             String response = new ServerConnection().sendMessage(ServerConnection.createMessage("CheckAccountExists", "User", memberNames, values), caView.getActivity());
-            System.out.println("Response: " + response);
-            if(response.contains("Success")) {
+            JsonParser jParser = new JsonParser();
+            JsonObject jResponse = (JsonObject) jParser.parse(response);
+            if(jResponse.get("result").getAsString().equals("Success")) {
                 //do success
                 sendSMSMessage();
                 //caView.hideProgressDialog();
@@ -97,7 +104,7 @@ public class CreateAccountPresenter implements CreateAccountContract.CreateAccou
             } else {
                 //do failure
                 //caView.hideProgressDialog();
-                caView.onFailureView(response);
+                caView.onFailureView(jResponse.get("reason").getAsString());
             }
         } catch (Exception e) {
             e.printStackTrace();
