@@ -60,7 +60,7 @@
             android:background="@color/transparent"
             android:drawableTop="@drawable/ic_texture_black_48dp"
             android:onClick="@{homePresenter::onScanQRImageClick}"
-            android:text="Scan QR"
+            android:text="QR"
             android:textAllCaps="false"
             android:textSize="18dp"
             app:layout_constraintBottom_toTopOf="@+id/PhoneToPhoneImageButton"

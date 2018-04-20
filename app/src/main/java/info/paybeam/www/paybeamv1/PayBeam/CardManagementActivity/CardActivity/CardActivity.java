@@ -57,7 +57,7 @@ public class CardActivity extends AppCompatActivity implements CardContract.Card
         lst= (ListView) findViewById(R.id.cardList);
         //ArrayAdapter to create a view for each array item
         ArrayAdapter<String> arrayadapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, this.cards);
-        //Set the adapter to thw listview
+        //Set the adapter to the listview
         lst.setAdapter(arrayadapter);
 
         lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {

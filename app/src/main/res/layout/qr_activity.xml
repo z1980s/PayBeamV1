@@ -7,10 +7,34 @@
             name="qrPresenter"
             type="info.paybeam.www.paybeamv1.PayBeam.QRActivity.QRContract.QRPresenter"/>
     </data>
-<android.support.constraint.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="info.paybeam.www.paybeamv1.PayBeam.QRActivity.QRActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="info.paybeam.www.paybeamv1.PayBeam.QRActivity.QRActivity">
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="36dp"
+            android:text="Scan QR"
+            app:layout_constraintBottom_toTopOf="@+id/button4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:onClick="@{qrPresenter::onScanQRButtonClick}"/>
+
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="41dp"
+            android:text="Generate QR"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            android:onClick="@{qrPresenter::onGenerateQRButtonClick}"/>
+    </android.support.constraint.ConstraintLayout>
 </layout>

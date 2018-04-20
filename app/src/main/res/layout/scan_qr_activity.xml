@@ -7,10 +7,11 @@
             name="scanQRPresenter"
             type="info.paybeam.www.paybeamv1.PayBeam.QRActivity.ScanQRActivity.ScanQRContract.ScanQRPresenter"/>
     </data>
-<android.support.constraint.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".PayBeam.QRActivity.ScanQRActivity.ScanQRActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".PayBeam.QRActivity.ScanQRActivity.ScanQRActivity">
+
+    </android.support.constraint.ConstraintLayout>
 </layout>
