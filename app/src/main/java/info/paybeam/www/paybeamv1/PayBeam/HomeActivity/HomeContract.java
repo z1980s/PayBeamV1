@@ -10,7 +10,7 @@ public interface HomeContract
 {
     interface HomeView
     {
-        void showEditProfileView();
+        void showProfileView();
         void showPaymentPhoneView();
         void showPaymentReaderView();
         void showCardManagementView();
@@ -22,7 +22,7 @@ public interface HomeContract
 
     interface HomePresenter
     {
-        void onEditProfileImageClick(View view);
+        void onProfileImageClick(View view);
         void onPaymentPhoneImageClick(View view);
         void onPaymentReaderImageClick(View view);
         void onCardManagementImageClick(View view);

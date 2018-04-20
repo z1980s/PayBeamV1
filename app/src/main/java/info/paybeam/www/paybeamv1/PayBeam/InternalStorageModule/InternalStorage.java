@@ -16,7 +16,28 @@ import java.util.ArrayList;
 
 public class InternalStorage {
 
-    public static void write(Context context, String filename, String string)
+    //Write a string array to a file
+    public static void write(Context context, String filename, ArrayList<String>stringArray)
+    {
+        FileOutputStream outputStream;
+
+        try {
+            //MODE_PRIVATE FOR WRITE
+            //MODE_APPEND FOR APPEND
+            outputStream = context.openFileOutput(filename, context.MODE_PRIVATE);
+
+            //for loop through the ArrayList
+            for(String str: stringArray) {
+                outputStream.write(str.getBytes());
+            }
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Append a string array to a file
+    public static void append(Context context, String filename, ArrayList<String>stringArray)
     {
         FileOutputStream outputStream;
 
@@ -25,15 +46,18 @@ public class InternalStorage {
             //MODE_APPEND FOR APPEND
             outputStream = context.openFileOutput(filename, context.MODE_APPEND);
 
-            outputStream.write(string.getBytes());
+            //for loop through the ArrayList
+            for(String str: stringArray) {
+                outputStream.write(str.getBytes());
+            }
             outputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-
-    public static void read(Context context, String filename)
+    //get String
+    public static void readString (Context context, String filename)
     {
         //
         try {
@@ -51,6 +75,35 @@ public class InternalStorage {
             e.printStackTrace();
         }
     }
+
+    //read the file and return in a ArrayList
+    public static ArrayList<String> read(Context context, String filename) {
+
+        ArrayList<String> list = new ArrayList<String>();
+        try {
+            FileInputStream fis = context.openFileInput(filename);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            //StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                //sb.append(line);
+                //Toast.makeText(context,line,Toast.LENGTH_SHORT).show();
+                list.add(line);
+            }
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    //delete the file
+    public static void delete(Context context, String filename)
+    {
+        context.deleteFile(filename);
+    }
+
 
     public static void writeCardToFile(Context context, String filename, String string)
     {
@@ -79,7 +132,7 @@ public class InternalStorage {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 //sb.append(line);
-                Toast.makeText(context,line,Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context,line,Toast.LENGTH_SHORT).show();
                 cards.add(line);
             }
         }
