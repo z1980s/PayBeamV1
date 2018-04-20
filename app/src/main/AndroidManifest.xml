@@ -11,6 +11,10 @@
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.NFC" />
 
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,6 +27,7 @@
             android:label="PayBeamV1"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
@@ -44,7 +49,14 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".PayBeam.PaymentPhoneActivity.PaymentPhoneActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".PayBeam.PaymentReaderActivity.PaymentReaderActivity"
             android:screenOrientation="portrait" />
