@@ -2,6 +2,7 @@ package info.paybeam.www.paybeamv1.PayBeam.HomeActivity;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.nfc.NfcAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -44,6 +45,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
     {
         Toast.makeText(this,"Show Payment Phone View", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, PaymentPhoneActivity.class);
+        intent.setAction(NfcAdapter.ACTION_TAG_DISCOVERED);
         startActivity(intent);
     }
 

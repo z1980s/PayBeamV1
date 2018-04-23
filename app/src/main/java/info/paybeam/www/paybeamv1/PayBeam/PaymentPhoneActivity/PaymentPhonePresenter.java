@@ -42,5 +42,7 @@ public class PaymentPhonePresenter implements PaymentPhoneContract.PaymentPhoneP
         //initiate transfer between both parties on PayBeam server and return response
         //if successful call mainView.showSuccess()
         //if fail call mainView.showFailure()
+
+        ppView.showSuccess(receivedMessages.get(0));
     }
 }
