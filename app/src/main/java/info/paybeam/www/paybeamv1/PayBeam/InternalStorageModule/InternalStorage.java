@@ -6,7 +6,9 @@ import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
@@ -46,7 +48,24 @@ public class InternalStorage {
         return token;
     }
 
-    //Write a string array to a file
+    public static void writePassword(Context context, String filename, String username, String password) {
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = context.openFileOutput(filename, context.MODE_PRIVATE);
+            //write username,password to file
+            String str = username + "," + password;
+            outputStream.write(str.getBytes());
+            outputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+        //Write a string array to a file
     public static void write(Context context, String filename, ArrayList<String>stringArray)
     {
         FileOutputStream outputStream;
@@ -88,23 +107,25 @@ public class InternalStorage {
     }
 
     //get String
-    public static void readString (Context context, String filename)
+    public static String readString (Context context, String filename)
     {
-        //
+        String line = "";
         try {
             FileInputStream fis = context.openFileInput(filename);
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader bufferedReader = new BufferedReader(isr);
             //StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
+
+            if ((bufferedReader.readLine()) != null) {
+                line = bufferedReader.readLine();
                 //sb.append(line);
-                Toast.makeText(context,line,Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context,line,Toast.LENGTH_SHORT).show();
             }
         }
         catch(Exception e) {
             e.printStackTrace();
         }
+        return line;
     }
 
     //read the file and return in a ArrayList
