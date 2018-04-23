@@ -58,7 +58,7 @@ public class CreateAccountPresenter implements CreateAccountContract.CreateAccou
                 //String response = new ServerConnection().sendMessage(ServerConnection.createMessage("CreateAccount", "User", memberNames, values), caView.getActivity());
                 JsonObject msg = ServerConnection.createMessage("CreateAccount", "User", memberNames, values);
                 @SuppressLint("StaticFieldLeak")
-                ServerConnection sc = new ServerConnection() {
+                ServerConnection sc = new ServerConnection(msg, caView.getActivity()) {
                     @Override
                     public void receiveResponse(String response) {
                         try {
@@ -111,7 +111,7 @@ public class CreateAccountPresenter implements CreateAccountContract.CreateAccou
             //String response = new ServerConnection().sendMessage(ServerConnection.createMessage("CheckAccountExists", "User", memberNames, values), caView.getActivity());
             JsonObject msg = ServerConnection.createMessage("CheckAccountExists", "User", memberNames, values);
             @SuppressLint("StaticFieldLeak")
-            ServerConnection sc = new ServerConnection() {
+            ServerConnection sc = new ServerConnection(msg, caView.getActivity()) {
                 @Override
                 public void receiveResponse(String response) {
 
