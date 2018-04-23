@@ -1,6 +1,7 @@
 package info.paybeam.www.paybeamv1.PayBeam.CreateAccountActivity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
@@ -54,16 +55,30 @@ public class CreateAccountPresenter implements CreateAccountContract.CreateAccou
             try
             {
                 //change this line, upon OTP verification, store account details
-                String response = new ServerConnection().sendMessage(ServerConnection.createMessage("CreateAccount", "User", memberNames, values), caView.getActivity());
-                JsonParser jParser = new JsonParser();
-                JsonObject jResponse = (JsonObject) jParser.parse(response);
+                //String response = new ServerConnection().sendMessage(ServerConnection.createMessage("CreateAccount", "User", memberNames, values), caView.getActivity());
+                JsonObject msg = ServerConnection.createMessage("CreateAccount", "User", memberNames, values);
+                @SuppressLint("StaticFieldLeak")
+                ServerConnection sc = new ServerConnection() {
+                    @Override
+                    public void receiveResponse(String response) {
+                        try {
+                            JsonParser jParser = new JsonParser();
+                            JsonObject jResponse = (JsonObject) jParser.parse(response);
 
-                if(jResponse.get("result").getAsString().equals("Success")) {
-                    caView.onSuccessView();
-                } else {
-                    //do failure
-                    caView.onFailureView(jResponse.get("reason").getAsString());
-                }
+                            if (jResponse.get("result").getAsString().equals("Success")) {
+                                caView.onSuccessView();
+                            } else {
+                                //do failure
+                                caView.onFailureView(jResponse.get("reason").getAsString());
+                            }
+                        } catch (com.google.gson.JsonSyntaxException jse){
+                            System.err.println("[ERROR] Malformed Json Received! Server is most likely offline.");
+                            caView.onFailureView(response);
+                        }
+                    }
+                };
+                sc.execute(null,null,null);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -93,19 +108,33 @@ public class CreateAccountPresenter implements CreateAccountContract.CreateAccou
 
         try {
             //change this line to only verfiy details and not store
-            String response = new ServerConnection().sendMessage(ServerConnection.createMessage("CheckAccountExists", "User", memberNames, values), caView.getActivity());
-            JsonParser jParser = new JsonParser();
-            JsonObject jResponse = (JsonObject) jParser.parse(response);
-            if(jResponse.get("result").getAsString().equals("Success")) {
-                //do success
-                sendSMSMessage();
-                //caView.hideProgressDialog();
-                caView.requestOTP();
-            } else {
-                //do failure
-                //caView.hideProgressDialog();
-                caView.onFailureView(jResponse.get("reason").getAsString());
-            }
+            //String response = new ServerConnection().sendMessage(ServerConnection.createMessage("CheckAccountExists", "User", memberNames, values), caView.getActivity());
+            JsonObject msg = ServerConnection.createMessage("CheckAccountExists", "User", memberNames, values);
+            @SuppressLint("StaticFieldLeak")
+            ServerConnection sc = new ServerConnection() {
+                @Override
+                public void receiveResponse(String response) {
+
+                    try {
+                        JsonParser jParser = new JsonParser();
+                        JsonObject jResponse = (JsonObject) jParser.parse(response);
+                        if (jResponse.get("result").getAsString().equals("Success")) {
+                            //do success
+                            sendSMSMessage();
+                            //caView.hideProgressDialog();
+                            caView.requestOTP();
+                        } else {
+                            //do failure
+                            //caView.hideProgressDialog();
+                            caView.onFailureView(jResponse.get("reason").getAsString());
+                        }
+                    } catch (com.google.gson.JsonSyntaxException jse){
+                        System.err.println("[ERROR] Malformed Json Received! Server is most likely offline.");
+                        caView.onFailureView(response);
+                    }
+                }
+            };
+            sc.execute(null,null,null);
         } catch (Exception e) {
             e.printStackTrace();
         }
