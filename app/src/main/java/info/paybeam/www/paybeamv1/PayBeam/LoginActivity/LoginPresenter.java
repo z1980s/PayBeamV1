@@ -45,6 +45,9 @@ public class LoginPresenter implements LoginContract.LoginPresenter
 
         try {
             JsonObject msg = ServerConnection.createMessage("Login", "User", memberNames, values);
+            final String user = username;
+            final String pass = password;
+
             @SuppressLint("StaticFieldLeak")
             ServerConnection sc = new ServerConnection(msg, loginView.getActivity()) {
                 @Override
@@ -56,6 +59,10 @@ public class LoginPresenter implements LoginContract.LoginPresenter
                             //do success
                             String token = jResponse.get("token").getAsString();
                             InternalStorage.writeToken(loginView.getActivity(), "Token", token);
+                            InternalStorage.writeCredentials(loginView.getActivity(), "Credentials", user, pass);
+                            String data = InternalStorage.readString(loginView.getActivity(), "Credentials");
+                            String tokendata = InternalStorage.readString(loginView.getActivity(), "Credentials");
+                            System.out.println(data);
                             loginView.showHomeView();
                         } else {
                             //do failure

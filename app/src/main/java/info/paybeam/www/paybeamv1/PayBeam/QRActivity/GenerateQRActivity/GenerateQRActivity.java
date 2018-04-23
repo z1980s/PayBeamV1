@@ -1,5 +1,6 @@
 package info.paybeam.www.paybeamv1.PayBeam.QRActivity.GenerateQRActivity;
 
+import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
@@ -47,6 +48,11 @@ public class GenerateQRActivity extends AppCompatActivity implements GenerateQRC
         //pass the amount to the presenter to generate the QR image
         //generateQRPresenter.generateQRimage(amount);
         return amount;
+    }
+
+    @Override
+    public Activity getActivity() {
+        return this;
     }
 
     @Override

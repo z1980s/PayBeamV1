@@ -48,7 +48,7 @@ public class InternalStorage {
         return token;
     }
 
-    public static void writePassword(Context context, String filename, String username, String password) {
+    public static void writeCredentials(Context context, String filename, String username, String password) {
         FileOutputStream outputStream;
 
         try {
@@ -109,18 +109,12 @@ public class InternalStorage {
     //get String
     public static String readString (Context context, String filename)
     {
-        String line = "";
+        String line = null;
         try {
             FileInputStream fis = context.openFileInput(filename);
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader bufferedReader = new BufferedReader(isr);
-            //StringBuilder sb = new StringBuilder();
-
-            if ((bufferedReader.readLine()) != null) {
-                line = bufferedReader.readLine();
-                //sb.append(line);
-                //Toast.makeText(context,line,Toast.LENGTH_SHORT).show();
-            }
+            line = bufferedReader.readLine();
         }
         catch(Exception e) {
             e.printStackTrace();
