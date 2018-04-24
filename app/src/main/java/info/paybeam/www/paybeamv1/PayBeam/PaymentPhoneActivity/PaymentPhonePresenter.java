@@ -35,7 +35,7 @@ public class PaymentPhonePresenter implements PaymentPhoneContract.PaymentPhoneP
     }
 
     @Override
-    public void handleIncomingMessage(ArrayList<String> receivedMessages)
+    public void handleIncomingMessage(String receivedMessage)
     {
         //extract components from arraylist
         //create connection to server
@@ -43,6 +43,6 @@ public class PaymentPhonePresenter implements PaymentPhoneContract.PaymentPhoneP
         //if successful call mainView.showSuccess()
         //if fail call mainView.showFailure()
 
-        ppView.showSuccess(receivedMessages.get(0));
+        //ppView.showSuccess(receivedMessages.get(0));
     }
 }

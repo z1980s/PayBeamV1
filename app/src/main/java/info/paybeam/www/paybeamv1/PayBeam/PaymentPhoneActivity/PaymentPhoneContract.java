@@ -22,6 +22,6 @@ public interface PaymentPhoneContract
         void onSubmitButtonClick(View view);
         void messageSent();
         void messageReceived();
-        void handleIncomingMessage(ArrayList<String> receivedMessages);
+        void handleIncomingMessage(String receivedMessage);
     }
 }

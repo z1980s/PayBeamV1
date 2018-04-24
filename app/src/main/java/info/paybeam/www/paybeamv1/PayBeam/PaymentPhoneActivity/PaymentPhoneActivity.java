@@ -144,6 +144,8 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
                     if (string.equals(getPackageName())) { continue; }
                     messagesReceivedArray.add(string);
 
+
+                    /*
                     AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
 
                     dlgAlert.setMessage("Received: $" + string);
@@ -161,9 +163,11 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
                             });
 
                     dlgAlert.create().show();
+                    */
                 }
                 //Toast.makeText(this, "Received " + messagesReceivedArray.size() + " Messages", Toast.LENGTH_LONG).show();
                 //updateTextViews();
+                ppPresenter.handleIncomingMessage(attachedRecords[0].getPayload().toString());
             }
             else
             {
