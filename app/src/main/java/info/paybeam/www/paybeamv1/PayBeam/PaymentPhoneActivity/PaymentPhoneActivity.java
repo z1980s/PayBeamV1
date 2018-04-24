@@ -32,6 +32,7 @@ import com.google.gson.JsonObject;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
+import info.paybeam.www.paybeamv1.PayBeam.HomeActivity.HomeActivity;
 import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
 import info.paybeam.www.paybeamv1.PayBeam.SecurityModule.MD5;
 import info.paybeam.www.paybeamv1.R;
@@ -91,7 +92,11 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
         //Successfully sent
         progressDialog.dismiss();
 
-        showDialog();
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |  Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+
+        //showDialog();
     }
 
     public void showDialog()
