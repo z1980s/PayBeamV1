@@ -1,5 +1,6 @@
 package info.paybeam.www.paybeamv1.PayBeam.PaymentPhoneActivity;
 
+import android.app.Activity;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -26,15 +27,19 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
+import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
+import info.paybeam.www.paybeamv1.PayBeam.SecurityModule.MD5;
 import info.paybeam.www.paybeamv1.R;
 import info.paybeam.www.paybeamv1.databinding.PaymentPhoneActivityBinding;
 
 public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPhoneContract.PaymentPhoneView,
-                                                                                                                                   NfcAdapter.OnNdefPushCompleteCallback,
-                                                                                                                                   NfcAdapter.CreateNdefMessageCallback
+        NfcAdapter.OnNdefPushCompleteCallback,
+        NfcAdapter.CreateNdefMessageCallback
 {
     private PaymentPhonePresenter ppPresenter;
     private EditText amountText;
@@ -56,8 +61,19 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
     @Override
     public void addMessage()
     {
-        String newMessage = amountText.getText().toString();
-        messagesToSendArray.add(newMessage);
+        String token = InternalStorage.readToken(this,"Token");
+        String[] credentials = InternalStorage.readString(this,"Credentials").split(",");
+        String user = credentials[0];
+
+        JsonObject paymentData = new JsonObject();
+        paymentData.addProperty("SenderLoginName", user);
+        paymentData.addProperty("Amount", amountText.getText().toString());
+        String hash = new MD5().getHash(token + amountText.getText().toString());
+        paymentData.addProperty("hash", hash);
+
+        //String newMessage = amountText.getText().toString();
+        //messagesToSendArray.add(newMessage);
+        messagesToSendArray.add(paymentData.toString());
 
         //txtBoxAddMessage.setText(null);
         //updateTextViews();
@@ -127,6 +143,8 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
 
     private void handleNfcIntent(Intent NfcIntent)
     {
+        String message = new String();
+
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(NfcIntent.getAction()))
         {
             Parcelable[] receivedArray = NfcIntent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
@@ -141,33 +159,39 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
                 {
                     String string = new String(record.getPayload());
                     //Make sure we don't pass along our AAR (Android Applicatoin Record)
-                    if (string.equals(getPackageName())) { continue; }
-                    messagesReceivedArray.add(string);
+                    if (string.equals(getPackageName()))
+                    {
+                        continue;
+                    }
 
+                    //messagesReceivedArray.add(string);
 
-                    /*
-                    AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+                    message = string;
 
-                    dlgAlert.setMessage("Received: $" + string);
-                    dlgAlert.setTitle("Message");
-                    dlgAlert.setPositiveButton("OK", null);
-                    dlgAlert.setCancelable(true);
-
-                    dlgAlert.setPositiveButton("Ok",
-                            new DialogInterface.OnClickListener()
-                            {
-                                public void onClick(DialogInterface dialog, int which)
-                                {
-
-                                }
-                            });
-
-                    dlgAlert.create().show();
-                    */
                 }
                 //Toast.makeText(this, "Received " + messagesReceivedArray.size() + " Messages", Toast.LENGTH_LONG).show();
                 //updateTextViews();
-                ppPresenter.handleIncomingMessage(attachedRecords[0].getPayload().toString());
+
+                /*
+                AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+
+                dlgAlert.setMessage("Received: $" + message);
+                dlgAlert.setTitle("Message");
+                dlgAlert.setPositiveButton("OK", null);
+                dlgAlert.setCancelable(true);
+
+                dlgAlert.setPositiveButton("Ok",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+
+                dlgAlert.create().show();
+    */
+
+                ppPresenter.handleIncomingMessage(message);
+
             }
             else
             {
@@ -318,6 +342,25 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
     @Override
     public void showSuccess(String message)
     {
+        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
 
+        dlgAlert.setMessage(message);
+        dlgAlert.setTitle("Success");
+        dlgAlert.setPositiveButton("OK", null);
+        dlgAlert.setCancelable(true);
+
+        dlgAlert.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+
+        dlgAlert.create().show();
+    }
+
+    @Override
+    public Activity getActivity() {
+        return this;
     }
 }
