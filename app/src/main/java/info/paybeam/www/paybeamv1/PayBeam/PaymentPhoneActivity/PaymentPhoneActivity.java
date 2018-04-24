@@ -91,18 +91,20 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
         //Successfully sent
         progressDialog.dismiss();
 
-        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+        AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
 
-        dlgAlert.setMessage("Message");
-        dlgAlert.setTitle("Information successfully transmitted!");
+        dlgAlert.setMessage("Information transmitted successfully!");
+        dlgAlert.setTitle("Message");
         dlgAlert.setPositiveButton("OK", null);
         dlgAlert.setCancelable(true);
 
         dlgAlert.setPositiveButton("Ok",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        //finish
-                        getParent().finish();
+                new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        //CreateAccountActivity.this.finish();
+                        finish();
                     }
                 });
 
@@ -359,18 +361,20 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
     @Override
     public void showSuccess(String message)
     {
-        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+        AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
 
         dlgAlert.setMessage(message);
-        dlgAlert.setTitle("Success");
+        dlgAlert.setTitle("Message");
         dlgAlert.setPositiveButton("OK", null);
         dlgAlert.setCancelable(true);
 
         dlgAlert.setPositiveButton("Ok",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        //finish
-                        getParent().finish();
+                new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        //CreateAccountActivity.this.finish();
+                        finish();
                     }
                 });
 
