@@ -352,6 +352,7 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
         dlgAlert.setPositiveButton("Ok",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        //finish
                         finish();
                     }
                 });
