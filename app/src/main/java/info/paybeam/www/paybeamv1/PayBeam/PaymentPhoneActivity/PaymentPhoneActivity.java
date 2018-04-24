@@ -90,6 +90,23 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
         //This is called when the system detects that our NdefMessage was
         //Successfully sent
         progressDialog.dismiss();
+
+        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+
+        dlgAlert.setMessage("Message");
+        dlgAlert.setTitle("Information successfully transmitted!");
+        dlgAlert.setPositiveButton("OK", null);
+        dlgAlert.setCancelable(true);
+
+        dlgAlert.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //finish
+                        getParent().finish();
+                    }
+                });
+
+        dlgAlert.create().show();
     }
 
     public NdefRecord[] createRecords()
@@ -353,7 +370,7 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         //finish
-                        finish();
+                        getParent().finish();
                     }
                 });
 
