@@ -91,6 +91,11 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
         //Successfully sent
         progressDialog.dismiss();
 
+        showDialog();
+    }
+
+    public void showDialog()
+    {
         AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
 
         dlgAlert.setMessage("Information transmitted successfully!");
