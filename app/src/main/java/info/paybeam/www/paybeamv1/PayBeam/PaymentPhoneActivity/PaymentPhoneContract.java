@@ -1,5 +1,6 @@
 package info.paybeam.www.paybeamv1.PayBeam.PaymentPhoneActivity;
 
+import android.app.Activity;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public interface PaymentPhoneContract
     {
         void addMessage();
         void handleIncomingMessage();
+        Activity getActivity();
         void showSuccess(String message);
     }
 
@@ -22,6 +24,6 @@ public interface PaymentPhoneContract
         void onSubmitButtonClick(View view);
         void messageSent();
         void messageReceived();
-        void handleIncomingMessage(ArrayList<String> receivedMessages);
+        void handleIncomingMessage(String receivedMessage);
     }
 }

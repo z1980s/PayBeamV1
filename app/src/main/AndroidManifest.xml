@@ -33,9 +33,9 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".PayBeam.LoginActivity.LoginActivity"
@@ -51,7 +51,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".PayBeam.PaymentPhoneActivity.PaymentPhoneActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
