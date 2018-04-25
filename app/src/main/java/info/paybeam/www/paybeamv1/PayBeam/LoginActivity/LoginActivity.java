@@ -43,11 +43,19 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
 
+
     }
 
     public void handleAuthentication()
     {
-        loginPresenter.handleAuthentication(username.getText().toString(), password.getText().toString());
+        if(username == null ||password == null)
+        {
+            showErrorMessage("Empty Fields");
+        }
+        else
+        {
+            loginPresenter.handleAuthentication(username.getText().toString(), password.getText().toString());
+        }
     }
 
     @Override

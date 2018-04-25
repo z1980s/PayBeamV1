@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.AddCardActivity.AddCardActivity;
+import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
 import info.paybeam.www.paybeamv1.R;
 import info.paybeam.www.paybeamv1.databinding.CardActivityBinding;
 
@@ -54,6 +55,9 @@ public class CardActivity extends AppCompatActivity implements CardContract.Card
         Toast.makeText(this, "There are "+ cards.size() + " cards", Toast.LENGTH_SHORT).show();
         this.cards = cards;
 
+        //String def = InternalStorage.readString(CardActivity.this,"defaultCard");
+        //Toast.makeText(CardActivity.this,"Default Card is: "+ def, Toast.LENGTH_SHORT);
+
         lst= (ListView) findViewById(R.id.cardList);
         //ArrayAdapter to create a view for each array item
         ArrayAdapter<String> arrayadapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, this.cards);
@@ -66,7 +70,7 @@ public class CardActivity extends AppCompatActivity implements CardContract.Card
                 view.setSelected(true);
                 TextView tv= (TextView) view;
                 Toast.makeText(CardActivity.this,tv.getText()+"  "+position,Toast.LENGTH_SHORT).show();
-                defaultCard = tv.getText().toString();
+                //defaultCard = tv.getText().toString();
             }
         });
 
@@ -76,8 +80,11 @@ public class CardActivity extends AppCompatActivity implements CardContract.Card
     @Override
     public void onPause() {
         super.onPause();
-        Toast.makeText(CardActivity.this, "Default card is: "+ defaultCard, Toast.LENGTH_SHORT).show();
+        //defaultCard = InternalStorage.readString(CardActivity.this,"defaultCard");
+        //Toast.makeText(CardActivity.this, "Default card is: "+ defaultCard, Toast.LENGTH_SHORT).show();
+
         //When paused, set the default card somewhere to be used in payment
+
     }
 
 

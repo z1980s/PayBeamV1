@@ -10,10 +10,10 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.NFC" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-feature android:name="android.hardware.camera"/>
-    <uses-feature android:name="android.hardware.camera.autofocus"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-feature
         android:name="android.hardware.nfc"
         android:required="true" />
@@ -30,7 +30,6 @@
             android:label="PayBeamV1"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
@@ -55,11 +54,12 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".PayBeam.PaymentReaderActivity.PaymentReaderActivity"
             android:screenOrientation="portrait" />
@@ -78,19 +78,28 @@
         <activity
             android:name=".PayBeam.CardManagementActivity.AddCardActivity.AddCardActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".PayBeam.ProfileActivity.EditProfileActivity.EditProfileActivity"
+        <activity
+            android:name=".PayBeam.ProfileActivity.EditProfileActivity.EditProfileActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".PayBeam.ProfileActivity.ProfileActivity"
+        <activity
+            android:name=".PayBeam.ProfileActivity.ProfileActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".PayBeam.QRActivity.QRActivity"
+        <activity
+            android:name=".PayBeam.QRActivity.QRActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".PayBeam.QRActivity.GenerateQRActivity.GenerateQRActivity"
+        <activity
+            android:name=".PayBeam.QRActivity.GenerateQRActivity.GenerateQRActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".PayBeam.QRActivity.ScanQRActivity.ScanQRActivity"
+        <activity
+            android:name=".PayBeam.QRActivity.ScanQRActivity.ScanQRActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".PayBeam.WalletActivity.WalletActivity"
+        <activity
+            android:name=".PayBeam.WalletActivity.WalletActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".PayBeam.WalletActivity.TopUpWalletActivity.TopUpWalletActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".PayBeam.WalletActivity.WithdrawWalletActivity.WithdrawWalletActivity"
             android:screenOrientation="portrait" >
-
         </activity>
     </application>
 

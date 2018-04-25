@@ -5,6 +5,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -86,6 +87,45 @@ public class InternalStorage {
     }
 
 
+    //Write a string array to a file
+    public static void writeString(Context context, String filename, String str)
+    {
+        FileOutputStream outputStream;
+
+        try {
+            //MODE_PRIVATE FOR WRITE
+            //MODE_APPEND FOR APPEND
+            outputStream = context.openFileOutput(filename, context.MODE_PRIVATE);
+
+            outputStream.write(str.getBytes());
+
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static int countEntries(Context context, String filename){
+        int count = 0 ;
+        try {
+            FileInputStream fis = context.openFileInput(filename);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            //StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                //sb.append(line);
+                //Toast.makeText(context,line,Toast.LENGTH_SHORT).show();
+                count++;
+            }
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+
+    }
+
     //Append a string array to a file
     public static void append(Context context, String filename, ArrayList<String>stringArray)
     {
@@ -148,6 +188,11 @@ public class InternalStorage {
     public static void delete(Context context, String filename)
     {
         context.deleteFile(filename);
+        /*
+        File dir = context.getFilesDir();
+        File file = new File(dir, filename);
+        boolean deleted = file.delete();
+        */
     }
 
 

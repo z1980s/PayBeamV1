@@ -1,6 +1,8 @@
 package info.paybeam.www.paybeamv1.PayBeam.QRActivity.ScanQRActivity;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
@@ -53,6 +55,18 @@ public class ScanQRPresenter implements ScanQRContract.ScanQRPresenter
                                 JsonObject jResponse = (JsonObject) jParser.parse(response);
                                 if (jResponse.get("result").getAsString().equals("Success")) {
                                     System.out.println("Success");
+
+                                    AlertDialog alertDialog = new AlertDialog.Builder(scanQRView.getActivity()).create();
+                                    alertDialog.setTitle("Success");
+                                    alertDialog.setMessage("Successful Transaction");
+                                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                            new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    alertDialog.show();
+
                                     //do success
                                     //scanQRView.showHomeView();
                                 } else {

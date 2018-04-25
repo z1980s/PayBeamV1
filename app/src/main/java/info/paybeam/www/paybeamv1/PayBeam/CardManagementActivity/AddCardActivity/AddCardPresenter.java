@@ -60,8 +60,20 @@ public class AddCardPresenter implements AddCardContract.AddCardPresenter{
 
         maskCardNum = maskCardNum.substring(length-5,length-1)+ " , " + (expirationMonth+"/"+expirationYear) +'\n';
 
-        //write masked cardnumber and the
-        InternalStorage.writeCardToFile(addCardView.getActivity().getApplicationContext(),"cards", maskCardNum);
+
+        //if there are no cards
+        //write masked cardnumber to the default card file
+        int count = InternalStorage.countEntries(addCardView.getActivity(),"cards");
+        if(count==0)
+        {
+            InternalStorage.writeString(addCardView.getActivity(),"defaultCard", maskCardNum);
+        }
+
+        //write masked cardnumber to the card file
+        InternalStorage.writeCardToFile(addCardView.getActivity(),"cards", maskCardNum);
+
+        //InternalStorage.delete(addCardView.getActivity().getApplicationContext(),"card");
+
 
         addCardView.finishAddCard();
         //InternalStorage.read(addCardView.getActivity().getApplicationContext(),"cards");
