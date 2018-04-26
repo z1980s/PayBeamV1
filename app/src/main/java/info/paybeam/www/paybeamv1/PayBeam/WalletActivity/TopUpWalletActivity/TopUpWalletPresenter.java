@@ -35,20 +35,19 @@ public class TopUpWalletPresenter implements TopUpWalletContract.TopUpWalletPres
 
     }
 
-
-
-
-
-
+    public String getLastFourDigits(String chosenCard) {
+        String[] str = chosenCard.split(",");
+        return str[0];
+    }
 
     @Override
-    public void TopUpWallet(final String amount){
+    public void TopUpWallet(final String amount, String chosenCard){
         Toast.makeText(topUpWalletView.getActivity(),"Amount: "+ amount,Toast.LENGTH_SHORT).show();
         //add progress dialog here then only dismiss after processing
         final ProgressDialog dialog = ProgressDialog.show(topUpWalletView.getActivity(), "",
                 "Making Payment. Please wait...", true);
         //Do processing here to draw the amount from card and add to the server
-
+        final String l4d = getLastFourDigits(chosenCard);
 
         final String token = InternalStorage.readToken(topUpWalletView.getActivity(),"Token");
         final String[] credentials = InternalStorage.readString(topUpWalletView.getActivity(),"Credentials").split(",");
@@ -87,7 +86,7 @@ public class TopUpWalletPresenter implements TopUpWalletContract.TopUpWalletPres
                         topUpMsg.addProperty("Header", "TopUpWallet");
                         topUpMsg.addProperty("LoginName", credentials[0]);
                         topUpMsg.addProperty("Amount", amount);
-                        topUpMsg.addProperty("CardNo", 1111);
+                        topUpMsg.addProperty("CardNo", l4d);
                         topUpMsg.addProperty("Token", token);
                         topUpMsg.addProperty("encrypted", encrypted);
 
@@ -124,11 +123,6 @@ public class TopUpWalletPresenter implements TopUpWalletContract.TopUpWalletPres
             }
         };
         sc.execute(null,null,null);
-
-        /*
-        //after the functions are done then close the activity
-        dialog.dismiss();
-        */
     }
 
 }
