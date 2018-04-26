@@ -1,8 +1,10 @@
 package info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.AddCardActivity;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -54,16 +56,47 @@ public class AddCardActivity extends AppCompatActivity implements AddCardContrac
 
 
     @Override
-    public void showSuccessMessage()
+    public void showSuccessMessage(String succMsg)
     {
         //add card success bring user to CardActivity page and refresh list of available cards
+        AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+
+        dlgAlert.setMessage(succMsg);
+        dlgAlert.setTitle("Error");
+        dlgAlert.setPositiveButton("OK", null);
+        dlgAlert.setCancelable(true);
+        dlgAlert.create().show();
+
+        dlgAlert.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+
+                    }
+                });
 
     }
 
     @Override
-    public void showErrorMessage()
+    public void showErrorMessage(String errorMsg)
     {
-        //show error message e.g. card is invalid or cannot be verified, bring user back to addCardActivity page
+        AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+
+        dlgAlert.setMessage(errorMsg);
+        dlgAlert.setTitle("Error");
+        dlgAlert.setPositiveButton("OK", null);
+        dlgAlert.setCancelable(true);
+        dlgAlert.create().show();
+
+        dlgAlert.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+
+                    }
+                });
     }
 
     @Override

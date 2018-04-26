@@ -14,8 +14,8 @@ public interface AddCardContract {
     interface AddCardView
     {
         void extractValues();
-        void showSuccessMessage();
-        void showErrorMessage();
+        void showSuccessMessage(String succMsg);
+        void showErrorMessage(String errorMsg);
         void showServerError();
         Activity getActivity();
         void finishAddCard();
