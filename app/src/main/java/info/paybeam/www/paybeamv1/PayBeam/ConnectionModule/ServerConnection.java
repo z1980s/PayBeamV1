@@ -38,8 +38,6 @@ public abstract class ServerConnection extends AsyncTask<Void, Void, String> imp
     private Context context;
 
     private static final int DEFAULT_CONNECT_TIMEOUT = 5000;
-    //empty
-    public ServerConnection () { }
 
     public ServerConnection (JsonObject msg, Context context) {
         //msg is the JSONObject containing the message that needs to be sent.
@@ -63,17 +61,6 @@ public abstract class ServerConnection extends AsyncTask<Void, Void, String> imp
     }
 
     public abstract void receiveResponse(String response);
-    /*
-    public String sendMessage() throws InterruptedException, ExecutionException {
-        // creates thread pool with one thread
-        final ExecutorService es = Executors.newSingleThreadExecutor();
-        // callable thread starts to execute
-        final Future<String> responseFuture = es.submit(new ServerConnection(msg, context));
-        // gets value of callable thread
-        final String response = responseFuture.get();
-        return response;
-    }
-    */
 
     @Override
     protected String doInBackground(Void... params) {
@@ -147,71 +134,4 @@ public abstract class ServerConnection extends AsyncTask<Void, Void, String> imp
         }
         //Take action based on result
     }
-
-    /*
-    @Override
-    public String call() {
-        try {
-            System.out.println("ServerConnection Thread Started");
-
-            //get application context and open the truststore file
-            InputStream stream = context.getAssets().open("www_paybeam_info.bks");
-            KeyStore trustStore;
-            trustStore = KeyStore.getInstance("BKS");
-            trustStore.load(stream, "Se4wyhv8@".toCharArray());
-
-            //Create a Key Manager Factory to load the TrustStore using an instance of key manager
-            KeyManagerFactory kmfactory = KeyManagerFactory.getInstance(
-                    KeyManagerFactory.getDefaultAlgorithm());
-            kmfactory.init(trustStore, "Se4wyhv8@".toCharArray());
-            KeyManager[] keymanagers = kmfactory.getKeyManagers();
-
-            //Create a custom trust manager to import the trustStore and initialise the trust manager with the trustStore
-            TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-            tmf.init(trustStore);
-
-            //define protocol to be TLSv1.2 (SSL is no longer secure) and initialise SSLContext
-            SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
-            sslContext.init(keymanagers, tmf.getTrustManagers(), new SecureRandom());
-
-            //create SSLSocketfactory and establih SSLSocket to server
-            SSLSocketFactory factory = sslContext.getSocketFactory();
-            SSLSocket clientSSLSocket = (SSLSocket) factory.createSocket();
-            try {
-                clientSSLSocket.connect(new InetSocketAddress("182.55.236.211", 3333), DEFAULT_CONNECT_TIMEOUT);
-                clientSSLSocket.startHandshake();
-
-                //define outputstream
-                OutputStreamWriter osw = new OutputStreamWriter(clientSSLSocket.getOutputStream(), StandardCharsets.UTF_8);
-                InputStreamReader isr = new InputStreamReader(clientSSLSocket.getInputStream(), StandardCharsets.UTF_8);
-
-                //Write msg to outputstreamwriter and send it
-                osw.write(msg.toString() + "\n");
-                osw.flush();
-
-                //Create a BufferedReader to read from the InputStreamReader and print out the response.
-                BufferedReader br = new BufferedReader(isr);
-
-                //read 1st line
-                response = br.readLine();
-                //read every other line
-                String temp;
-                while ((temp = br.readLine()) != null) {
-                    response += "\n" + temp;
-                }
-
-                //Close Socket
-                clientSSLSocket.close();
-                //return the response to the calling function.
-                return response;
-            } catch (SocketTimeoutException ste) {
-                System.err.println("[ERROR] Connection timed out (5 seconds)");
-                return "Failure! Connection to Server Timed Out";
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-    */
 }

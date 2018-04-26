@@ -15,6 +15,8 @@ public interface TopUpWalletContract {
     interface TopUpWalletView
     {
         void displayCards(ArrayList<String> cards);
+        void showSuccess(String message);
+        void showErrorMessage(String errorMsg);
         String showDialog(View view);
         Activity getActivity();
 

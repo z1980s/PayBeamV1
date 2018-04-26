@@ -116,7 +116,7 @@ public class AddCardPresenter implements AddCardContract.AddCardPresenter{
         }
         //if there are no cards
         //write masked cardnumber to the default card file
-        /*
+
         int count = InternalStorage.countEntries(addCardView.getActivity(),"cards");
         if(count==0)
         {
@@ -130,8 +130,7 @@ public class AddCardPresenter implements AddCardContract.AddCardPresenter{
 
 
         addCardView.finishAddCard();
-        //InternalStorage.read(addCardView.getActivity().getApplicationContext(),"cards");
-        */
+        InternalStorage.read(addCardView.getActivity().getApplicationContext(),"cards");
         //concatenate all values and encrypt with bank's public key, send to payBeam server for storage
         //payBeam server should verify and validate card information and send back a response
         //upon successfully response, call addCardView.showSuccessMessage and bring user back to cardActivity page
