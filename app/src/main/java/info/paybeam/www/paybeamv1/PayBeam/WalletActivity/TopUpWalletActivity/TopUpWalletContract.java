@@ -1,6 +1,8 @@
 package info.paybeam.www.paybeamv1.PayBeam.WalletActivity.TopUpWalletActivity;
 
 import android.app.Activity;
+import android.view.View;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -13,11 +15,16 @@ public interface TopUpWalletContract {
     interface TopUpWalletView
     {
         void displayCards(ArrayList<String> cards);
+        String showDialog(View view);
         Activity getActivity();
+
     }
 
     interface TopUpWalletPresenter
     {
+        void TopUpWallet(String amount);
         void onTopUpWalletPageDisplayed();
+
+
     }
 }

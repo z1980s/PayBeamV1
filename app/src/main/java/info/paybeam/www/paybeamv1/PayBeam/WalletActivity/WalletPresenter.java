@@ -21,6 +21,11 @@ public class WalletPresenter implements WalletContract.WalletPresenter
     }
 
     @Override
+    public void onWithdrawFromWalletButtonClick(View view) {
+        walletView.showWithdrawFromWalletView();
+    }
+
+    @Override
     public void onTopUpWalletButtonClick(View view) {
         walletView.showTopUpWalletView();
     }

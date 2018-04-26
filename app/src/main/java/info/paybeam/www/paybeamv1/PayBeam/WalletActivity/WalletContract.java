@@ -9,11 +9,13 @@ public interface WalletContract
     {
         Activity getActivity();
         void showTopUpWalletView();
+        void showWithdrawFromWalletView();
     }
 
     interface WalletPresenter
     {
         String getWalletAmount();
+        void onWithdrawFromWalletButtonClick(View view);
         void onTopUpWalletButtonClick(View view);
     }
 }

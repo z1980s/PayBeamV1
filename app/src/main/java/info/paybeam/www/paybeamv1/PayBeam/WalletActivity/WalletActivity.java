@@ -19,15 +19,16 @@ import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
 import info.paybeam.www.paybeamv1.PayBeam.QRActivity.ScanQRActivity.ScanQRActivity;
 import info.paybeam.www.paybeamv1.PayBeam.WalletActivity.TopUpWalletActivity.TopUpWalletActivity;
 import info.paybeam.www.paybeamv1.PayBeam.WalletActivity.TopUpWalletActivity.TopUpWalletPresenter;
+import info.paybeam.www.paybeamv1.PayBeam.WalletActivity.WithdrawWalletActivity.WithdrawWalletActivity;
+import info.paybeam.www.paybeamv1.PayBeam.WalletActivity.WithdrawWalletActivity.WithdrawWalletContract;
 import info.paybeam.www.paybeamv1.R;
 import info.paybeam.www.paybeamv1.databinding.WalletActivityBinding;
+import info.paybeam.www.paybeamv1.databinding.WithdrawWalletActivityBinding;
 
 public class WalletActivity extends AppCompatActivity implements WalletContract.WalletView
 {
     private WalletPresenter walletPresenter;
     TextView walletAmount;
-
-
 
 
     @Override
@@ -56,8 +57,12 @@ public class WalletActivity extends AppCompatActivity implements WalletContract.
         startActivity(intent);
     }
 
-
-
+    @Override
+    public void showWithdrawFromWalletView() {
+        Toast.makeText(this,"Show Withdraw wallet activity", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, WithdrawWalletActivity.class);
+        startActivity(intent);
+    }
 
 
 }

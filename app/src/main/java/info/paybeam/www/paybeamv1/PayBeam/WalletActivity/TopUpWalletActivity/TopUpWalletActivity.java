@@ -1,6 +1,7 @@
 package info.paybeam.www.paybeamv1.PayBeam.WalletActivity.TopUpWalletActivity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity.CardActivity;
 import info.paybeam.www.paybeamv1.PayBeam.TransactionActivity.TransactionPresenter;
@@ -32,7 +35,7 @@ public class TopUpWalletActivity extends AppCompatActivity implements TopUpWalle
     private ArrayList<String> cards;
     private String chosenCard;
 
-    private String m_Text = "";
+    private String amount = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +74,12 @@ public class TopUpWalletActivity extends AppCompatActivity implements TopUpWalle
                 TextView tv= (TextView) view;
                 Toast.makeText(TopUpWalletActivity.this,tv.getText()+"  "+position,Toast.LENGTH_SHORT).show();
                 chosenCard = tv.getText().toString();
+                //view.setBackgroundColor(Color.parseColor("#00000000"));
 
-                //show dialog to get amount
+                //on click of the card
                 //pass in view so that can set remove the background colour
                 showDialog(view);
+                //topUpWalletPresenter.onCardSelected(view);
 
                 view.setSelected(false);
 
@@ -83,10 +88,11 @@ public class TopUpWalletActivity extends AppCompatActivity implements TopUpWalle
         });
     }
 
-    void showDialog(View view){
+
+    public String showDialog(View view){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Amount to send");
+        builder.setTitle("Amount to Top Up");
         final View v = view;
         // Set up the input
         final EditText input = new EditText(this);
@@ -98,9 +104,10 @@ public class TopUpWalletActivity extends AppCompatActivity implements TopUpWalle
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                m_Text = input.getText().toString();
+                amount = input.getText().toString();
                 v.setBackgroundColor(Color.parseColor("#00000000"));
-                //v.setSelected(false);
+                topUpWalletPresenter.TopUpWallet(amount);
+                v.setSelected(false);
             }
         });
 
@@ -109,12 +116,20 @@ public class TopUpWalletActivity extends AppCompatActivity implements TopUpWalle
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
                 v.setBackgroundColor(Color.parseColor("#00000000"));
-                //v.setSelected(false);
+                v.setSelected(false);
             }
         });
 
+
         builder.show();
+        return amount;
     }
+
+
+
+
+
+
 
     @Override
     public Activity getActivity() {
