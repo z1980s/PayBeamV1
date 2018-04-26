@@ -32,20 +32,25 @@ public class TopUpWalletPresenter implements TopUpWalletContract.TopUpWalletPres
 
 
 
+    public String getLastFourDigits(String chosenCard)
+    {
+        String [] str = chosenCard.split(",");
+        return str[0];
+    }
 
 
 
     @Override
-    public void TopUpWallet(String amount){
+    public void TopUpWallet(String amount, String chosenCard){
         Toast.makeText(topUpWalletView.getActivity(),"Amount: "+ amount,Toast.LENGTH_SHORT).show();
         //add progress dialog here then only dismiss after processing
+
         final ProgressDialog dialog = ProgressDialog.show(topUpWalletView.getActivity(), "",
                 "Making Payment. Please wait...", true);
 
 
         //Do processing here to draw the amount from card and add to the server
-
-
+        String l4d = getLastFourDigits(chosenCard);
 
         //after the functions are done then close the activity
         dialog.dismiss();

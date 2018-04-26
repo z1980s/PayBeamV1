@@ -106,7 +106,7 @@ public class TopUpWalletActivity extends AppCompatActivity implements TopUpWalle
             public void onClick(DialogInterface dialog, int which) {
                 amount = input.getText().toString();
                 v.setBackgroundColor(Color.parseColor("#00000000"));
-                topUpWalletPresenter.TopUpWallet(amount);
+                topUpWalletPresenter.TopUpWallet(amount, chosenCard);
                 v.setSelected(false);
             }
         });

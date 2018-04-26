@@ -32,6 +32,27 @@ public class WithdrawWalletPresenter implements WithdrawWalletContract.WithdrawW
     @Override
     public void amountRetrieved() {
         withdrawWalletView.displayCards(InternalStorage.readCardsFromFile(withdrawWalletView.getActivity().getApplicationContext(),"cards"));
+        withdrawWalletView.updateWithdrawButton();
+    }
+
+    @Override
+    public String getWalletBalance() {
+        return InternalStorage.readString(withdrawWalletView.getActivity().getApplicationContext(),"wallet");
+    }
+
+    @Override
+    public boolean enoughValueInWallet(String amount) {
+        InternalStorage.writeString(withdrawWalletView.getActivity().getApplicationContext(),"wallet","51");
+        String amt= InternalStorage.readString(withdrawWalletView.getActivity().getApplicationContext(),"wallet");
+
+        if(Float.parseFloat(amt)>=Float.parseFloat(amount))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
 
     }
 }
