@@ -11,6 +11,7 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,6 +32,8 @@ public class WithdrawWalletActivity extends AppCompatActivity implements Withdra
     private ListView lst;
     private ArrayList<String> cards;
     private String chosenCard;
+
+    Button withdrawButton;
 
     String amount ="";
 
@@ -89,13 +92,23 @@ public class WithdrawWalletActivity extends AppCompatActivity implements Withdra
         return this;
     }
 
+    @Override
+    public void finishActivity() {
+        finish();
+    }
+
+    @Override
+    public void updateWithdrawButton() {
+        withdrawButton = findViewById(R.id.withdrawButton);
+        withdrawButton.setText("Withdraw" + amount);
+    }
+
 
     @Override
     public void getAmountDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Amount to Withdraw");
-        builder.setMessage("Wallet balance:");
-
+        builder.setMessage("Wallet balance: "+withdrawWalletPresenter.getWalletBalance());
 
 
         // Set up the input
@@ -109,9 +122,28 @@ public class WithdrawWalletActivity extends AppCompatActivity implements Withdra
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 amount = input.getText().toString();
+
+                //CHECK AMOUNT HERE
+                if(withdrawWalletPresenter.enoughValueInWallet(amount))
+                {
+                    //if enough balance then proceed with withdrawing
+                }
+                else
+                {
+
+                    new AlertDialog.Builder(WithdrawWalletActivity.this)
+                            .setTitle("Insufficient Value")
+                            .setMessage("Enter an amount within wallet amount: $"+ withdrawWalletPresenter.getWalletBalance())
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                @Override public void onClick(DialogInterface dialog, int which) {
+                                    getAmountDialog();
+                                }
+                            })
+                            .create()
+                            .show();
+                }
+
                 withdrawWalletPresenter.amountRetrieved();
-
-
 
             }
         });
@@ -120,6 +152,7 @@ public class WithdrawWalletActivity extends AppCompatActivity implements Withdra
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
+                finishActivity();
             }
         });
 
@@ -127,4 +160,7 @@ public class WithdrawWalletActivity extends AppCompatActivity implements Withdra
 
 
     }
+
+
+
 }

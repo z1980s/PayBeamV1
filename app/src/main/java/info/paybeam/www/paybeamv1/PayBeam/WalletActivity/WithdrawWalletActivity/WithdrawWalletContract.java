@@ -15,6 +15,8 @@ public interface WithdrawWalletContract {
         void getAmountDialog();
         void displayCards(ArrayList<String> cards);
         Activity getActivity();
+        void finishActivity();
+        void updateWithdrawButton();
     }
 
     interface  WithdrawWalletPresenter
@@ -22,6 +24,8 @@ public interface WithdrawWalletContract {
         void pageDisplayed();
         void withdrawAmount(String amount, String chosenCard);
         void amountRetrieved();
+        String getWalletBalance();
+        boolean enoughValueInWallet(String amount);
     }
 
 }

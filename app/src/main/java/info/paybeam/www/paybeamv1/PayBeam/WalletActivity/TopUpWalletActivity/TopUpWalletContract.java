@@ -24,7 +24,7 @@ public interface TopUpWalletContract {
 
     interface TopUpWalletPresenter
     {
-        void TopUpWallet(String amount);
+        void TopUpWallet(String amount, String chosenCard);
         void onTopUpWalletPageDisplayed();
 
 
