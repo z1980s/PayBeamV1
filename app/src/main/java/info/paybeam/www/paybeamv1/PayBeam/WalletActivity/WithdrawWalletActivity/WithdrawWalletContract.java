@@ -15,6 +15,8 @@ public interface WithdrawWalletContract {
     {
         void getAmountDialog(View view);
         void displayCards(ArrayList<String> cards);
+        void showSuccess(String message);
+        void showErrorMessage(String errorMsg);
         Activity getActivity();
         void finishActivity();
     }

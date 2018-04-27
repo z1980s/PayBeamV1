@@ -100,6 +100,7 @@ public class TopUpWalletPresenter implements TopUpWalletContract.TopUpWalletPres
 
                                     if (jResponse.get("result").getAsString().equals("Success")) {
                                         System.out.println("Successfully topped up.");
+                                        InternalStorage.writeString(topUpWalletView.getActivity(),"wallet",jResponse.get("NewAmount").getAsString());
                                         dialog.dismiss();
                                         topUpWalletView.showSuccess(jResponse.get("reason").getAsString());
 

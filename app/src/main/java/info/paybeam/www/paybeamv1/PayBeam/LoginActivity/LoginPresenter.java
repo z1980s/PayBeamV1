@@ -60,6 +60,7 @@ public class LoginPresenter implements LoginContract.LoginPresenter
                             String token = jResponse.get("token").getAsString();
                             InternalStorage.writeToken(loginView.getActivity(), "Token", token);
                             InternalStorage.writeCredentials(loginView.getActivity(), "Credentials", user, pass);
+                            InternalStorage.writeString(loginView.getActivity(), "wallet", jResponse.get("balance").getAsString());
                             String data = InternalStorage.readString(loginView.getActivity(), "Credentials");
                             String tokendata = InternalStorage.readString(loginView.getActivity(), "Credentials");
                             System.out.println(data);

@@ -2,6 +2,7 @@ package info.paybeam.www.paybeamv1.PayBeam.WalletActivity.WithdrawWalletActivity
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
@@ -19,7 +20,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import info.paybeam.www.paybeamv1.PayBeam.HomeActivity.HomeActivity;
 import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
+import info.paybeam.www.paybeamv1.PayBeam.WalletActivity.TopUpWalletActivity.TopUpWalletActivity;
 import info.paybeam.www.paybeamv1.R;
 import info.paybeam.www.paybeamv1.databinding.WithdrawWalletActivityBinding;
 
@@ -100,7 +103,52 @@ public class WithdrawWalletActivity extends AppCompatActivity implements Withdra
         finish();
     }
 
+    @Override
+    public void showErrorMessage(String message) {
+        AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
 
+        dlgAlert.setMessage(message);
+        dlgAlert.setTitle("Message");
+        dlgAlert.setPositiveButton("OK", null);
+        dlgAlert.setCancelable(true);
+
+        dlgAlert.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        finish();
+                    }
+                });
+
+        dlgAlert.create().show();
+    }
+
+    @Override
+    public void showSuccess(String message)
+    {
+        AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+
+        dlgAlert.setMessage(message);
+        dlgAlert.setTitle("Message");
+        dlgAlert.setPositiveButton("OK", null);
+        dlgAlert.setCancelable(true);
+
+        dlgAlert.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        //CreateAccountActivity.this.finish();
+                        //finish();
+                        Intent intent = new Intent(WithdrawWalletActivity.this, HomeActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |  Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);
+                    }
+                });
+
+        dlgAlert.create().show();
+    }
 
     @Override
     public void getAmountDialog(View view) {
