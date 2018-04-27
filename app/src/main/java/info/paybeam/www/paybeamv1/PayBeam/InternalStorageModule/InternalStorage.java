@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -210,6 +213,56 @@ public class InternalStorage {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    //name, username, email, address, phoneNo
+    public static void writeProfileToFile(Context context, String filename, String name, String username,
+                                          String email, String address, String phoneNo)
+    {
+        //Create JSON object containing the profile details
+        JSONObject obj = new JSONObject();
+
+        try {
+            obj.put("name",name);
+            obj.put("username",username);
+            obj.put("email",email);
+            obj.put("address",address);
+            obj.put("phoneNo",phoneNo);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        FileOutputStream outputStream;
+
+        try {
+            //MODE_PRIVATE FOR WRITE
+            //MODE_APPEND FOR APPEND
+            //Want to overwrite the existing details and input with the new ones
+            outputStream = context.openFileOutput(filename, context.MODE_PRIVATE);
+
+            outputStream.write(obj.toString().getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static JSONObject readProfileFromFile(Context context, String filename)
+    {
+
+        String line = null;
+        JSONObject obj = null;
+        try {
+            FileInputStream fis = context.openFileInput(filename);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            line = bufferedReader.readLine();
+            obj = new JSONObject(line);
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return obj;
     }
 
     public static ArrayList<String> readCardsFromFile(Context context, String filename) {
