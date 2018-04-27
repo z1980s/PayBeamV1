@@ -7,6 +7,8 @@ import android.view.View;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.io.File;
+
 import info.paybeam.www.paybeamv1.PayBeam.ConnectionModule.ServerConnection;
 import info.paybeam.www.paybeamv1.PayBeam.ConnectionModule.ServerConnectionCallback;
 import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
@@ -61,9 +63,20 @@ public class LoginPresenter implements LoginContract.LoginPresenter
                             InternalStorage.writeToken(loginView.getActivity(), "Token", token);
                             InternalStorage.writeCredentials(loginView.getActivity(), "Credentials", user, pass);
                             InternalStorage.writeString(loginView.getActivity(), "wallet", jResponse.get("balance").getAsString());
-                            String data = InternalStorage.readString(loginView.getActivity(), "Credentials");
-                            String tokendata = InternalStorage.readString(loginView.getActivity(), "Credentials");
-                            System.out.println(data);
+                            //String data = InternalStorage.readString(loginView.getActivity(), "Credentials");
+                            //String tokendata = InternalStorage.readString(loginView.getActivity(), "Credentials");
+                            File profileFile = new File("profile");
+                            if (!profileFile.exists()) {
+                                System.out.println("Profile Does not exist, writing...");
+                                JsonObject userProfile = jResponse.getAsJsonObject("UserProfile");
+                                InternalStorage.writeProfileToFile(loginView.getActivity(), "profile",
+                                        userProfile.get("Name").getAsString(),
+                                        user,
+                                        userProfile.get("Email").getAsString(),
+                                        userProfile.get("Address").getAsString(),
+                                        userProfile.get("PhoneNumber").getAsString());
+                            }
+
                             loginView.showHomeView();
                         } else {
                             //do failure

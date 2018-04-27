@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -219,17 +222,12 @@ public class InternalStorage {
                                           String email, String address, String phoneNo)
     {
         //Create JSON object containing the profile details
-        JSONObject obj = new JSONObject();
-
-        try {
-            obj.put("name",name);
-            obj.put("username",username);
-            obj.put("email",email);
-            obj.put("address",address);
-            obj.put("phoneNo",phoneNo);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        JsonObject obj = new JsonObject();
+        obj.addProperty("name",name);
+        obj.addProperty("username",username);
+        obj.addProperty("email",email);
+        obj.addProperty("address",address);
+        obj.addProperty("phoneNo",phoneNo);
 
         FileOutputStream outputStream;
 
@@ -246,17 +244,18 @@ public class InternalStorage {
         }
     }
 
-    public static JSONObject readProfileFromFile(Context context, String filename)
+    public static JsonObject readProfileFromFile(Context context, String filename)
     {
 
         String line = null;
-        JSONObject obj = null;
+        JsonObject obj = null;
         try {
             FileInputStream fis = context.openFileInput(filename);
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader bufferedReader = new BufferedReader(isr);
             line = bufferedReader.readLine();
-            obj = new JSONObject(line);
+            JsonParser jParser = new JsonParser();
+            obj = (JsonObject) jParser.parse(line);
         }
         catch(Exception e) {
             e.printStackTrace();

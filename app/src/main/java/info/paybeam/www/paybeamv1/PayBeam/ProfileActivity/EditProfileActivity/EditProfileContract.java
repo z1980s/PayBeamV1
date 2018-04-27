@@ -3,15 +3,19 @@ package info.paybeam.www.paybeamv1.PayBeam.ProfileActivity.EditProfileActivity;
 import android.app.Activity;
 import android.view.View;
 
+import com.google.gson.JsonObject;
+
 import org.json.JSONObject;
 
 public interface EditProfileContract
 {
     interface EditProfileView
     {
-        void displayFieldDetails(JSONObject obj);
+        void displayFieldDetails(JsonObject obj);
         Activity getActivity();
-        JSONObject extractValues();
+        JsonObject extractValues();
+        void showSuccess(String message);
+        void showErrorMessage(String errorMsg);
         void finishActivity();
     }
 

@@ -8,9 +8,12 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
 import info.paybeam.www.paybeamv1.PayBeam.ProfileActivity.EditProfileActivity.EditProfileActivity;
 import info.paybeam.www.paybeamv1.PayBeam.QRActivity.ScanQRActivity.ScanQRActivity;
 import info.paybeam.www.paybeamv1.R;
@@ -40,25 +43,27 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
         profilePresenter.onPageDisplayed();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        JsonObject userProfile = InternalStorage.readProfileFromFile(this,"profile");
+
+        displayProfileDetails(userProfile);
+    }
 
     @Override
-    public void displayProfileDetails(JSONObject obj) {
+    public void displayProfileDetails(JsonObject obj) {
         name = findViewById(R.id.name_text);
         username = findViewById(R.id.username_text);
         phoneNo = findViewById(R.id.phoneNo_text);
         email = findViewById(R.id.email_text);
         address = findViewById(R.id.address_text);
 
-        try {
-            name.setText("Name: " + obj.getString("name"));
-            username.setText("Username: "+obj.getString("username"));
-            email.setText("Email: "+obj.getString("email"));
-            address.setText("Address: "+obj.getString("address"));
-            phoneNo.setText("Phone No: "+obj.getString("phoneNo"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+        name.setText("Name: " + obj.get("name").getAsString());
+        username.setText("Username: "+obj.get("username").getAsString());
+        email.setText("Email: "+obj.get("email").getAsString());
+        address.setText("Address: "+obj.get("address").getAsString());
+        phoneNo.setText("Phone No: "+obj.get("phoneNo").getAsString());
     }
 
     @Override

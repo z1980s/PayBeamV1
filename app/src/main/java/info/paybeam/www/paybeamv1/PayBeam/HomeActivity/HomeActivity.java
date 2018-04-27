@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import java.io.File;
+
 import info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity.CardActivity;
 import info.paybeam.www.paybeamv1.PayBeam.PaymentPhoneActivity.PaymentPhoneActivity;
 import info.paybeam.www.paybeamv1.PayBeam.PaymentReaderActivity.PaymentReaderActivity;
