@@ -7,11 +7,16 @@ import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import info.paybeam.www.paybeamv1.PayBeam.ConnectionModule.ServerConnection;
+import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
 import info.paybeam.www.paybeamv1.PayBeam.OTPModule.GenerateOTP;
 
 /**
@@ -36,6 +41,12 @@ public class CreateAccountPresenter implements CreateAccountContract.CreateAccou
 
     public void onSubmitButtonClick(View view)
     {
+        /* Writing credentials to local file for testing purposes
+        String [] cred = caView.extractCredentials();
+        InternalStorage.writeProfileToFile(caView.getActivity(),"profile", cred[0],cred[1], cred[3],cred[4], cred[5]);
+        Toast.makeText(caView.getActivity(),cred[0]+cred[1],Toast.LENGTH_SHORT).show();
+        */
+
         //call verify details
         //if true, show success screen leading to OTP verification
         //if false, show error message
@@ -52,6 +63,7 @@ public class CreateAccountPresenter implements CreateAccountContract.CreateAccou
             //server connection set account to activated
             String[] memberNames = new String[]{"Name", "LoginName", "Password", "Email", "Address", "PhoneNumber"};
             String[] values = caView.extractCredentials();
+
             try
             {
                 //change this line, upon OTP verification, store account details
@@ -67,6 +79,12 @@ public class CreateAccountPresenter implements CreateAccountContract.CreateAccou
 
                             if (jResponse.get("result").getAsString().equals("Success")) {
                                 caView.onSuccessView();
+
+
+                                //Write to internal storage here
+                                String [] cred = caView.extractCredentials();
+                                InternalStorage.writeProfileToFile(caView.getActivity(),"profile", cred[0],cred[1], cred[3],cred[4], cred[5]);
+
                             } else {
                                 //do failure
                                 caView.onFailureView(jResponse.get("reason").getAsString());
