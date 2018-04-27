@@ -69,7 +69,7 @@ public class WithdrawWalletActivity extends AppCompatActivity implements Withdra
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 view.setSelected(true);
-                //view.setBackgroundColor(Color.parseColor("#B0BEC5"));
+                view.setBackgroundColor(Color.parseColor("#B0BEC5"));
                 TextView tv= (TextView) view;
                 Toast.makeText(WithdrawWalletActivity.this,tv.getText()+"  "+position,Toast.LENGTH_SHORT).show();
                 chosenCard = tv.getText().toString();
@@ -77,8 +77,11 @@ public class WithdrawWalletActivity extends AppCompatActivity implements Withdra
                 //on click of the card
                 //pass in view so that can set remove the background colour
                 //showDialog(view);
-                //topUpWalletPresenter.onCardSelected(view);
-                withdrawWalletPresenter.withdrawAmount(amount,chosenCard);
+
+                //withdrawWalletPresenter.onCardSelected();
+
+                getAmountDialog(view);
+                //withdrawWalletPresenter.withdrawAmount(amount,chosenCard);
 
                 view.setSelected(false);
 
@@ -97,19 +100,14 @@ public class WithdrawWalletActivity extends AppCompatActivity implements Withdra
         finish();
     }
 
-    @Override
-    public void updateWithdrawButton() {
-        withdrawButton = findViewById(R.id.withdrawButton);
-        withdrawButton.setText("Withdraw" + amount);
-    }
 
 
     @Override
-    public void getAmountDialog() {
+    public void getAmountDialog(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Amount to Withdraw");
-        builder.setMessage("Wallet balance: "+withdrawWalletPresenter.getWalletBalance());
-
+        builder.setMessage("Wallet balance: "+ withdrawWalletPresenter.getWalletBalance());
+        final View v = view;
 
         // Set up the input
         final EditText input = new EditText(this);
@@ -127,6 +125,8 @@ public class WithdrawWalletActivity extends AppCompatActivity implements Withdra
                 if(withdrawWalletPresenter.enoughValueInWallet(amount))
                 {
                     //if enough balance then proceed with withdrawing
+                    withdrawWalletPresenter.withdrawAmount(amount,chosenCard);
+
                 }
                 else
                 {
@@ -136,14 +136,14 @@ public class WithdrawWalletActivity extends AppCompatActivity implements Withdra
                             .setMessage("Enter an amount within wallet amount: $"+ withdrawWalletPresenter.getWalletBalance())
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                 @Override public void onClick(DialogInterface dialog, int which) {
-                                    getAmountDialog();
+                                    getAmountDialog(v);
                                 }
                             })
                             .create()
                             .show();
-                }
 
-                withdrawWalletPresenter.amountRetrieved();
+                }
+                v.setBackgroundColor(Color.parseColor("#00000000"));
 
             }
         });
@@ -152,7 +152,8 @@ public class WithdrawWalletActivity extends AppCompatActivity implements Withdra
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
-                finishActivity();
+                v.setBackgroundColor(Color.parseColor("#00000000"));
+                //finishActivity();
             }
         });
 

@@ -9,13 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 
+import com.braintreepayments.cardform.OnCardFormSubmitListener;
 import com.braintreepayments.cardform.view.CardForm;
 
 import info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity.CardActivity;
 import info.paybeam.www.paybeamv1.R;
 import info.paybeam.www.paybeamv1.databinding.AddcardActivityBinding;
 
-public class AddCardActivity extends AppCompatActivity implements AddCardContract.AddCardView
+public class AddCardActivity extends AppCompatActivity implements AddCardContract.AddCardView, OnCardFormSubmitListener
 {
     private AddCardContract.AddCardPresenter addCardPresenter;
     private CardForm cardForm;
@@ -38,6 +39,8 @@ public class AddCardActivity extends AppCompatActivity implements AddCardContrac
                 .mobileNumberRequired(true)
                 .mobileNumberExplanation("SMS is required on this number")
                 .setup(AddCardActivity.this);
+
+            cardForm.setOnCardFormSubmitListener(AddCardActivity.this);
     }
 
 
@@ -117,4 +120,8 @@ public class AddCardActivity extends AppCompatActivity implements AddCardContrac
     }
 
 
+    @Override
+    public void onCardFormSubmit() {
+        addCardPresenter.onAddCardButtonClick(findViewById(R.id.card_form));
+    }
 }

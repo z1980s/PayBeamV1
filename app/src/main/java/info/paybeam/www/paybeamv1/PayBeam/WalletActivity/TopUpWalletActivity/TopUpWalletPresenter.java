@@ -35,8 +35,9 @@ public class TopUpWalletPresenter implements TopUpWalletContract.TopUpWalletPres
 
     }
 
-    public String getLastFourDigits(String chosenCard) {
-        String[] str = chosenCard.split(",");
+    public String getLastFourDigits(String chosenCard)
+    {
+        String [] str = chosenCard.split(",");
         return str[0];
     }
 

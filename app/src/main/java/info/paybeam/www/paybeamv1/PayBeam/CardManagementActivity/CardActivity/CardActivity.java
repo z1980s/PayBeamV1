@@ -3,11 +3,13 @@ package info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Movie;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +18,8 @@ import java.util.ArrayList;
 
 import info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.AddCardActivity.AddCardActivity;
 import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
+import info.paybeam.www.paybeamv1.PayBeam.ListAdapter.Cards;
+import info.paybeam.www.paybeamv1.PayBeam.ListAdapter.CardsAdapter;
 import info.paybeam.www.paybeamv1.R;
 import info.paybeam.www.paybeamv1.databinding.CardActivityBinding;
 
@@ -28,6 +32,7 @@ public class CardActivity extends AppCompatActivity implements CardContract.Card
     ArrayList<String> cards;
     String defaultCard;
 
+    private CardsAdapter cardAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -60,16 +65,35 @@ public class CardActivity extends AppCompatActivity implements CardContract.Card
 
         lst= (ListView) findViewById(R.id.cardList);
         //ArrayAdapter to create a view for each array item
-        ArrayAdapter<String> arrayadapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, this.cards);
+        //ArrayAdapter<String> arrayadapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, this.cards);
+        //---ListAdapter lAdapter = new ListAdapter(CardActivity.this, cards, expiryDate);
+
+
+
+
+        ArrayList<Cards> cardsList = new ArrayList<>();
+
+        for(String card : cards)
+        {
+            String [] x = card.split(",");
+            cardsList.add(new Cards(R.drawable.bt_ic_camera, x[0] , x[1]));
+        }
+
+        //cardsList.add(new Cards(R.drawable.bt_ic_camera, "1111" , "2019"));
+
+        cardAdapter = new CardsAdapter(this,cardsList);
+        lst.setAdapter(cardAdapter);
+
+
         //Set the adapter to the listview
-        lst.setAdapter(arrayadapter);
+        //lst.setAdapter(arrayadapter);
 
         lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 view.setSelected(true);
-                TextView tv= (TextView) view;
-                Toast.makeText(CardActivity.this,tv.getText()+"  "+position,Toast.LENGTH_SHORT).show();
+                //TextView tv= (TextView) view;
+                //Toast.makeText(CardActivity.this,tv.getText()+"  "+position,Toast.LENGTH_SHORT).show();
                 //defaultCard = tv.getText().toString();
             }
         });
