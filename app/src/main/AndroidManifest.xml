@@ -71,7 +71,7 @@
             android:name=".PayBeam.SettingsActivity.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PayBeam.SettingsActivity.ChangePasswordActivity.ChangePasswordActivity"
+            android:name=".PayBeam.ProfileActivity.ChangePasswordActivity.ChangePasswordActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".PayBeam.AboutActivity.AboutActivity"

@@ -24,5 +24,10 @@ public class ProfilePresenter implements ProfileContract.ProfilePresenter
         profileView.showEditProfileView();
     }
 
+    @Override
+    public void onChangePasswordButtonClick(View view) {
+        profileView.showChangeProfileView();
+    }
+
 
 }

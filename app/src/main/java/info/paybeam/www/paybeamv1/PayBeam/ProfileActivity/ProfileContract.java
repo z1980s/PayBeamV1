@@ -14,11 +14,13 @@ public interface ProfileContract
         void displayProfileDetails(JsonObject obj);
         Activity getActivity();
         void showEditProfileView();
+        void showChangeProfileView();
     }
 
     interface ProfilePresenter
     {
         void onPageDisplayed();
         void onEditProfileButtonClick(View view);
+        void onChangePasswordButtonClick(View view);
     }
 }

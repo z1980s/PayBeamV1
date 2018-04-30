@@ -14,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
+import info.paybeam.www.paybeamv1.PayBeam.ProfileActivity.ChangePasswordActivity.ChangePasswordActivity;
 import info.paybeam.www.paybeamv1.PayBeam.ProfileActivity.EditProfileActivity.EditProfileActivity;
 import info.paybeam.www.paybeamv1.PayBeam.QRActivity.ScanQRActivity.ScanQRActivity;
 import info.paybeam.www.paybeamv1.R;
@@ -78,7 +79,12 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
         startActivity(intent);
     }
 
-
+    @Override
+    public void showChangeProfileView() {
+        Toast.makeText(this,"Show Change Password Activity", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, ChangePasswordActivity.class);
+        startActivity(intent);
+    }
 
 
 }
