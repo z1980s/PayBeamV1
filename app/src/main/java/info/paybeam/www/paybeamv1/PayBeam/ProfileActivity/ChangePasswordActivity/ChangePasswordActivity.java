@@ -2,6 +2,7 @@ package info.paybeam.www.paybeamv1.PayBeam.ProfileActivity.ChangePasswordActivit
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
@@ -11,6 +12,9 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 
+import info.paybeam.www.paybeamv1.PayBeam.LoginActivity.LoginActivity;
+import info.paybeam.www.paybeamv1.PayBeam.ProfileActivity.EditProfileActivity.EditProfileActivity;
+import info.paybeam.www.paybeamv1.PayBeam.ProfileActivity.ProfileActivity;
 import info.paybeam.www.paybeamv1.PayBeam.WalletActivity.WithdrawWalletActivity.WithdrawWalletActivity;
 import info.paybeam.www.paybeamv1.R;
 import info.paybeam.www.paybeamv1.databinding.ChangePasswordActivityBinding;
@@ -61,6 +65,53 @@ public class ChangePasswordActivity extends AppCompatActivity implements ChangeP
         builder.show();
     }
 
+    @Override
+    public void showErrorMessage(String message) {
+        AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+
+        dlgAlert.setMessage(message);
+        dlgAlert.setTitle("Message");
+        dlgAlert.setPositiveButton("OK", null);
+        dlgAlert.setCancelable(true);
+
+        dlgAlert.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        finish();
+                    }
+                });
+
+        dlgAlert.create().show();
+    }
+
+    @Override
+    public void showSuccess(String message)
+    {
+        AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+
+        dlgAlert.setMessage(message);
+        dlgAlert.setTitle("Message");
+        dlgAlert.setPositiveButton("OK", null);
+        dlgAlert.setCancelable(true);
+
+        dlgAlert.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        //CreateAccountActivity.this.finish();
+                        //finish();
+
+                        Intent intent = new Intent(ChangePasswordActivity.this, LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |  Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);
+                    }
+                });
+
+        dlgAlert.create().show();
+    }
 
     @Override
     public Activity getActivity() {

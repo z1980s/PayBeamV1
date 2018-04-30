@@ -13,6 +13,8 @@ public interface ChangePasswordContract
     {
         void extractValues();
         void showDialog(String Title,String message);
+        void showSuccess(String message);
+        void showErrorMessage(String errorMsg);
         Activity getActivity();
     }
 
@@ -20,6 +22,6 @@ public interface ChangePasswordContract
     {
         void onSubmitChangePassButton(View view);
         void localPasswordCheck(String oldPass, String newPass, String retypePass);
-        void changePassword(String oldPass, String newPass, String retypePass);
+        void changePassword(String oldPass, String newPass);
     }
 }
