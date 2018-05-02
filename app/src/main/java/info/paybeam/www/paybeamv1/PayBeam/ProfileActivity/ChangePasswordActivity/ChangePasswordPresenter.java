@@ -95,6 +95,8 @@ public class ChangePasswordPresenter implements ChangePasswordContract.ChangePas
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                } else {
+                    cpView.showErrorMessage(responseObj.get("reason").getAsString());
                 }
             }
         };

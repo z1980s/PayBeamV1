@@ -4,6 +4,7 @@ package info.paybeam.www.paybeamv1.PayBeam.ConnectionModule;
  * Created by Dai Wei on 3/4/2018.
  */
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -31,11 +32,14 @@ import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManagerFactory;
 
+import static android.app.ProgressDialog.STYLE_SPINNER;
+
 public abstract class ServerConnection extends AsyncTask<Void, Void, String> implements ServerConnectionCallback { //implements Callable {
     private JsonObject msg;
     private String response;
 
     private Context context;
+    ProgressDialog pd;
 
     private static final int DEFAULT_CONNECT_TIMEOUT = 5000;
 
@@ -44,6 +48,8 @@ public abstract class ServerConnection extends AsyncTask<Void, Void, String> imp
         this.msg = msg;
         //context is used to open file from Assets folder!
         this.context = context;
+        this.pd = new ProgressDialog(this.context, STYLE_SPINNER);
+        this.pd.setCancelable(false);
     }
 
     public static JsonObject createMessage(String header, String dataType, String[] memberNames ,String[] data) {
@@ -61,6 +67,12 @@ public abstract class ServerConnection extends AsyncTask<Void, Void, String> imp
     }
 
     public abstract void receiveResponse(String response);
+
+    @Override
+    protected void onPreExecute() {
+        this.pd.setMessage("Please Wait...");
+        this.pd.show();
+    }
 
     @Override
     protected String doInBackground(Void... params) {
@@ -119,7 +131,10 @@ public abstract class ServerConnection extends AsyncTask<Void, Void, String> imp
                 return response;
             } catch (SocketTimeoutException ste) {
                 System.err.println("[ERROR] Connection timed out (5 seconds)");
-                return "Failure! Connection to Server Timed Out";
+                JsonObject internalResponse = new JsonObject();
+                internalResponse.addProperty("result", "Failure");
+                internalResponse.addProperty("reason","Failure! Connection to Server Timed Out");
+                return internalResponse.toString();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -129,6 +144,10 @@ public abstract class ServerConnection extends AsyncTask<Void, Void, String> imp
 
     @Override
     protected void onPostExecute(String response) {
+        if (this.pd.isShowing()) {
+            this.pd.dismiss();
+        }
+
         if (response != null) {
             receiveResponse(response);
         }
