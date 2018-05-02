@@ -8,9 +8,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.braintreepayments.cardform.OnCardFormSubmitListener;
+import com.braintreepayments.cardform.utils.CardType;
 import com.braintreepayments.cardform.view.CardForm;
+import com.braintreepayments.cardform.view.SupportedCardTypesView;
 
 import info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity.CardActivity;
 import info.paybeam.www.paybeamv1.R;
@@ -20,6 +23,7 @@ public class AddCardActivity extends AppCompatActivity implements AddCardContrac
 {
     private AddCardContract.AddCardPresenter addCardPresenter;
     private CardForm cardForm;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +121,20 @@ public class AddCardActivity extends AppCompatActivity implements AddCardContrac
     @Override
     public void finishAddCard() {
         finish();
+    }
+
+    @Override
+    public boolean validate() {
+        boolean valid = false;
+        if (cardForm.isValid()) {
+            Toast.makeText(this, "VALID", Toast.LENGTH_SHORT).show();
+            valid = true;
+        } else {
+            cardForm.validate();
+            Toast.makeText(this, "INVALID", Toast.LENGTH_SHORT).show();
+            valid = false;
+        }
+        return valid;
     }
 
 

@@ -18,10 +18,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+
 import java.util.ArrayList;
 
 import info.paybeam.www.paybeamv1.PayBeam.HomeActivity.HomeActivity;
 import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
+import info.paybeam.www.paybeamv1.PayBeam.ListAdapter.Cards;
+import info.paybeam.www.paybeamv1.PayBeam.ListAdapter.CardsAdapter;
 import info.paybeam.www.paybeamv1.PayBeam.WalletActivity.TopUpWalletActivity.TopUpWalletActivity;
 import info.paybeam.www.paybeamv1.R;
 import info.paybeam.www.paybeamv1.databinding.WithdrawWalletActivityBinding;
@@ -33,8 +37,10 @@ public class WithdrawWalletActivity extends AppCompatActivity implements Withdra
     private WithdrawWalletPresenter withdrawWalletPresenter;
 
     private ListView lst;
-    private ArrayList<String> cards;
+    private ArrayList<JsonObject> cards;
     private String chosenCard;
+
+    private CardsAdapter cardAdapter;
 
     Button withdrawButton;
 
@@ -54,19 +60,24 @@ public class WithdrawWalletActivity extends AppCompatActivity implements Withdra
     }
 
     @Override
-    public void displayCards(ArrayList<String> cards)
+    public void displayCards(ArrayList<JsonObject> cards)
     {
-
         //display all available cards on screen
-        Toast.makeText(this, "There are "+ cards.size() + " cards", Toast.LENGTH_SHORT).show();
-        //this.cards = cards;
-        this.cards = InternalStorage.readCardsFromFile(this,"cards");
+        this.cards = cards;
 
         lst= (ListView) findViewById(R.id.cardlistView2);
-        //ArrayAdapter to create a view for each array item
-        final ArrayAdapter<String> arrayadapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, this.cards);
-        //Set the adapter to the listview
-        lst.setAdapter(arrayadapter);
+
+        ArrayList<Cards> cardsList = new ArrayList<>();
+
+        for(JsonObject card : cards)
+        {
+            cardsList.add(new Cards(card.get("cardType").getAsInt(), card.get("cardNum").getAsString() , card.get("expiryDate").getAsString(), card.get("primary").getAsBoolean()));
+        }
+
+        //Put the cardList into cardAdapter
+        cardAdapter = new CardsAdapter(this,cardsList);
+        //set cardAdapter into the listview
+        lst.setAdapter(cardAdapter);
 
         lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

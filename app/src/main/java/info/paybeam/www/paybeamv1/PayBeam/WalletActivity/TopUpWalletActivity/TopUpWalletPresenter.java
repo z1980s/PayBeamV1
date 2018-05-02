@@ -31,7 +31,7 @@ public class TopUpWalletPresenter implements TopUpWalletContract.TopUpWalletPres
     @Override
     public void onTopUpWalletPageDisplayed() {
         //Toast.makeText(topUpWalletView.getActivity(),"hello", Toast.LENGTH_SHORT).show();
-         topUpWalletView.displayCards(InternalStorage.readCardsFromFile(topUpWalletView.getActivity().getApplicationContext(),"cards"));
+         topUpWalletView.displayCards(InternalStorage.readCardsFromFile(topUpWalletView.getActivity(),"cards"));
 
     }
 

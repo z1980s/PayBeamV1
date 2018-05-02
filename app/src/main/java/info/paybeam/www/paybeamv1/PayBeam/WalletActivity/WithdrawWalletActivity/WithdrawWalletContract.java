@@ -3,6 +3,8 @@ package info.paybeam.www.paybeamv1.PayBeam.WalletActivity.WithdrawWalletActivity
 import android.app.Activity;
 import android.view.View;
 
+import com.google.gson.JsonObject;
+
 import java.util.ArrayList;
 
 /**
@@ -14,7 +16,7 @@ public interface WithdrawWalletContract {
     interface WithdrawWalletView
     {
         void getAmountDialog(View view);
-        void displayCards(ArrayList<String> cards);
+        void displayCards(ArrayList<JsonObject> cards);
         void showSuccess(String message);
         void showErrorMessage(String errorMsg);
         Activity getActivity();

@@ -19,6 +19,7 @@ public interface AddCardContract {
         void showServerError();
         Activity getActivity();
         void finishAddCard();
+        boolean validate();
     }
 
     interface AddCardPresenter

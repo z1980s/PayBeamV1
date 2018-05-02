@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.braintreepayments.cardform.*;
+import com.braintreepayments.cardform.utils.CardType;
+import com.braintreepayments.cardform.view.CardForm;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -33,12 +35,17 @@ public class AddCardPresenter implements AddCardContract.AddCardPresenter{
     CardPresenter cardPresenter;
 
     @Override
-    public void onAddCardButtonClick(View view){
-        //establish connection to the server
-        //store information
+    public void onAddCardButtonClick(View view)
+    {
+        boolean valid = addCardView.validate();
+        if (valid)
+        {
+            addCardView.extractValues();
+        }
 
-        Toast.makeText(addCardView.getActivity(), "WHAT THE FUCK", Toast.LENGTH_SHORT);
-        addCardView.extractValues();
+
+
+
     }
 
     @Override
@@ -64,8 +71,15 @@ public class AddCardPresenter implements AddCardContract.AddCardPresenter{
         maskCardNum = String.valueOf(chars)+ " , " + (expirationMonth+"/"+expirationYear) +'\n';
         */
 
-        maskCardNum = maskCardNum.substring(length-5,length-1)+ " , " + (expirationMonth+"/"+expirationYear) +'\n';
+        CardType cardType = CardType.forCardNumber(cardNumber);
 
+
+        //last 4 digits, expiry date, cardType enum
+        maskCardNum = maskCardNum.substring(length-5,length-1);
+                //+ "," + (expirationMonth+"/"+expirationYear) + "," + cardType.getFrontResource() +'\n';
+        //Toast.makeText(addCardView.getActivity(),"CARD TYPE: " + cardType, Toast.LENGTH_SHORT).show();
+
+        /*
         String[] credentials = InternalStorage.readString(addCardView.getActivity(), "Credentials").split(",");
         String token = InternalStorage.readToken(addCardView.getActivity(), "Token");
 
@@ -114,17 +128,22 @@ public class AddCardPresenter implements AddCardContract.AddCardPresenter{
         } catch (Exception e){
             e.printStackTrace();
         }
+        */
         //if there are no cards
         //write masked cardnumber to the default card file
 
         int count = InternalStorage.countEntries(addCardView.getActivity(),"cards");
+        boolean primary = false;
         if(count==0)
         {
-            InternalStorage.writeString(addCardView.getActivity(),"defaultCard", maskCardNum);
+            //InternalStorage.writeString(addCardView.getActivity(),"defaultCard", maskCardNum);
+            primary = true;
         }
 
+
+
         //write masked cardnumber to the card file
-        InternalStorage.writeCardToFile(addCardView.getActivity(),"cards", maskCardNum);
+        InternalStorage.writeCardToFile(addCardView.getActivity(),"cards", maskCardNum, (expirationMonth+"/"+expirationYear), Integer.toString(cardType.getFrontResource()), primary);
 
         //InternalStorage.delete(addCardView.getActivity().getApplicationContext(),"card");
 

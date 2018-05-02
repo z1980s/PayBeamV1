@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="cardViewPresenter"
+            type="info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardViewActivity.CardViewContract.CardViewPresenter"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_key"
+        app:layout_constraintBottom_toTopOf="@+id/primary_switch"
+        app:layout_constraintTop_toTopOf="@+id/primary_switch"
+        tools:context="info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardViewActivity.CardViewActivity">
+
+
+        <TextView
+            android:id="@+id/primary_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:text="Primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.214"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/expiry_text" />
+
+        <Switch
+            android:id="@+id/primary_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:checked="false"
+            android:shadowColor="@color/colorAccent"
+            android:splitTrack="false"
+            android:text="Primary"
+            android:textColorHighlight="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.243"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/primary_text"
+            tools:checked="false" />
+
+        <TextView
+            android:id="@+id/expiry_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Expiry"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.208"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_num_text" />
+
+        <TextView
+            android:id="@+id/card_num_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="CardNum"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.214"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_image" />
+
+        <ImageView
+            android:id="@+id/card_image"
+            android:layout_width="80dp"
+            android:layout_height="78dp"
+            android:layout_marginTop="32dp"
+            android:adjustViewBounds="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.125"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="Delete"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:onClick="@{cardViewPresenter::onDeleteButtonClick}"/>
+
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

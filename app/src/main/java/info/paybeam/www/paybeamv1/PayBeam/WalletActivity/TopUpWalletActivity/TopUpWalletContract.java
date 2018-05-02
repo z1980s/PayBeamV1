@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.ListView;
 
+import com.google.gson.JsonObject;
+
 import java.util.ArrayList;
 
 /**
@@ -14,7 +16,7 @@ public interface TopUpWalletContract {
 
     interface TopUpWalletView
     {
-        void displayCards(ArrayList<String> cards);
+        void displayCards(ArrayList<JsonObject> cards);
         void showSuccess(String message);
         void showErrorMessage(String errorMsg);
         String showDialog(View view);
