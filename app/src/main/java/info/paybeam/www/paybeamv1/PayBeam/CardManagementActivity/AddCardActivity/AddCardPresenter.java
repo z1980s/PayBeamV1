@@ -79,7 +79,7 @@ public class AddCardPresenter implements AddCardContract.AddCardPresenter{
                 //+ "," + (expirationMonth+"/"+expirationYear) + "," + cardType.getFrontResource() +'\n';
         //Toast.makeText(addCardView.getActivity(),"CARD TYPE: " + cardType, Toast.LENGTH_SHORT).show();
 
-        /*
+
         String[] credentials = InternalStorage.readString(addCardView.getActivity(), "Credentials").split(",");
         String token = InternalStorage.readToken(addCardView.getActivity(), "Token");
 
@@ -128,7 +128,7 @@ public class AddCardPresenter implements AddCardContract.AddCardPresenter{
         } catch (Exception e){
             e.printStackTrace();
         }
-        */
+
         //if there are no cards
         //write masked cardnumber to the default card file
 
