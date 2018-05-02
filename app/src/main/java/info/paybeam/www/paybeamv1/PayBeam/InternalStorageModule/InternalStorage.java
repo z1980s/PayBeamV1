@@ -2,10 +2,13 @@ package info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.JsonReader;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonElement;
+import com.google.gson.internal.JsonReaderInternalAccess;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,6 +21,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import info.paybeam.www.paybeamv1.PayBeam.ListAdapter.Cards;
 
 /**
  * Created by dflychew on 9/4/18.
@@ -119,7 +124,7 @@ public class InternalStorage {
             BufferedReader bufferedReader = new BufferedReader(isr);
             //StringBuilder sb = new StringBuilder();
             String line;
-            while ((line = bufferedReader.readLine()) != null) {
+            while (( bufferedReader.readLine()) != null) {
                 //sb.append(line);
                 //Toast.makeText(context,line,Toast.LENGTH_SHORT).show();
                 count++;
@@ -201,7 +206,7 @@ public class InternalStorage {
         */
     }
 
-
+/*
     public static void writeCardToFile(Context context, String filename, String string)
     {
         FileOutputStream outputStream;
@@ -217,6 +222,57 @@ public class InternalStorage {
             e.printStackTrace();
         }
     }
+    */
+public static void writeCardToFile(Context context, String filename, String cardNum, String expiryDate, String cardType, boolean primary)
+{
+
+    //Create JSON object containing the card details
+    JsonObject obj = new JsonObject();
+    obj.addProperty("cardNum",cardNum);
+    obj.addProperty("expiryDate",expiryDate);
+    obj.addProperty("cardType",cardType);
+    obj.addProperty("primary",primary);
+
+
+    FileOutputStream outputStream;
+
+    try {
+        //MODE_PRIVATE FOR WRITE
+        //MODE_APPEND FOR APPEND
+        outputStream = context.openFileOutput(filename, context.MODE_APPEND);
+        outputStream.write(obj.toString().getBytes());
+        outputStream.write("\n".toString().getBytes());
+        outputStream.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+
+    public static void writeCardListToFile(Context context, String filename, ArrayList<JsonObject> cardList)
+    {
+
+
+        FileOutputStream outputStream;
+
+        try {
+            //MODE_PRIVATE FOR WRITE
+            //MODE_APPEND FOR APPEND
+            outputStream = context.openFileOutput(filename, context.MODE_PRIVATE);
+
+            for(JsonObject obj:cardList)
+            {
+                outputStream.write(obj.toString().getBytes());
+                outputStream.write("\n".toString().getBytes());
+            }
+
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     //name, username, email, address, phoneNo
     public static void writeProfileToFile(Context context, String filename, String name, String username,
                                           String email, String address, String phoneNo)
@@ -264,7 +320,10 @@ public class InternalStorage {
         return obj;
     }
 
+
+    /*
     public static ArrayList<String> readCardsFromFile(Context context, String filename) {
+
 
         ArrayList<String> cards = new ArrayList<String>();
         try {
@@ -284,4 +343,57 @@ public class InternalStorage {
         }
         return cards;
     }
+    */
+
+
+    public static ArrayList<JsonObject> readCardsFromFile(Context context, String filename) {
+
+        ArrayList<JsonObject> cards = new ArrayList<>();
+        try {
+            FileInputStream fis = context.openFileInput(filename);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            //StringBuilder sb = new StringBuilder();
+            String line;
+            JsonObject obj;
+
+            while ((line = bufferedReader.readLine()) != null) {
+                //sb.append(line);
+                //Toast.makeText(context,line,Toast.LENGTH_SHORT).show();
+                //line = bufferedReader.readLine();
+                JsonParser jParser = new JsonParser();
+                obj = (JsonObject) jParser.parse(line);
+                cards.add(obj);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cards;
+    }
+
+    public static void deleteCard(Context context, String filename, Cards card){
+
+        //create array to store cards from internal storage
+        ArrayList<JsonObject> cardList = new ArrayList<JsonObject>();
+
+        //Get cards and put into the array
+        cardList = readCardsFromFile(context,filename);
+
+        int index = -1;
+        //find the index of the entry from the array
+        for(int i =0; i < cardList.size();i++)
+        {
+            if(cardList.get(i).get("cardNum").getAsString().equals(card.getCardNum()) &&  cardList.get(i).get("expiryDate").getAsString().equals(card.getExpiryDate()))
+            {
+                index = i;
+            }
+        }
+
+        //remove the card from array using index
+        cardList.remove(index);
+
+        writeCardListToFile(context,filename,cardList);
+
+    }
+
 }

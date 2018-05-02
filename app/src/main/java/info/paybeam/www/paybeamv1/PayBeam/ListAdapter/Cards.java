@@ -1,12 +1,14 @@
 package info.paybeam.www.paybeamv1.PayBeam.ListAdapter;
 
+import java.io.Serializable;
+
 /**
  * Created by dflychew on 26/4/18.
  */
 
 
 
-public class Cards{
+public class Cards implements Serializable{
 
     // Store the id of the  card image
     private int cardImage;
@@ -14,12 +16,16 @@ public class Cards{
     private String cardNum;
     // Store the expiry date of card
     private String expiryDate;
+    // Store if the card is primary
+    private Boolean primary;
 
     // Constructor that is used to create an instance of the Movie object
-    public Cards(int cardImage, String cardNum, String expiryDate) {
+    public Cards(int cardImage, String cardNum, String expiryDate, Boolean primary) {
         this.cardImage = cardImage;
         this.cardNum = cardNum;
         this.expiryDate = expiryDate;
+        this.primary = primary;
+
     }
 
     public int getCardImage() {
@@ -44,5 +50,13 @@ public class Cards{
 
     public void setExpiryDate(String expiryDate) {
         this.expiryDate = expiryDate;
+    }
+
+    public Boolean getPrimary() {
+        return primary;
+    }
+
+    public void setPrimary(Boolean primary) {
+        this.primary = primary;
     }
 }

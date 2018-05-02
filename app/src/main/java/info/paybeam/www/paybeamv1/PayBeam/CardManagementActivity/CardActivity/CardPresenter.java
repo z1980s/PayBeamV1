@@ -24,7 +24,7 @@ class CardPresenter implements CardContract.CardPresenter
     @Override
     public void onCardPageDisplayed() {
         //get the cards from internal storage return in an array
-        cardView.displayCards(InternalStorage.readCardsFromFile(cardView.getActivity().getApplicationContext(),"cards"));
+        cardView.displayCards(InternalStorage.readCardsFromFile(cardView.getActivity(),"cards"));
         //InternalStorage.write(cardView.getActivity().getApplicationContext(),"cards","XXXXXXXXXXXX1234");
         /*
         ArrayList<String>temp = InternalStorage.readCardsFromFile(cardView.getActivity().getApplicationContext(),"cards");

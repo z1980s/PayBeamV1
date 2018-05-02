@@ -8,6 +8,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+
 import java.util.ArrayList;
 
 import info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity.CardActivity;
@@ -23,7 +25,7 @@ public class GetCards extends AppCompatActivity {
 
 //Get the cards and pass return
 
-    public ArrayList<String> getCards()
+    public ArrayList<JsonObject> getCards()
     {
         return InternalStorage.readCardsFromFile(this,"cards");
     }
