@@ -8,6 +8,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import info.paybeam.www.paybeamv1.PayBeam.ConnectionModule.ServerConnection;
 import info.paybeam.www.paybeamv1.PayBeam.ConnectionModule.ServerConnectionCallback;
@@ -77,6 +78,27 @@ public class LoginPresenter implements LoginContract.LoginPresenter
                                         userProfile.get("PhoneNumber").getAsString());
                             }
 
+                            ArrayList<JsonObject> cardArrayList = new ArrayList<JsonObject>();
+                            JsonObject cardList = jResponse.getAsJsonObject("CardList");
+                            if (cardList.get("count").getAsInt() > 0) {
+                                for (int a = 0; a < cardList.get("count").getAsInt(); a++) {
+                                    JsonObject card = cardList.get("Card_" + (a + 1)).getAsJsonObject();
+                                    String cardNo = card.get("CardNo").getAsString();
+                                    String cardExpiry = card.get("CardExpiry").getAsString();
+                                    String cardType = card.get("CardType").getAsString();
+                                    Boolean isDefault = card.get("Default").getAsBoolean();
+                                    JsonObject newCard = new JsonObject();
+                                    newCard.addProperty("cardNum", cardNo);
+                                    newCard.addProperty("expiryDate", cardExpiry);
+                                    newCard.addProperty("cardType", cardType);
+                                    newCard.addProperty("primary", isDefault);
+                                    cardArrayList.add(newCard);
+                                }
+
+                            } else {
+
+                            }
+                            InternalStorage.writeCardListToFile(loginView.getActivity(),"cards", cardArrayList);
                             loginView.showHomeView();
                         } else {
                             //do failure

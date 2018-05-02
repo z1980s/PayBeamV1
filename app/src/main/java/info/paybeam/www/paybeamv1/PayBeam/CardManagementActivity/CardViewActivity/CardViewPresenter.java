@@ -1,11 +1,14 @@
 package info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardViewActivity;
 
+import android.annotation.SuppressLint;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity.CardContract;
+import info.paybeam.www.paybeamv1.PayBeam.ConnectionModule.ServerConnection;
 import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
 import info.paybeam.www.paybeamv1.PayBeam.ListAdapter.Cards;
 
@@ -39,17 +42,42 @@ public class CardViewPresenter implements CardViewContract.CardViewPresenter {
 
 
         //Get the card details
-        Cards card = cardViewView.getCard();
+        final Cards card = cardViewView.getCard();
 
+        String[] credentials= InternalStorage.readString(cardViewView.getActivity(), "Credentials").split(",");
+        final String username = credentials[0];
+        final String token = InternalStorage.readToken(cardViewView.getActivity(),"Token");
         //Implement Delete on Server
+        JsonObject msg = new JsonObject();
+        msg.addProperty("Header", "RemoveCard");
+        msg.addProperty("LoginName", username);
+        msg.addProperty("CardNo", card.getCardNum());
+        msg.addProperty("Token", InternalStorage.readToken(cardViewView.getActivity(), "Token"));
 
+        @SuppressLint("StaticFieldLeak")
+        ServerConnection sc = new ServerConnection(msg, cardViewView.getActivity()) {
+            @Override
+            public void receiveResponse(String response) {
+                try {
+                    JsonParser jParser = new JsonParser();
+                    JsonObject jResponse = (JsonObject) jParser.parse(response);
+                    if (jResponse.get("result").getAsString().equals("Success")) {
 
+                        //Implement delete on local file
+                        InternalStorage.deleteCard(cardViewView.getActivity(),"cards", card);
+                        cardViewView.showSuccessMessage(jResponse.get("reason").getAsString());
 
-        //Implement delete on local file
+                    } else {
+                        cardViewView.showErrorMessage(jResponse.get("reason").getAsString());
+                    }
 
-        InternalStorage.deleteCard(cardViewView.getActivity(),"cards", card);
+                } catch (Exception e) {
+                    System.err.println("A system Error has occured");
+                }
+            }
+        };
 
-        cardViewView.getActivity().finish();
+        sc.execute(null,null,null);
 
     }
 }

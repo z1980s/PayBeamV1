@@ -13,6 +13,8 @@ public interface CardViewContract {
 
     interface CardViewView{
         void setCard();
+        void showSuccessMessage(String succMsg);
+        void showErrorMessage(String errorMsg);
         Activity getActivity();
         Cards getCard();
 

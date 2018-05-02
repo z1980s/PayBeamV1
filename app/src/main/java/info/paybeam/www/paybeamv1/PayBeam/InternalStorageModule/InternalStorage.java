@@ -260,12 +260,14 @@ public static void writeCardToFile(Context context, String filename, String card
             //MODE_APPEND FOR APPEND
             outputStream = context.openFileOutput(filename, context.MODE_PRIVATE);
 
-            for(JsonObject obj:cardList)
-            {
-                outputStream.write(obj.toString().getBytes());
-                outputStream.write("\n".toString().getBytes());
+            if (cardList.size() != 0) {
+                for (JsonObject obj : cardList) {
+                    outputStream.write(obj.toString().getBytes());
+                    outputStream.write("\n".toString().getBytes());
+                }
+            } else {
+                outputStream.write("".getBytes());
             }
-
             outputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -319,32 +321,6 @@ public static void writeCardToFile(Context context, String filename, String card
 
         return obj;
     }
-
-
-    /*
-    public static ArrayList<String> readCardsFromFile(Context context, String filename) {
-
-
-        ArrayList<String> cards = new ArrayList<String>();
-        try {
-            FileInputStream fis = context.openFileInput(filename);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader bufferedReader = new BufferedReader(isr);
-            //StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                //sb.append(line);
-                //Toast.makeText(context,line,Toast.LENGTH_SHORT).show();
-                cards.add(line);
-            }
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
-        return cards;
-    }
-    */
-
 
     public static ArrayList<JsonObject> readCardsFromFile(Context context, String filename) {
 

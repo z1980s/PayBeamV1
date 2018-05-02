@@ -69,7 +69,7 @@ public class AddCardActivity extends AppCompatActivity implements AddCardContrac
         AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
 
         dlgAlert.setMessage(succMsg);
-        dlgAlert.setTitle("Error");
+        dlgAlert.setTitle("Success");
         dlgAlert.setPositiveButton("OK", null);
         dlgAlert.setCancelable(true);
         dlgAlert.create().show();
@@ -79,7 +79,7 @@ public class AddCardActivity extends AppCompatActivity implements AddCardContrac
                 {
                     public void onClick(DialogInterface dialog, int which)
                     {
-
+                        finish();
                     }
                 });
 
