@@ -7,6 +7,8 @@ public interface ScanQRContract
     interface ScanQRView
     {
         Activity getActivity();
+        void showErrorMessage(String message);
+        void showSuccess(String message);
     }
 
     interface ScanQRPresenter

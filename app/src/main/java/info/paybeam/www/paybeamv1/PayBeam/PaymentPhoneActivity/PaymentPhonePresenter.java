@@ -82,7 +82,7 @@ public class PaymentPhonePresenter implements PaymentPhoneContract.PaymentPhoneP
                     }
                 } catch (com.google.gson.JsonSyntaxException jse){
                     System.err.println("[ERROR] Malformed Json Received! Server is most likely offline.");
-                    //ppView.showErrorMessage(response);
+                    ppView.showErrorMessage(response);
                 }
             }
         };

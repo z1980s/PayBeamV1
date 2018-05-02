@@ -68,10 +68,10 @@ public class ChangePasswordPresenter implements ChangePasswordContract.ChangePas
             @Override
             public void receiveResponse(String response) {
                 JsonParser jParser = new JsonParser();
-                JsonObject responseObj = (JsonObject) jParser.parse(response);
-                if (responseObj.get("result").getAsString().equals("Success")) {
+                JsonObject jResponse = (JsonObject) jParser.parse(response);
+                if (jResponse.get("result").getAsString().equals("Success")) {
                     try {
-                        String hash = responseObj.get("hash").getAsString();
+                        String hash = jResponse.get("hash").getAsString();
                         JsonObject msg = new JsonObject();
                         msg.addProperty("Header", "ChangePassword");
                         msg.addProperty("LoginName", credentials[0]);
@@ -93,10 +93,10 @@ public class ChangePasswordPresenter implements ChangePasswordContract.ChangePas
                         };
                         sc.execute(null,null,null);
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        cpView.showErrorMessage(response);
                     }
                 } else {
-                    cpView.showErrorMessage(responseObj.get("reason").getAsString());
+                    cpView.showErrorMessage(jResponse.get("reason").getAsString());
                 }
             }
         };

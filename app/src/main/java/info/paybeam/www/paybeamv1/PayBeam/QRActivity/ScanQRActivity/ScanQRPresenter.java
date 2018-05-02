@@ -42,9 +42,10 @@ public class ScanQRPresenter implements ScanQRContract.ScanQRPresenter
                     msg.addProperty("Header", "DecodeQR");
                     msg.addProperty("Payee", username);
                     JsonParser jParser = new JsonParser();
+                    //username + DESPP(Json(username + Amount))
                     JsonObject data = (JsonObject) jParser.parse(result);
                     msg.add("Data", data);
-
+                    //Header + Payee + username + encrypted
 
                     @SuppressLint("StaticFieldLeak")
                     ServerConnection sc = new ServerConnection(msg, scanQRView.getActivity()) {
@@ -55,28 +56,16 @@ public class ScanQRPresenter implements ScanQRContract.ScanQRPresenter
                                 JsonObject jResponse = (JsonObject) jParser.parse(response);
                                 if (jResponse.get("result").getAsString().equals("Success")) {
                                     System.out.println("Success");
-
-                                    AlertDialog alertDialog = new AlertDialog.Builder(scanQRView.getActivity()).create();
-                                    alertDialog.setTitle("Success");
-                                    alertDialog.setMessage("Successful Transaction");
-                                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                                            new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    dialog.dismiss();
-                                                }
-                                            });
-                                    alertDialog.show();
-
                                     //do success
-                                    //scanQRView.showHomeView();
+                                    scanQRView.showSuccess(jResponse.get("reason").getAsString());
                                 } else {
                                     //do failure
                                     System.out.println("Failed");
-                                    //scanQRView.showErrorMessage(jResponse.get("reason").getAsString());
+                                    scanQRView.showErrorMessage(jResponse.get("reason").getAsString());
                                 }
                             } catch (com.google.gson.JsonSyntaxException jse){
                                 System.err.println("[ERROR] Malformed Json Received! Server is most likely offline.");
-                                //scanQRView.showErrorMessage(response);
+                                scanQRView.showErrorMessage(response);
                             }
                         }
                     };

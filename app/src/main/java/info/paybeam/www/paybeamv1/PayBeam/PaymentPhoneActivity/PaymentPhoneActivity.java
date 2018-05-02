@@ -369,6 +369,26 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
     }
 
     @Override
+    public void showErrorMessage(String message) {
+        AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+
+        dlgAlert.setMessage(message);
+        dlgAlert.setTitle("Message");
+        dlgAlert.setPositiveButton("OK", null);
+        dlgAlert.setCancelable(true);
+
+        dlgAlert.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        finish();
+                    }
+                });
+
+        dlgAlert.create().show();
+    }
+    @Override
     public void showSuccess(String message)
     {
         AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);

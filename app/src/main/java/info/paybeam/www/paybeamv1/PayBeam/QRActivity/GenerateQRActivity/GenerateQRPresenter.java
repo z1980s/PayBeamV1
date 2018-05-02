@@ -72,12 +72,15 @@ public class GenerateQRPresenter implements GenerateQRContract.GenerateQRPresent
                     if (hash != null) {
                         JsonObject qrText = new JsonObject();
 
+                        // username + DESPP(Json(username + Amount))
                         qrText.addProperty("LoginName", username);
                         //String qrText = username;
-                        String desText = username + "," + amount;
+                        JsonObject desTextObj = new JsonObject();
+                        desTextObj.addProperty("LoginName", username);
+                        desTextObj.addProperty("Amount", amount);
 
                         try {
-                            String encrypted = new DESPassPhrase(hash).encrypt(desText);
+                            String encrypted = new DESPassPhrase(hash).encrypt(desTextObj.toString()    );
                             qrText.addProperty("encrypted", encrypted);
                             System.out.println(qrText.toString());
                             //qrText += "," + encrypted;
@@ -94,6 +97,7 @@ public class GenerateQRPresenter implements GenerateQRContract.GenerateQRPresent
                             }
                         } catch (Exception e) {
                             System.out.println("Unknown error");
+                            //generateQRView.showErrorMessage(response);
                         }
                     } else {
                         System.out.println("NO HASH DETECTED");

@@ -131,10 +131,7 @@ public abstract class ServerConnection extends AsyncTask<Void, Void, String> imp
                 return response;
             } catch (SocketTimeoutException ste) {
                 System.err.println("[ERROR] Connection timed out (5 seconds)");
-                JsonObject internalResponse = new JsonObject();
-                internalResponse.addProperty("result", "Failure");
-                internalResponse.addProperty("reason","Failure! Connection to Server Timed Out");
-                return internalResponse.toString();
+                return "Server Connection Timed Out";
             }
         } catch (Exception e) {
             e.printStackTrace();

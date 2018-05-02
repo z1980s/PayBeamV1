@@ -82,7 +82,7 @@ public class EditProfilePresenter implements EditProfileContract.EditProfilePres
                             editProfileView.showErrorMessage(jResponse.get("reason").getAsString());
                         }
                     } catch (com.google.gson.JsonSyntaxException jse) {
-                        editProfileView.showErrorMessage("Failed to Connect to Server");
+                        editProfileView.showErrorMessage(response);
                         System.err.println("[ERROR] Malformed Json Received! Server is most likely offline.");
                     }
                 }

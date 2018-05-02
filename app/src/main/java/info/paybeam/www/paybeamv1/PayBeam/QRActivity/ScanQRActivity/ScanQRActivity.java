@@ -1,10 +1,13 @@
 package info.paybeam.www.paybeamv1.PayBeam.QRActivity.ScanQRActivity;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import com.google.zxing.Result;
@@ -12,6 +15,9 @@ import com.google.zxing.Result;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import info.paybeam.www.paybeamv1.PayBeam.HomeActivity.HomeActivity;
+import info.paybeam.www.paybeamv1.PayBeam.LoginActivity.LoginActivity;
+import info.paybeam.www.paybeamv1.PayBeam.ProfileActivity.ChangePasswordActivity.ChangePasswordActivity;
 import info.paybeam.www.paybeamv1.R;
 import info.paybeam.www.paybeamv1.databinding.ScanQrActivityBinding;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -64,6 +70,55 @@ public class ScanQRActivity extends AppCompatActivity implements ScanQRContract.
     private void requestPermission() {
         ActivityCompat.requestPermissions(this, new String[]{CAMERA}, REQUEST_CAMERA);
     }
+
+    @Override
+    public void showErrorMessage(String message) {
+        AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+
+        dlgAlert.setMessage(message);
+        dlgAlert.setTitle("Message");
+        dlgAlert.setPositiveButton("OK", null);
+        dlgAlert.setCancelable(true);
+
+        dlgAlert.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        finish();
+                    }
+                });
+
+        dlgAlert.create().show();
+    }
+
+    @Override
+    public void showSuccess(String message)
+    {
+        AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+
+        dlgAlert.setMessage(message);
+        dlgAlert.setTitle("Message");
+        dlgAlert.setPositiveButton("OK", null);
+        dlgAlert.setCancelable(true);
+
+        dlgAlert.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        //CreateAccountActivity.this.finish();
+                        //finish();
+
+                        Intent intent = new Intent(ScanQRActivity.this, HomeActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |  Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);
+                    }
+                });
+
+        dlgAlert.create().show();
+    }
+
     /*
     private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
         new android.support.v7.app.AlertDialog.Builder(ScanQRActivity.this)

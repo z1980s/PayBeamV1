@@ -74,15 +74,15 @@ public class AddCardPresenter implements AddCardContract.AddCardPresenter{
         msg.addProperty("Header", "AddCard");
         msg.addProperty("LoginName", credentials[0]);
         msg.addProperty("CardNo", cardNumber.substring(length-5,length-1));
+        msg.addProperty("ExpiryDate", expirationMonth + "-" + expirationYear);
         JsonObject cardInfo = new JsonObject();
         cardInfo.addProperty("FullCardNo", cardNumber);
-        cardInfo.addProperty("ExpiryMonth", expirationMonth);
-        cardInfo.addProperty("ExpiryYear", expirationYear);
+        cardInfo.addProperty("ExpiryDate", expirationMonth + "-" + expirationYear);
         cardInfo.addProperty("CVV", cvv);
         try {
             byte[] encrypted = new RSA(addCardView.getActivity()).encrypt(cardInfo.toString().getBytes());
             String encryptedString = Base64.encodeToString(encrypted, Base64.NO_WRAP);
-            //System.out.println(encryptedString);
+
             msg.addProperty("encrypted", encryptedString);
             msg.addProperty("token", token);
 
@@ -104,7 +104,7 @@ public class AddCardPresenter implements AddCardContract.AddCardPresenter{
                         }
                     } catch (com.google.gson.JsonSyntaxException jse){
                         System.err.println("[ERROR] Malformed Json Received! Server is most likely offline.");
-                        addCardView.showErrorMessage("ERROR SERVER OFFLINE");
+                        addCardView.showErrorMessage(response);
                     }
                 }
             };

@@ -17,6 +17,7 @@ public interface PaymentPhoneContract
         void handleIncomingMessage();
         Activity getActivity();
         void showSuccess(String message);
+        void showErrorMessage(String errorMsg);
     }
 
     interface PaymentPhonePresenter
