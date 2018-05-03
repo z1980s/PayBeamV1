@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,13 @@ public class CardsAdapter extends ArrayAdapter<Cards>{
 
         TextView expiry = (TextView) listItem.findViewById(R.id.textView_expiryDate);
         expiry.setText(currentCard.getExpiryDate());
+
+        ImageView tick = (ImageView) listItem.findViewById(R.id.textView_tick);
+
+        if(currentCard.getPrimary())
+        {
+            tick.setImageResource(currentCard.getTickImage());
+        }
 
         return listItem;
     }

@@ -73,7 +73,7 @@ public class TopUpWalletActivity extends AppCompatActivity implements TopUpWalle
 
         for(JsonObject card : cards)
         {
-            cardsList.add(new Cards(card.get("cardType").getAsInt(), card.get("cardNum").getAsString() , card.get("expiryDate").getAsString(), card.get("primary").getAsBoolean()));
+            cardsList.add(new Cards(card.get("cardType").getAsInt(), card.get("cardNum").getAsString() , card.get("expiryDate").getAsString(), card.get("primary").getAsBoolean(),R.drawable.ic_done_black_48dp));
         }
 
         //Put the cardList into cardAdapter

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.JsonReader;
 import android.widget.Toast;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonElement;
@@ -350,7 +351,7 @@ public static void writeCardToFile(Context context, String filename, String card
     public static void deleteCard(Context context, String filename, Cards card){
 
         //create array to store cards from internal storage
-        ArrayList<JsonObject> cardList = new ArrayList<JsonObject>();
+        ArrayList<JsonObject> cardList;
 
         //Get cards and put into the array
         cardList = readCardsFromFile(context,filename);
@@ -359,7 +360,7 @@ public static void writeCardToFile(Context context, String filename, String card
         //find the index of the entry from the array
         for(int i =0; i < cardList.size();i++)
         {
-            if(cardList.get(i).get("cardNum").getAsString().equals(card.getCardNum()) &&  cardList.get(i).get("expiryDate").getAsString().equals(card.getExpiryDate()))
+            if(cardList.get(i).get("cardNum").getAsString().equals(card.getCardNum()))
             {
                 index = i;
             }
@@ -371,5 +372,91 @@ public static void writeCardToFile(Context context, String filename, String card
         writeCardListToFile(context,filename,cardList);
 
     }
+
+    //set new default card
+    //returns the old default card details
+    public static JsonObject setNewDefaultCard(Context context, String filename, Cards card)
+    {
+        //create array to store cards from internal storage
+        ArrayList<JsonObject> cardList;
+
+        //Get cards and put into the array
+        cardList = readCardsFromFile(context,filename);
+
+        //Jsonobject to store the old default card
+        JsonObject oldDefault = null;
+
+
+        for(int i =0; i < cardList.size();i++)
+        {
+            if(cardList.get(i).get("primary").getAsBoolean()==true)
+            {
+               oldDefault = cardList.get(i);
+                cardList.get(i).addProperty("primary",false);
+               //cardList.get(i).getAsJsonObject().remove("primary");
+               //cardList.get(i).getAsJsonObject().addProperty("primary",false);
+            }
+            else if(cardList.get(i).get("cardNum").getAsString().equals(card.getCardNum()))
+            {
+                //cardList.get(i).getAsJsonObject().remove("primary");
+               // cardList.get(i).getAsJsonObject().addProperty("primary",true);
+                cardList.get(i).addProperty("primary",true);
+            }
+        }
+
+        writeCardListToFile(context,"cards" ,cardList);
+
+
+        return oldDefault;
+    }
+
+    public static JsonObject getDefaultCard(Context context, String filename)
+    {
+        //create array to store cards from internal storage
+        ArrayList<JsonObject> cardList;
+
+        //Get cards and put into the array
+        cardList = readCardsFromFile(context,filename);
+
+        //Jsonobject to store the old default card
+        JsonObject defaultCard = null;
+
+        for(int i =0; i < cardList.size();i++)
+        {
+            if(cardList.get(i).get("primary").getAsBoolean()==true)
+            {
+                defaultCard = cardList.get(i);
+            }
+
+        }
+
+        return defaultCard;
+
+
+    }
+
+    public static JsonObject getCard(Context context, String filename, Cards card)
+    {
+        //create array to store cards from internal storage
+        ArrayList<JsonObject> cardList;
+
+        //Get cards and put into the array
+        cardList = readCardsFromFile(context,filename);
+
+        //Jsonobject to store the old default card
+        JsonObject obj = null;
+
+        for(int i =0; i < cardList.size();i++)
+        {
+            if(cardList.get(i).get("cardNum").getAsString().equals(card.getCardNum()))
+            {
+                obj = cardList.get(i);
+            }
+
+        }
+
+        return obj;
+    }
+
 
 }
