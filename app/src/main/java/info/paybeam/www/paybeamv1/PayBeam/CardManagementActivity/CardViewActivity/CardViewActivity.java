@@ -3,6 +3,7 @@ package info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardViewActivi
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
@@ -22,6 +23,8 @@ import com.google.gson.JsonObject;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.AddCardActivity.AddCardActivity;
+import info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity.CardActivity;
 import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
 import info.paybeam.www.paybeamv1.PayBeam.ListAdapter.Cards;
 import info.paybeam.www.paybeamv1.R;
@@ -69,6 +72,11 @@ public class CardViewActivity extends AppCompatActivity implements CardViewContr
         });
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     public void showDialog(Cards card){
@@ -138,17 +146,20 @@ public class CardViewActivity extends AppCompatActivity implements CardViewContr
         dlgAlert.setTitle("Success");
         dlgAlert.setPositiveButton("OK", null);
         dlgAlert.setCancelable(true);
-        dlgAlert.create().show();
+
 
         dlgAlert.setPositiveButton("Ok",
                 new DialogInterface.OnClickListener()
                 {
                     public void onClick(DialogInterface dialog, int which)
                     {
-                        finish();
+                        Intent intent = new Intent(CardViewActivity.this, CardActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |  Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);
+
                     }
                 });
-
+        dlgAlert.create().show();
     }
 
     @Override

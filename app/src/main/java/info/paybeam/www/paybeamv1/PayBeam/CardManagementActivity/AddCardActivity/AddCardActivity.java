@@ -16,6 +16,8 @@ import com.braintreepayments.cardform.view.CardForm;
 import com.braintreepayments.cardform.view.SupportedCardTypesView;
 
 import info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity.CardActivity;
+import info.paybeam.www.paybeamv1.PayBeam.LoginActivity.LoginActivity;
+import info.paybeam.www.paybeamv1.PayBeam.ProfileActivity.ChangePasswordActivity.ChangePasswordActivity;
 import info.paybeam.www.paybeamv1.R;
 import info.paybeam.www.paybeamv1.databinding.AddcardActivityBinding;
 
@@ -72,17 +74,18 @@ public class AddCardActivity extends AppCompatActivity implements AddCardContrac
         dlgAlert.setTitle("Success");
         dlgAlert.setPositiveButton("OK", null);
         dlgAlert.setCancelable(true);
-        dlgAlert.create().show();
 
         dlgAlert.setPositiveButton("Ok",
                 new DialogInterface.OnClickListener()
                 {
                     public void onClick(DialogInterface dialog, int which)
                     {
-                        finish();
+                        Intent intent = new Intent(AddCardActivity.this, CardActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |  Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);
                     }
                 });
-
+        dlgAlert.create().show();
     }
 
     @Override
@@ -94,7 +97,6 @@ public class AddCardActivity extends AppCompatActivity implements AddCardContrac
         dlgAlert.setTitle("Error");
         dlgAlert.setPositiveButton("OK", null);
         dlgAlert.setCancelable(true);
-        dlgAlert.create().show();
 
         dlgAlert.setPositiveButton("Ok",
                 new DialogInterface.OnClickListener()
@@ -104,6 +106,8 @@ public class AddCardActivity extends AppCompatActivity implements AddCardContrac
 
                     }
                 });
+
+        dlgAlert.create().show();
     }
 
     @Override
