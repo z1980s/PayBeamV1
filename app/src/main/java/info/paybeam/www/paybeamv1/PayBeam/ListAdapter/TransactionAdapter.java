@@ -37,7 +37,7 @@ public class TransactionAdapter extends ArrayAdapter<Transaction> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View listItem = convertView;
         if(listItem == null)
-            listItem = LayoutInflater.from(mContext).inflate(R.layout.list_item,parent,false);
+            listItem = LayoutInflater.from(mContext).inflate(R.layout.transaction_list_item,parent,false);
 
         Transaction currentTransaction = transactionList.get(position);
 

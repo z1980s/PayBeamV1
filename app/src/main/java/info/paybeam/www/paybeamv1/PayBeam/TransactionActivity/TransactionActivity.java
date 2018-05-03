@@ -36,6 +36,7 @@ public class TransactionActivity extends AppCompatActivity implements Transactio
         TransactionActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.transaction_activity);
         transactionPresenter = new TransactionPresenter(this);
         binding.setTransactionPresenter(transactionPresenter);
+        transactionPresenter.onPageDisplayed();
     }
 
     @Override
