@@ -1,5 +1,7 @@
 package info.paybeam.www.paybeamv1.PayBeam.TransactionActivity;
 
+import android.app.Activity;
+
 import com.google.gson.JsonObject;
 
 /**
@@ -11,6 +13,8 @@ public interface TransactionContract
     interface TransactionView
     {
         void displayTransactions(JsonObject list);
+        Activity getActivity();
+        void showErrorMessage(String errorMsg);
     }
 
     interface TransactionPresenter

@@ -1,6 +1,9 @@
 package info.paybeam.www.paybeamv1.PayBeam.TransactionActivity;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
@@ -35,6 +38,31 @@ public class TransactionActivity extends AppCompatActivity implements Transactio
         binding.setTransactionPresenter(transactionPresenter);
     }
 
+    @Override
+    public Activity getActivity() {
+        return this;
+    }
+
+    @Override
+    public void showErrorMessage(String errorMsg)
+    {
+        AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+
+        dlgAlert.setMessage(errorMsg);
+        dlgAlert.setTitle("Error");
+        dlgAlert.setPositiveButton("OK", null);
+        dlgAlert.setCancelable(true);
+        dlgAlert.create().show();
+
+        dlgAlert.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+
+                    }
+                });
+    }
 
     @Override
     public void displayTransactions(JsonObject list) {
