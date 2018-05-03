@@ -92,7 +92,9 @@ public class CardViewActivity extends AppCompatActivity implements CardViewContr
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
+                //dialog.cancel();
+                primary_switch.setChecked(false);
+
             }
         });
 
