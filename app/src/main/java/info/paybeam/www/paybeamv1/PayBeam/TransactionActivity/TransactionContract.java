@@ -8,11 +8,11 @@ public interface TransactionContract
 {
     interface TransactionView
     {
-
+        void displayTransactions();
     }
 
     interface TransactionPresenter
     {
-
+        void onPageDisplayed();
     }
 }

@@ -12,4 +12,12 @@ public class TransactionPresenter implements TransactionContract.TransactionPres
     {
         transactionView = view;
     }
+
+    @Override
+    public void onPageDisplayed() {
+        //Get the transactions
+
+
+        transactionView.displayTransactions();
+    }
 }
