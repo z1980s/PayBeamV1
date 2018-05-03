@@ -450,5 +450,26 @@ public static void writeCardToFile(Context context, String filename, String card
         return obj;
     }
 
+    //Write a string array to a file
+    public static void writeTransaction(Context context, String filename, ArrayList<JsonObject>transactionList)
+    {
+        FileOutputStream outputStream;
+
+        try {
+            //MODE_PRIVATE FOR WRITE
+            //MODE_APPEND FOR APPEND
+            outputStream = context.openFileOutput(filename, context.MODE_PRIVATE);
+
+            //for loop through the ArrayList
+            for(JsonObject obj: transactionList) {
+                outputStream.write(obj.toString().getBytes());
+                outputStream.write("\n".toString().getBytes());
+            }
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

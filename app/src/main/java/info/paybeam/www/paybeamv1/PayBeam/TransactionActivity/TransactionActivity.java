@@ -65,16 +65,17 @@ public class TransactionActivity extends AppCompatActivity implements Transactio
     }
 
     @Override
-    public void displayTransactions(JsonObject list) {
+    public void displayTransactions(ArrayList<JsonObject>transactions) {
         //Set transaction list view
         lst= (ListView) findViewById(R.id.transaction_list_view);
 
         //Create a arraylist to store all the list
         ArrayList<Transaction> transactionList = new ArrayList<>();
 
-        for(int i = 0 ; i < list.get("count").getAsInt() ;i++)
+        //membernames are "Name", "DateTime", "Card" and "Amount"
+        for(JsonObject obj:transactions)
         {
-           //transactionList.add(new Cards(list.get("amount").getAsString(),list.get("merchant").getAsString(),list.get("date").getAsString(),list.get("cardNum").getAsString());
+           transactionList.add(new Transaction(obj.get("Amount").getAsString(),obj.get("Name").getAsString(),obj.get("DateTime").getAsString(),obj.get("Card").getAsString()));
         }
 
         //Put the cardList into cardAdapter

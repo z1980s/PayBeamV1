@@ -57,6 +57,8 @@ public class TransactionPresenter implements TransactionContract.TransactionPres
                             transactions.add(transaction);
                         }
                         //do whatever to display transactions.
+                        //InternalStorage.writeTransaction(transactionView.getActivity(),"transactions", transactions);
+                        transactionView.displayTransactions(transactions);
                     } else {
                         //show error message
                         transactionView.showErrorMessage(jResponse.get("reason").getAsString());
@@ -71,6 +73,6 @@ public class TransactionPresenter implements TransactionContract.TransactionPres
 
         sc.execute(null,null,null);
 
-        //transactionView.displayTransactions();
+
     }
 }
