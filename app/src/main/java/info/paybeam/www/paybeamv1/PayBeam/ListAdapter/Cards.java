@@ -18,14 +18,16 @@ public class Cards implements Serializable{
     private String expiryDate;
     // Store if the card is primary
     private Boolean primary;
+    //Store the tick for default card
+    private int tickImage;
 
     // Constructor that is used to create an instance of the Movie object
-    public Cards(int cardImage, String cardNum, String expiryDate, Boolean primary) {
+    public Cards(int cardImage, String cardNum, String expiryDate, Boolean primary, int tickImage) {
         this.cardImage = cardImage;
         this.cardNum = cardNum;
         this.expiryDate = expiryDate;
         this.primary = primary;
-
+        this.tickImage = tickImage;
     }
 
     public int getCardImage() {
@@ -59,4 +61,14 @@ public class Cards implements Serializable{
     public void setPrimary(Boolean primary) {
         this.primary = primary;
     }
+
+    public int getTickImage() {
+        return tickImage;
+    }
+
+    public void setTickImage(int tickImage) {
+        this.tickImage = tickImage;
+    }
+
+    
 }

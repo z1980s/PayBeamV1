@@ -67,9 +67,9 @@ public class CardActivity extends AppCompatActivity implements CardContract.Card
         //display all available cards on screen
         //this.cards = cards;
         this.cards = InternalStorage.readCardsFromFile(this,"cards");
-        Toast.makeText(this, "There are "+ this.cards.size() + " cards in array", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "There are "+ this.cards.size() + " cards in array", Toast.LENGTH_SHORT).show();
         int count = InternalStorage.countEntries(this,"cards");
-        Toast.makeText(this, "There are "+ count + " CARDS in file", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "There are "+ count + " CARDS in file", Toast.LENGTH_SHORT).show();
 
         //String def = InternalStorage.readString(CardActivity.this,"defaultCard");
         //Toast.makeText(CardActivity.this,"Default Card is: "+ def, Toast.LENGTH_SHORT);
@@ -99,8 +99,9 @@ public class CardActivity extends AppCompatActivity implements CardContract.Card
             //image, number then, expiry date
 
             //cardsList.add(new Cards(Integer.parseInt(x[2]), x[0] , x[1]));
-            cardsList.add(new Cards(card.get("cardType").getAsInt(), card.get("cardNum").getAsString() , card.get("expiryDate").getAsString(), card.get("primary").getAsBoolean()));
-
+            int drawableResourceId = this.getResources().getIdentifier("ic_done_black_48dp", "drawable", this.getPackageName());
+            cardsList.add(new Cards(card.get("cardType").getAsInt(), card.get("cardNum").getAsString() , card.get("expiryDate").getAsString(), card.get("primary").getAsBoolean(),R.drawable.ic_done_black_48dp));
+            //Toast.makeText(this,card.get("cardNum").getAsString()+ " "+card.get("primary").getAsBoolean(),Toast.LENGTH_SHORT).show();
         }
 
 
@@ -125,7 +126,7 @@ public class CardActivity extends AppCompatActivity implements CardContract.Card
 
                 Cards card = (Cards) parent.getItemAtPosition(position);
 
-                Toast.makeText(CardActivity.this,  card.getCardNum() +" "+card.getExpiryDate()+" "+ card.getCardImage(),Toast.LENGTH_SHORT).show();
+                //Toast.makeText(CardActivity.this,  card.getCardNum() +" "+card.getExpiryDate()+" "+ card.getCardImage(),Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(CardActivity.this, CardViewActivity.class);
                 intent.putExtra("card", (Serializable) card);

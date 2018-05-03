@@ -1,13 +1,17 @@
 package info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardViewActivity;
 
 import android.annotation.SuppressLint;
+import android.annotation.SuppressLint;
+import android.view.Display;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonParser;
 
 import info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity.CardContract;
+import info.paybeam.www.paybeamv1.PayBeam.ConnectionModule.ServerConnection;
 import info.paybeam.www.paybeamv1.PayBeam.ConnectionModule.ServerConnection;
 import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
 import info.paybeam.www.paybeamv1.PayBeam.ListAdapter.Cards;
@@ -79,5 +83,28 @@ public class CardViewPresenter implements CardViewContract.CardViewPresenter {
 
         sc.execute(null,null,null);
 
+
+        //Draw new cardlist with new primary card from server
+
+
+        cardViewView.finishActivity();
     }
+
+    @Override
+    public void setPrimaryCard(Cards card) {
+        //set up progress dialog in view
+        //set primary card in server
+
+
+
+
+        //Upon success
+        //set primary card in local file
+        InternalStorage.setNewDefaultCard(cardViewView.getActivity(),"cards",card);
+
+        //Refresh card view
+        cardViewView.refreshCardView(InternalStorage.getCard(cardViewView.getActivity(),"cards",card));
+    }
+
+
 }

@@ -28,4 +28,12 @@
         android:textSize="10sp"
         android:layout_marginBottom="5dp"/>
 
+    <ImageView
+        android:id="@+id/textView_tick"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"/>
+
 </RelativeLayout>

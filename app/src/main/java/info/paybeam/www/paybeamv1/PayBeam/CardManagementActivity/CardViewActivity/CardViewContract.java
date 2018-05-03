@@ -3,6 +3,8 @@ package info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardViewActivi
 import android.app.Activity;
 import android.view.View;
 
+import com.google.gson.JsonObject;
+
 import info.paybeam.www.paybeamv1.PayBeam.ListAdapter.Cards;
 
 /**
@@ -17,11 +19,14 @@ public interface CardViewContract {
         void showErrorMessage(String errorMsg);
         Activity getActivity();
         Cards getCard();
+        void finishActivity();
+        void refreshCardView(JsonObject obj);
 
     }
 
     interface CardViewPresenter{
         void onPageDisplayed();
         void onDeleteButtonClick(View view);
+        void setPrimaryCard(Cards card);
     }
 }
