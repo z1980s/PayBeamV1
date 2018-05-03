@@ -16,8 +16,7 @@ public class TransactionPresenter implements TransactionContract.TransactionPres
     @Override
     public void onPageDisplayed() {
         //Get the transactions
-
-
-        transactionView.displayTransactions();
+        //Pass the transactions from server into function
+        //transactionView.displayTransactions();
     }
 }
