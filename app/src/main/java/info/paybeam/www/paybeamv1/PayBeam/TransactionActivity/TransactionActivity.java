@@ -20,4 +20,10 @@ public class TransactionActivity extends AppCompatActivity implements Transactio
         transactionPresenter = new TransactionPresenter(this);
         binding.setTransactionPresenter(transactionPresenter);
     }
+
+
+    @Override
+    public void displayTransactions() {
+
+    }
 }

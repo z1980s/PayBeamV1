@@ -373,9 +373,10 @@ public static void writeCardToFile(Context context, String filename, String card
 
     }
 
+
+
     //set new default card
-    //returns the old default card details
-    public static JsonObject setNewDefaultCard(Context context, String filename, Cards card)
+    public static void setNewDefaultCard(Context context, String filename, Cards card)
     {
         //create array to store cards from internal storage
         ArrayList<JsonObject> cardList;
@@ -383,31 +384,22 @@ public static void writeCardToFile(Context context, String filename, String card
         //Get cards and put into the array
         cardList = readCardsFromFile(context,filename);
 
-        //Jsonobject to store the old default card
-        JsonObject oldDefault = null;
-
 
         for(int i =0; i < cardList.size();i++)
         {
             if(cardList.get(i).get("primary").getAsBoolean()==true)
             {
-               oldDefault = cardList.get(i);
                 cardList.get(i).addProperty("primary",false);
-               //cardList.get(i).getAsJsonObject().remove("primary");
-               //cardList.get(i).getAsJsonObject().addProperty("primary",false);
             }
             else if(cardList.get(i).get("cardNum").getAsString().equals(card.getCardNum()))
             {
-                //cardList.get(i).getAsJsonObject().remove("primary");
-               // cardList.get(i).getAsJsonObject().addProperty("primary",true);
+
                 cardList.get(i).addProperty("primary",true);
             }
         }
 
         writeCardListToFile(context,"cards" ,cardList);
 
-
-        return oldDefault;
     }
 
     public static JsonObject getDefaultCard(Context context, String filename)

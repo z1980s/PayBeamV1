@@ -95,6 +95,8 @@ public class CardViewPresenter implements CardViewContract.CardViewPresenter {
         //set up progress dialog in view
         //set primary card in server
 
+        //get old default card
+        JsonObject oldDefault = InternalStorage.getCard(cardViewView.getActivity(),"cards",card);
 
 
 
