@@ -156,7 +156,7 @@ public class CardActivity extends AppCompatActivity implements CardContract.Card
     @Override
     public void showAddCard()
     {
-        Toast.makeText(this,"Show Add Card", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"Show Add Card", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, AddCardActivity.class);
         startActivity(intent);
     }

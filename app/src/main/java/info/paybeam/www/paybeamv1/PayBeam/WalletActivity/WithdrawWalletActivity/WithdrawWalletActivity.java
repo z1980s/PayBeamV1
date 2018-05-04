@@ -27,6 +27,7 @@ import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
 import info.paybeam.www.paybeamv1.PayBeam.ListAdapter.Cards;
 import info.paybeam.www.paybeamv1.PayBeam.ListAdapter.CardsAdapter;
 import info.paybeam.www.paybeamv1.PayBeam.WalletActivity.TopUpWalletActivity.TopUpWalletActivity;
+import info.paybeam.www.paybeamv1.PayBeam.WalletActivity.WalletActivity;
 import info.paybeam.www.paybeamv1.R;
 import info.paybeam.www.paybeamv1.databinding.WithdrawWalletActivityBinding;
 
@@ -84,9 +85,12 @@ public class WithdrawWalletActivity extends AppCompatActivity implements Withdra
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 view.setSelected(true);
                 view.setBackgroundColor(Color.parseColor("#B0BEC5"));
-                TextView tv= (TextView) view;
-                Toast.makeText(WithdrawWalletActivity.this,tv.getText()+"  "+position,Toast.LENGTH_SHORT).show();
-                chosenCard = tv.getText().toString();
+
+                Cards thisCard = (Cards) parent.getItemAtPosition(position);
+                thisCard.getPrimary();
+                //TextView tv= (TextView) view;
+                //Toast.makeText(WithdrawWalletActivity.this,thisCard.getCardNum()+"  "+position,Toast.LENGTH_SHORT).show();
+                chosenCard = thisCard.getCardNum();
 
                 //on click of the card
                 //pass in view so that can set remove the background colour
@@ -152,7 +156,7 @@ public class WithdrawWalletActivity extends AppCompatActivity implements Withdra
                     {
                         //CreateAccountActivity.this.finish();
                         //finish();
-                        Intent intent = new Intent(WithdrawWalletActivity.this, HomeActivity.class);
+                        Intent intent = new Intent(WithdrawWalletActivity.this, WalletActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |  Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
                     }

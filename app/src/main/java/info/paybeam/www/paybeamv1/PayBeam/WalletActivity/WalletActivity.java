@@ -46,20 +46,26 @@ public class WalletActivity extends AppCompatActivity implements WalletContract.
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        walletAmount.setText(walletPresenter.getWalletAmount());
+    }
+
+    @Override
     public Activity getActivity() {
         return this;
     }
 
     @Override
     public void showTopUpWalletView() {
-        Toast.makeText(this,"Show top up wallet activity", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"Show top up wallet activity", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, TopUpWalletActivity.class);
         startActivity(intent);
     }
 
     @Override
     public void showWithdrawFromWalletView() {
-        Toast.makeText(this,"Show Withdraw wallet activity", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"Show Withdraw wallet activity", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, WithdrawWalletActivity.class);
         startActivity(intent);
     }

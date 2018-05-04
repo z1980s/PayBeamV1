@@ -105,7 +105,6 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".PayBeam.CardManagementActivity.CardViewActivity.CardViewActivity"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".PayBeam.ListAdapter.CardsAdapter" />
     </application>
 
 </manifest>

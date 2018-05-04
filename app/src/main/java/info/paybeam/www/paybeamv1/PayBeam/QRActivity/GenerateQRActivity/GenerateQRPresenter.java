@@ -1,8 +1,10 @@
 package info.paybeam.www.paybeamv1.PayBeam.QRActivity.GenerateQRActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -28,6 +30,10 @@ public class GenerateQRPresenter implements GenerateQRContract.GenerateQRPresent
 
     @Override
     public void generateQRCodeButtonClick(View view) {
+        InputMethodManager imm = (InputMethodManager) generateQRView.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (null != generateQRView.getActivity().getCurrentFocus())
+            imm.hideSoftInputFromWindow(generateQRView.getActivity().getCurrentFocus()
+                    .getApplicationWindowToken(), 0);
         generateQRimage(generateQRView.getAmount());
     }
 

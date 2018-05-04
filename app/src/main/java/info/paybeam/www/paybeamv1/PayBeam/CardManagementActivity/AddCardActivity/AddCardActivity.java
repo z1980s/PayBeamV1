@@ -131,11 +131,11 @@ public class AddCardActivity extends AppCompatActivity implements AddCardContrac
     public boolean validate() {
         boolean valid = false;
         if (cardForm.isValid()) {
-            Toast.makeText(this, "VALID", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "VALID", Toast.LENGTH_SHORT).show();
             valid = true;
         } else {
             cardForm.validate();
-            Toast.makeText(this, "INVALID", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "INVALID", Toast.LENGTH_SHORT).show();
             valid = false;
         }
         return valid;

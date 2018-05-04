@@ -29,7 +29,7 @@
             android:id="@+id/withdrawWallet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="97dp"
+            android:layout_marginBottom="92dp"
             android:onClick="@{walletPresenter::onWithdrawFromWalletButtonClick}"
             android:text="Withdraw from Wallet"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -38,14 +38,26 @@
 
         <TextView
             android:id="@+id/walletAmount"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:gravity="center"
             android:textSize="50dp"
             android:textStyle="bold|italic"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/topUpWallet"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="54dp"
+            app:layout_constraintBottom_toTopOf="@+id/walletAmount"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:srcCompat="@drawable/wallet_large" />
     </android.support.constraint.ConstraintLayout>
 </layout>

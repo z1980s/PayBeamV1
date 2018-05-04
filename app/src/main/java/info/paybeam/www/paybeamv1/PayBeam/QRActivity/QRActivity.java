@@ -27,14 +27,14 @@ public class QRActivity extends AppCompatActivity implements QRContract.QRView
 
     @Override
     public void showScanQRView() {
-        Toast.makeText(this,"Show Scan QR View", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"Show Scan QR View", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, ScanQRActivity.class);
         startActivity(intent);
     }
 
     @Override
     public void showGenerateQRView() {
-        Toast.makeText(this,"Show Generate QR View", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"Show Generate QR View", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, GenerateQRActivity.class);
         startActivity(intent);
     }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/textured_white"
+    android:background="@color/white"
     tools:context="info.paybeam.www.paybeamv1.PayBeam.SplashPage.SplashScreenActivity">
 
     <android.support.design.widget.AppBarLayout

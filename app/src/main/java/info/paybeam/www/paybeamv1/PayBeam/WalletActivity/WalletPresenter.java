@@ -16,7 +16,7 @@ public class WalletPresenter implements WalletContract.WalletPresenter
 
     @Override
     public String getWalletAmount() {
-        return InternalStorage.readString(walletView.getActivity(), "wallet");
+        return "$"+InternalStorage.readString(walletView.getActivity(), "wallet");
     }
 
     @Override

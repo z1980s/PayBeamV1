@@ -91,7 +91,7 @@ public class CardViewActivity extends AppCompatActivity implements CardViewContr
             public void onClick(DialogInterface dialog, int which) {
                 //dialog.cancel();
                 //dialog.dismiss();
-                Toast.makeText(CardViewActivity.this,"Test ",Toast.LENGTH_SHORT);
+                //Toast.makeText(CardViewActivity.this,"Test ",Toast.LENGTH_SHORT);
                 cardViewPresenter.setPrimaryCard(c);
 
             }
@@ -115,7 +115,7 @@ public class CardViewActivity extends AppCompatActivity implements CardViewContr
     public void setCard() {
         Bundle extras = getIntent().getExtras();
         card = (Cards) extras.getSerializable("card");
-        Toast.makeText(this,  card.getCardNum() +" "+card.getExpiryDate()+" "+ card.getCardImage(),Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,  card.getCardNum() +" "+card.getExpiryDate()+" "+ card.getCardImage(),Toast.LENGTH_SHORT).show();
 
         card_image.setImageResource(card.getCardImage());
         card_num_text.setText("Card Number: " + card.getCardNum());

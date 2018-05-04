@@ -30,6 +30,7 @@ import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
 import info.paybeam.www.paybeamv1.PayBeam.ListAdapter.Cards;
 import info.paybeam.www.paybeamv1.PayBeam.ListAdapter.CardsAdapter;
 import info.paybeam.www.paybeamv1.PayBeam.TransactionActivity.TransactionPresenter;
+import info.paybeam.www.paybeamv1.PayBeam.WalletActivity.WalletActivity;
 import info.paybeam.www.paybeamv1.R;
 import info.paybeam.www.paybeamv1.databinding.TopUpWalletActivityBinding;
 import info.paybeam.www.paybeamv1.databinding.TransactionActivityBinding;
@@ -87,9 +88,13 @@ public class TopUpWalletActivity extends AppCompatActivity implements TopUpWalle
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 view.setSelected(true);
                 view.setBackgroundColor(Color.parseColor("#B0BEC5"));
-                TextView tv= (TextView) view;
-                Toast.makeText(TopUpWalletActivity.this,tv.getText()+"  "+position,Toast.LENGTH_SHORT).show();
-                chosenCard = tv.getText().toString();
+
+
+                Cards thisCard = (Cards) parent.getItemAtPosition(position);
+                thisCard.getPrimary();
+                //TextView tv= (TextView) view;
+                //Toast.makeText(TopUpWalletActivity.this,thisCard.getCardNum()+"  "+position,Toast.LENGTH_SHORT).show();
+                chosenCard = thisCard.getCardNum();
                 //view.setBackgroundColor(Color.parseColor("#00000000"));
 
                 //on click of the card
@@ -179,7 +184,7 @@ public class TopUpWalletActivity extends AppCompatActivity implements TopUpWalle
                     {
                         //CreateAccountActivity.this.finish();
                         //finish();
-                        Intent intent = new Intent(TopUpWalletActivity.this, HomeActivity.class);
+                        Intent intent = new Intent(TopUpWalletActivity.this, WalletActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |  Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
                     }

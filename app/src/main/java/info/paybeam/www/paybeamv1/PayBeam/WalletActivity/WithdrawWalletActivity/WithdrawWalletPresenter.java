@@ -106,7 +106,7 @@ public class WithdrawWalletPresenter implements WithdrawWalletContract.WithdrawW
 
                                     if (jResponse.get("result").getAsString().equals("Success")) {
                                         System.out.println("Successfully withdrawn from wallet.");
-                                        InternalStorage.writeString(withdrawWalletView.getActivity(),"wallet",jResponse.get("NewAmount").getAsString());
+                                        InternalStorage.writeString(withdrawWalletView.getActivity(),"wallet",jResponse.get("NewAmount").getAsBigDecimal().toString());
                                         dialog.dismiss();
                                         withdrawWalletView.showSuccess(jResponse.get("reason").getAsString());
 
