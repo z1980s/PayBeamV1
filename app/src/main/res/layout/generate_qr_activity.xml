@@ -17,8 +17,9 @@
             android:id="@+id/QRCode"
             android:layout_width="250dp"
             android:layout_height="250dp"
-            android:layout_marginTop="36dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,13 +27,13 @@
             android:id="@+id/generate_qr_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="88dp"
+            android:layout_marginBottom="232dp"
+            android:onClick="@{generateQRPresenter::generateQRCodeButtonClick}"
             android:text="Generate QR Code"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="parent"
-            android:onClick="@{generateQRPresenter::generateQRCodeButtonClick}"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/amount_text_field"
@@ -42,6 +43,8 @@
             android:ems="10"
             android:hint="Amount $"
             android:inputType="numberDecimal"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
             app:layout_constraintBottom_toTopOf="@+id/generate_qr_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"

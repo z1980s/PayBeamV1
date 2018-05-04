@@ -5,8 +5,8 @@
 
     <TextView
         android:id="@+id/textView_date"
-        android:layout_width="50dp"
-        android:layout_height="30dp"
+        android:layout_width="93dp"
+        android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
         android:layout_centerVertical="true"/>
 
@@ -17,23 +17,23 @@
         android:layout_toRightOf="@id/imageView_cardImage"
         android:textSize="15sp"
         android:textStyle="bold"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="1dp"/>
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="2dp"/>
 
     <TextView
         android:id="@+id/textView_cardNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/imageView_cardImage"
-        android:layout_below="@id/textView_cardNum"
+        android:layout_toRightOf="@id/textView_date"
+        android:layout_below="@id/textView_merchant"
         android:textSize="10sp"
         android:layout_marginBottom="5dp"/>
 
     <TextView
         android:id="@+id/textView_amount"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"/>
 

@@ -17,6 +17,7 @@ public interface TransactionContract
         void displayTransactions(ArrayList<JsonObject>transactions);
         Activity getActivity();
         void showErrorMessage(String errorMsg);
+        void displayMonth();
     }
 
     interface TransactionPresenter

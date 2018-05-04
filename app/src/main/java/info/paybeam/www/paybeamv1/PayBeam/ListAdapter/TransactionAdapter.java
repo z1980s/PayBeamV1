@@ -50,7 +50,7 @@ public class TransactionAdapter extends ArrayAdapter<Transaction> {
         TextView merchant = (TextView) listItem.findViewById(R.id.textView_merchant);
         merchant.setText(currentTransaction.getMerchant());
 
-        //
+        //Date
         TextView date = (TextView) listItem.findViewById(R.id.textView_date);
         date.setText(currentTransaction.getDate());
 

@@ -1,11 +1,15 @@
 package info.paybeam.www.paybeamv1.PayBeam.QRActivity.GenerateQRActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,13 +41,28 @@ public class GenerateQRActivity extends AppCompatActivity implements GenerateQRC
         GenerateQrActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.generate_qr_activity);
         generateQRPresenter = new GenerateQRPresenter(this);
         binding.setGenerateQRPresenter(generateQRPresenter);
+
+        editText = findViewById(R.id.amount_text_field);
+        class DoneOnEditorActionListener implements TextView.OnEditorActionListener {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                    InputMethodManager imm = (InputMethodManager)v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        editText.setOnEditorActionListener(new DoneOnEditorActionListener());
     }
 
 
     @Override
     public String getAmount() {
         //Get the amount and change to 2dp
-        editText = findViewById(R.id.amount_text_field);
+
         String amount = String.format("%.2f", Float.parseFloat(editText.getText().toString()));
         //pass the amount to the presenter to generate the QR image
         //generateQRPresenter.generateQRimage(amount);

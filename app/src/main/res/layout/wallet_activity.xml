@@ -17,36 +17,34 @@
             android:id="@+id/topUpWallet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="48dp"
+            android:layout_marginBottom="26dp"
+            android:onClick="@{walletPresenter::onTopUpWalletButtonClick}"
             android:text="Top Up Wallet"
             app:layout_constraintBottom_toTopOf="@+id/withdrawWallet"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintStart_toStartOf="parent"
-            android:onClick="@{walletPresenter::onTopUpWalletButtonClick}"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/withdrawWallet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="56dp"
+            android:layout_marginBottom="97dp"
+            android:onClick="@{walletPresenter::onWithdrawFromWalletButtonClick}"
             android:text="Withdraw from Wallet"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="parent"
-            android:onClick="@{walletPresenter::onWithdrawFromWalletButtonClick}"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/walletAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="204dp"
             android:textSize="50dp"
             android:textStyle="bold|italic"
-            app:layout_constraintBottom_toTopOf="@+id/topUpWallet"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>

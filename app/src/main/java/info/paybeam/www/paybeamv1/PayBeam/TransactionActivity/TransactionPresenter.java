@@ -58,6 +58,7 @@ public class TransactionPresenter implements TransactionContract.TransactionPres
                         }
                         //do whatever to display transactions.
                         //InternalStorage.writeTransaction(transactionView.getActivity(),"transactions", transactions);
+                        transactionView.displayMonth();
                         transactionView.displayTransactions(transactions);
                     } else {
                         //show error message

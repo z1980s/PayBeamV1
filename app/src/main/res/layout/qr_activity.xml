@@ -17,24 +17,24 @@
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="36dp"
+            android:onClick="@{qrPresenter::onScanQRButtonClick}"
             android:text="Scan QR"
-            app:layout_constraintBottom_toTopOf="@+id/button4"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            android:onClick="@{qrPresenter::onScanQRButtonClick}"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <Button
             android:id="@+id/button4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="41dp"
+            android:layout_marginTop="40dp"
+            android:onClick="@{qrPresenter::onGenerateQRButtonClick}"
             android:text="Generate QR"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            android:onClick="@{qrPresenter::onGenerateQRButtonClick}"/>
+            app:layout_constraintTop_toBottomOf="@+id/button3" />
     </android.support.constraint.ConstraintLayout>
 </layout>
