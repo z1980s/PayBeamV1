@@ -34,15 +34,15 @@ public class WalletActivity extends AppCompatActivity implements WalletContract.
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        walletAmount = findViewById(R.id.walletAmount);
-        //Retrieve the Wallet amount here and set to the textview
-        //walletAmount.setText(walletPresenter.getWalletAmount());
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wallet_activity);
         WalletActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.wallet_activity);
         walletPresenter = new WalletPresenter(this);
         binding.setWalletPresenter(walletPresenter);
+
+        walletAmount = findViewById(R.id.walletAmount);
+        //Retrieve the Wallet amount here and set to the textview
+        walletAmount.setText(walletPresenter.getWalletAmount());
     }
 
     @Override

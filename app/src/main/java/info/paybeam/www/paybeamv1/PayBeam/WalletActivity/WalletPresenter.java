@@ -8,7 +8,6 @@ public class WalletPresenter implements WalletContract.WalletPresenter
 {
     private WalletContract.WalletView walletView;
 
-    String WalletAmountFile = "WalletAmount";
 
     WalletPresenter(WalletContract.WalletView view)
     {
@@ -17,7 +16,7 @@ public class WalletPresenter implements WalletContract.WalletPresenter
 
     @Override
     public String getWalletAmount() {
-        return InternalStorage.readString(walletView.getActivity(), WalletAmountFile);
+        return InternalStorage.readString(walletView.getActivity(), "wallet");
     }
 
     @Override
