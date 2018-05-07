@@ -101,7 +101,7 @@ public class AddCardPresenter implements AddCardContract.AddCardPresenter{
             String encryptedString = Base64.encodeToString(encrypted, Base64.NO_WRAP);
 
             msg.addProperty("encrypted", encryptedString);
-            msg.addProperty("token", token);
+            msg.addProperty("Token", token);
 
             @SuppressLint("StaticFieldLeak")
             ServerConnection sc = new ServerConnection(msg, addCardView.getActivity()) {

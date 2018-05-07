@@ -37,6 +37,7 @@ public class ScanQRPresenter implements ScanQRContract.ScanQRPresenter
                     String credentials = InternalStorage.readString(scanQRView.getActivity(), "Credentials");
                     String[] userData = credentials.split(",");
                     String username = userData[0];
+                    String token = InternalStorage.readToken(scanQRView.getActivity(),"Token");
 
                     JsonObject msg = new JsonObject();
                     msg.addProperty("Header", "DecodeQR");
@@ -45,6 +46,7 @@ public class ScanQRPresenter implements ScanQRContract.ScanQRPresenter
                     //username + DESPP(Json(username + Amount))
                     JsonObject data = (JsonObject) jParser.parse(result);
                     msg.add("Data", data);
+                    msg.addProperty("Token", token);
                     //Header + Payee + username + encrypted
 
                     @SuppressLint("StaticFieldLeak")
