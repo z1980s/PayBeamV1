@@ -1,5 +1,6 @@
 package info.paybeam.www.paybeamv1.PayBeam.PaymentReaderActivity;
 
+import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,8 +21,12 @@ public class PaymentReaderActivity extends AppCompatActivity implements PaymentR
         PaymentReaderActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.payment_reader_activity);
         prPresenter = new PaymentReaderPresenter(this);
         binding.setPrPresenter(prPresenter);
+        prPresenter.setData();
     }
 
-
+    @Override
+    public Activity getActivity() {
+        return this;
+    }
 
 }
