@@ -40,7 +40,7 @@ public class CardViewActivity extends AppCompatActivity implements CardViewContr
     ImageView card_image;
     TextView card_num_text;
     TextView expiry_text;
-    TextView primary_text;
+    //TextView primary_text;
     Switch primary_switch;
 
     @Override
@@ -54,7 +54,7 @@ public class CardViewActivity extends AppCompatActivity implements CardViewContr
         card_image = findViewById(R.id.card_image);
         card_num_text = findViewById(R.id.card_num_text);
         expiry_text = findViewById(R.id.expiry_text);
-        primary_text = findViewById(R.id.primary_text);
+        //primary_text = findViewById(R.id.primary_text);
         primary_switch = findViewById(R.id.primary_switch);
 
         cardViewPresenter.onPageDisplayed();
@@ -120,7 +120,7 @@ public class CardViewActivity extends AppCompatActivity implements CardViewContr
         card_image.setImageResource(card.getCardImage());
         card_num_text.setText("Card Number: " + card.getCardNum());
         expiry_text.setText("Expiry Date: "+ card.getExpiryDate());
-        primary_text.setText("Primary: "+card.getPrimary().toString());
+        //primary_text.setText("Primary: "+card.getPrimary().toString());
 
         if(card.getPrimary())
         {
@@ -205,7 +205,7 @@ public class CardViewActivity extends AppCompatActivity implements CardViewContr
         card_image.setImageResource(card.getCardImage());
         card_num_text.setText("Card Number: " + card.getCardNum());
         expiry_text.setText("Expiry Date: "+ card.getExpiryDate());
-        primary_text.setText("Primary: "+obj.get("primary").getAsBoolean());
+        //primary_text.setText("Primary: "+obj.get("primary").getAsBoolean());
 
         if(obj.get("primary").getAsBoolean())
         {
