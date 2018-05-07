@@ -71,18 +71,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/expiry_text"
-            android:layout_below="@+id/expiry_text"
-            android:layout_marginTop="76dp"
+            android:layout_below="@+id/rectimage"
+            android:layout_marginTop="27dp"
             android:text="Primary Card: " />
-
-        <TextView
-            android:id="@+id/primary_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/primary_switch"
-            android:layout_below="@+id/expiry_text"
-            android:layout_marginTop="20dp"
-            android:text="Primary" />
 
 
     </RelativeLayout>

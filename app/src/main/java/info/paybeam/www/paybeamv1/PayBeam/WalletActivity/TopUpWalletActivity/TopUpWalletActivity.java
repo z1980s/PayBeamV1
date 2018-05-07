@@ -9,7 +9,9 @@ import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.text.InputType;
+import android.text.Spanned;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,14 +25,18 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity.CardActivity;
+import info.paybeam.www.paybeamv1.PayBeam.Filter.DecimalDigitsInputFilter;
 import info.paybeam.www.paybeamv1.PayBeam.HomeActivity.HomeActivity;
 import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
 import info.paybeam.www.paybeamv1.PayBeam.ListAdapter.Cards;
 import info.paybeam.www.paybeamv1.PayBeam.ListAdapter.CardsAdapter;
 import info.paybeam.www.paybeamv1.PayBeam.TransactionActivity.TransactionPresenter;
 import info.paybeam.www.paybeamv1.PayBeam.WalletActivity.WalletActivity;
+import info.paybeam.www.paybeamv1.PayBeam.WalletActivity.WithdrawWalletActivity.WithdrawWalletActivity;
 import info.paybeam.www.paybeamv1.R;
 import info.paybeam.www.paybeamv1.databinding.TopUpWalletActivityBinding;
 import info.paybeam.www.paybeamv1.databinding.TransactionActivityBinding;
@@ -117,18 +123,41 @@ public class TopUpWalletActivity extends AppCompatActivity implements TopUpWalle
         final View v = view;
         // Set up the input
         final EditText input = new EditText(this);
+
         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-        input.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        //input.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        input.setInputType((InputType.TYPE_CLASS_NUMBER + InputType.TYPE_NUMBER_FLAG_DECIMAL));
+        input.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(6,2)});
         builder.setView(input);
+
 
         // Set up the buttons
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                amount = input.getText().toString();
-                v.setBackgroundColor(Color.parseColor("#00000000"));
-                topUpWalletPresenter.TopUpWallet(amount, chosenCard);
-                v.setSelected(false);
+
+                boolean validInput = input.getText().toString().matches("-?\\d+(\\.\\d+)?");
+                if(validInput && Double.parseDouble(input.getText().toString())>0)
+                {
+                    amount = input.getText().toString();
+                    v.setBackgroundColor(Color.parseColor("#00000000"));
+                    topUpWalletPresenter.TopUpWallet(amount, chosenCard);
+                    v.setSelected(false);
+                }
+                else
+                {
+                    new AlertDialog.Builder(TopUpWalletActivity.this)
+                            .setTitle("Insufficient Value")
+                            .setMessage("Enter a valid amount! ")
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                @Override public void onClick(DialogInterface dialog, int which) {
+                                    showDialog(v);
+                                }
+                            })
+                            .create()
+                            .show();
+                }
+
             }
         });
 
@@ -192,9 +221,6 @@ public class TopUpWalletActivity extends AppCompatActivity implements TopUpWalle
 
         dlgAlert.create().show();
     }
-
-
-
 
 
     @Override
