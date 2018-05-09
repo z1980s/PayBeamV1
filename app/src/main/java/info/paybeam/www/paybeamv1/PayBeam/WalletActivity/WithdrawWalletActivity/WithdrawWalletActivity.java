@@ -10,28 +10,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
-import android.text.Spanned;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import info.paybeam.www.paybeamv1.PayBeam.Filter.DecimalDigitsInputFilter;
-import info.paybeam.www.paybeamv1.PayBeam.HomeActivity.HomeActivity;
-import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
+import info.paybeam.www.paybeamv1.PayBeam.Filter.DecimalInputFilter;
 import info.paybeam.www.paybeamv1.PayBeam.ListAdapter.Cards;
 import info.paybeam.www.paybeamv1.PayBeam.ListAdapter.CardsAdapter;
-import info.paybeam.www.paybeamv1.PayBeam.WalletActivity.TopUpWalletActivity.TopUpWalletActivity;
 import info.paybeam.www.paybeamv1.PayBeam.WalletActivity.WalletActivity;
 import info.paybeam.www.paybeamv1.R;
 import info.paybeam.www.paybeamv1.databinding.WithdrawWalletActivityBinding;
@@ -183,7 +174,8 @@ public class WithdrawWalletActivity extends AppCompatActivity implements Withdra
         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
        // input.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
         input.setInputType((InputType.TYPE_CLASS_NUMBER + InputType.TYPE_NUMBER_FLAG_DECIMAL));
-        input.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(4,2)});
+        //input.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(4,2)});
+        input.setFilters(new InputFilter[] {new DecimalInputFilter()});
         builder.setView(input);
 
         // Set up the buttons

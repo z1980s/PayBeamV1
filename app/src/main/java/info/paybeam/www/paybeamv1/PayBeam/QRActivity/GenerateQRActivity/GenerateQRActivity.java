@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,7 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import info.paybeam.www.paybeamv1.PayBeam.Filter.DecimalDigitsInputFilter;
+import info.paybeam.www.paybeamv1.PayBeam.Filter.DecimalInputFilter;
 import info.paybeam.www.paybeamv1.R;
 import info.paybeam.www.paybeamv1.databinding.GenerateQrActivityBinding;
 
@@ -44,8 +43,8 @@ public class GenerateQRActivity extends AppCompatActivity implements GenerateQRC
 
         editText = findViewById(R.id.amount_text_field);
         editText.setInputType((InputType.TYPE_CLASS_NUMBER + InputType.TYPE_NUMBER_FLAG_DECIMAL));
-        editText.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(3,2)});
-
+        //editText.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(3,2)});
+        editText.setFilters(new InputFilter[] {new DecimalInputFilter()});
 
         class DoneOnEditorActionListener implements TextView.OnEditorActionListener {
             @Override

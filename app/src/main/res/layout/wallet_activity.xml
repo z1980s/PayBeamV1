@@ -18,7 +18,7 @@
         <Button
             android:id="@+id/topUpWallet"
             style="@style/ButtonStyle"
-            android:layout_width="344dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:onClick="@{walletPresenter::onTopUpWalletButtonClick}"
@@ -30,7 +30,7 @@
         <Button
             android:id="@+id/withdrawWallet"
             style="@style/ButtonStyle"
-            android:layout_width="344dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:onClick="@{walletPresenter::onWithdrawFromWalletButtonClick}"
