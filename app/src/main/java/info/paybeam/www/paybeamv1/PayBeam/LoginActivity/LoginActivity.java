@@ -249,6 +249,11 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
                     
                     //sendSMSMessage2();
                 }
+                else
+                {
+                    dialog.cancel();
+                    showErrorMessage("OTP invalid, please try again");
+                }
             }
         });
 
