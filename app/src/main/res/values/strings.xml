@@ -3,4 +3,5 @@
     <string name="service_name">PayBeamNFCReader</string>
     <string name="card_title">PayBeamCard</string>
     <string name="title_activity_add_card">AddCardActivity</string>
+    <string name="forgot_password"><u>Forgot Password?</u></string>
 </resources>

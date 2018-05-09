@@ -132,4 +132,23 @@ public class LoginPresenter implements LoginContract.LoginPresenter
         //if invalid, call loginView.showErrorMessage
         //if response null, show server error
     }
+
+    public void onForgotPasswordClick()
+    {
+        loginView.forgotPassword();
+    }
+
+    public String getPhoneNo(String username)
+    {
+        //retrieve phone number from server and return string value
+
+        return "phoneNo";
+    }
+
+    public String getNewPassword()
+    {
+        //get new password from server
+        //set new password on database
+        return "new password";
+    }
 }

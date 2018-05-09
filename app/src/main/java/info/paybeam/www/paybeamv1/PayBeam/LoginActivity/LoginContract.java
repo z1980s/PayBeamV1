@@ -17,6 +17,7 @@ public interface LoginContract
         void handleAuthentication();
         void showServerError();
         Activity getActivity();
+        void forgotPassword();
     }
 
     interface LoginPresenter
@@ -24,5 +25,7 @@ public interface LoginContract
         void onLoginButtonClick(View view);
         void onCreateAccountButtonClick(View view);
         void handleAuthentication(String username, String password);
+        String getPhoneNo(String username);
+        String getNewPassword();
     }
 }

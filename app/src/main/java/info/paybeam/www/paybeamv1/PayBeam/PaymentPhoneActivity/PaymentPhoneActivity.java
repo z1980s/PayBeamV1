@@ -19,6 +19,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -32,6 +34,7 @@ import com.google.gson.JsonObject;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
+import info.paybeam.www.paybeamv1.PayBeam.Filter.DecimalDigitsInputFilter;
 import info.paybeam.www.paybeamv1.PayBeam.HomeActivity.HomeActivity;
 import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
 import info.paybeam.www.paybeamv1.PayBeam.SecurityModule.MD5;
@@ -334,6 +337,9 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
         }
 
         amountText = findViewById(R.id.amountText);
+        amountText.setInputType((InputType.TYPE_CLASS_NUMBER + InputType.TYPE_NUMBER_FLAG_DECIMAL));
+        amountText.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(3,2)});
+
         progressDialog = new ProgressDialog(this);
         //progressDialog.setMessage("Loading...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -388,6 +394,37 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
 
         dlgAlert.create().show();
     }
+
+    @Override
+    public void checkAmount() {
+        amountText.getText().toString();
+        boolean validInput = amountText.getText().toString().matches("-?\\d+(\\.\\d+)?");
+        if(validInput && Double.parseDouble(amountText.getText().toString())>0)
+        {
+            addMessage();
+        }
+        else
+        {
+            showDialog("Please enter a valid amount");
+        }
+    }
+
+    public void showDialog(String text) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(text);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.show();
+    }
+
     @Override
     public void showSuccess(String message)
     {

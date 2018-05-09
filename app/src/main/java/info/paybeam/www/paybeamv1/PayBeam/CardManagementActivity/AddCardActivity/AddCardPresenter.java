@@ -75,7 +75,6 @@ public class AddCardPresenter implements AddCardContract.AddCardPresenter{
 
         final CardType cardType = CardType.forCardNumber(cardNumber);
 
-
         //last 4 digits, expiry date, cardType enum
         final String maskCardNum = cardNumber.substring(length-4,length);
                 //+ "," + (expirationMonth+"/"+expirationYear) + "," + cardType.getFrontResource() +'\n';
@@ -84,6 +83,7 @@ public class AddCardPresenter implements AddCardContract.AddCardPresenter{
 
         String[] credentials = InternalStorage.readString(addCardView.getActivity(), "Credentials").split(",");
         String token = InternalStorage.readToken(addCardView.getActivity(), "Token");
+
 
 
         JsonObject msg = new JsonObject();

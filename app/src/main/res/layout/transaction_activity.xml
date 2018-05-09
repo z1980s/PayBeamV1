@@ -13,6 +13,8 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         tools:context="info.paybeam.www.paybeamv1.PayBeam.TransactionActivity.TransactionActivity">
 
         <ListView
