@@ -2,10 +2,15 @@ package info.paybeam.www.paybeamv1.PayBeam.QRActivity.GenerateQRActivity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -14,12 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
-import com.journeyapps.barcodescanner.BarcodeEncoder;
-
+import info.paybeam.www.paybeamv1.PayBeam.Filter.DecimalDigitsInputFilter;
 import info.paybeam.www.paybeamv1.R;
 import info.paybeam.www.paybeamv1.databinding.GenerateQrActivityBinding;
 
@@ -43,6 +43,10 @@ public class GenerateQRActivity extends AppCompatActivity implements GenerateQRC
         binding.setGenerateQRPresenter(generateQRPresenter);
 
         editText = findViewById(R.id.amount_text_field);
+        editText.setInputType((InputType.TYPE_CLASS_NUMBER + InputType.TYPE_NUMBER_FLAG_DECIMAL));
+        editText.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(3,2)});
+
+
         class DoneOnEditorActionListener implements TextView.OnEditorActionListener {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -59,15 +63,40 @@ public class GenerateQRActivity extends AppCompatActivity implements GenerateQRC
     }
 
 
+
     @Override
     public String getAmount() {
-        //Get the amount and change to 2dp
-
-        String amount = String.format("%.2f", Float.parseFloat(editText.getText().toString()));
-        //pass the amount to the presenter to generate the QR image
-        //generateQRPresenter.generateQRimage(amount);
-        return amount;
+        //Check the amount first
+        //if its not valid then return a null
+        boolean validInput = editText.getText().toString().matches("-?\\d+(\\.\\d+)?");
+        if(validInput && Double.parseDouble(editText.getText().toString())>0)
+        {
+            String amount = String.format("%.2f", Float.parseFloat(editText.getText().toString()));
+            //pass the amount to the presenter to generate the QR image
+            //generateQRPresenter.generateQRimage(amount);
+            return amount;
+        }
+        return null;
     }
+
+
+
+    public void showDialog(String text) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(text);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.show();
+    }
+
 
     @Override
     public Activity getActivity() {
@@ -90,6 +119,8 @@ public class GenerateQRActivity extends AppCompatActivity implements GenerateQRC
 
         //Display the bitmap image on the image view
         qrCode.setImageBitmap(qrImage);
+        //qrCode.setImageResource(R.drawable.border);
+
     }
 
 

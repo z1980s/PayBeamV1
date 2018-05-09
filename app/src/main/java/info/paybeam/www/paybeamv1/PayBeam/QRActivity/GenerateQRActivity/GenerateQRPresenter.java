@@ -34,7 +34,17 @@ public class GenerateQRPresenter implements GenerateQRContract.GenerateQRPresent
         if (null != generateQRView.getActivity().getCurrentFocus())
             imm.hideSoftInputFromWindow(generateQRView.getActivity().getCurrentFocus()
                     .getApplicationWindowToken(), 0);
-        generateQRimage(generateQRView.getAmount());
+        String amount = generateQRView.getAmount();
+        if(!(amount==null))
+        {
+            generateQRimage(amount);
+        }
+        else
+        {
+            generateQRView.showDialog("Please enter a valid amount!");
+        }
+
+
     }
 
     @Override

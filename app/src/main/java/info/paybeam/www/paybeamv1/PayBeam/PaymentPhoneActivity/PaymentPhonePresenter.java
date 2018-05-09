@@ -3,6 +3,7 @@ package info.paybeam.www.paybeamv1.PayBeam.PaymentPhoneActivity;
 import android.annotation.SuppressLint;
 import android.view.View;
 
+import com.braintreepayments.cardform.utils.CardType;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -33,7 +34,11 @@ public class PaymentPhonePresenter implements PaymentPhoneContract.PaymentPhoneP
     @Override
     public void onSubmitButtonClick(View view)
     {
-        ppView.addMessage();
+        //ppView.addMessage();
+
+        //Here we check the amount added before we call addMessage
+        ppView.checkAmount();
+
     }
 
     @Override

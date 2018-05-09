@@ -13,6 +13,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.braintreepayments.cardform.utils.CardType;
+
 import java.util.ArrayList;
 import java.util.List;
 

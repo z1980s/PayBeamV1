@@ -11,6 +11,8 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
         tools:context="info.paybeam.www.paybeamv1.PayBeam.ProfileActivity.EditProfileActivity.EditProfileActivity">
 
         <EditText
@@ -82,14 +84,14 @@
 
         <Button
             android:id="@+id/button5"
-            android:layout_width="272dp"
+            style="@style/ButtonStyle"
+            android:layout_width="344dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="51dp"
+            android:layout_marginBottom="16dp"
+            android:onClick="@{editProfilePresenter::onSubmitButtonClick}"
             android:text="Submit Changes "
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            android:onClick="@{editProfilePresenter::onSubmitButtonClick}"/>
+            app:layout_constraintStart_toStartOf="parent" />
     </android.support.constraint.ConstraintLayout>
 </layout>

@@ -99,7 +99,8 @@ public class CardActivity extends AppCompatActivity implements CardContract.Card
             //image, number then, expiry date
 
             //cardsList.add(new Cards(Integer.parseInt(x[2]), x[0] , x[1]));
-            int drawableResourceId = this.getResources().getIdentifier("ic_done_black_48dp", "drawable", this.getPackageName());
+            //int drawableResourceId = this.getResources().getIdentifier("ic_done_black_48dp", "drawable", this.getPackageName());
+            //Toast.makeText(CardActivity.this, card.get("cardType").getAsInt(), Toast.LENGTH_SHORT).show();
             cardsList.add(new Cards(card.get("cardType").getAsInt(), card.get("cardNum").getAsString() , card.get("expiryDate").getAsString(), card.get("primary").getAsBoolean(),R.drawable.ic_done_black_48dp));
             //Toast.makeText(this,card.get("cardNum").getAsString()+ " "+card.get("primary").getAsBoolean(),Toast.LENGTH_SHORT).show();
         }

@@ -29,13 +29,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="31dp"
-        android:background="@color/colorAccent"
+
         android:text="Add Card"
-        android:textColor="@android:color/white"
+
         android:layout_margin="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        style="@style/ButtonStyle"
         android:onClick="@{addCardPresenter::onAddCardButtonClick}"/>
 
 </RelativeLayout>

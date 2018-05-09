@@ -14,10 +14,8 @@
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         tools:context="info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardViewActivity.CardViewActivity">
 
 
@@ -27,7 +25,7 @@
             android:layout_height="200dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:src="@drawable/shape" />
+            android:src="@drawable/border" />
 
         <Button
             android:id="@+id/button7"
@@ -36,6 +34,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
             android:text="Delete Card"
+            style="@style/ButtonStyle"
             android:onClick="@{cardViewPresenter::onDeleteButtonClick}"/>
 
         <TextView

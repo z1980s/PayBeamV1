@@ -11,6 +11,8 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         tools:context="info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity.CardActivity"
         android:background="@drawable/bg_key">
 
@@ -29,7 +31,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardList" />
+            app:layout_constraintTop_toBottomOf="@+id/cardList"
+            style="@style/ButtonStyle"/>
 
         <ListView
             android:id="@+id/cardList"

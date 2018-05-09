@@ -11,6 +11,8 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         tools:context=".PayBeam.ProfileActivity.ProfileActivity">
 
         <TextView
@@ -65,29 +67,33 @@
 
         <Button
             android:id="@+id/editProfileButton"
+            style="@style/ButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="104dp"
+            android:layout_marginBottom="76dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
+            android:onClick="@{profilePresenter::onEditProfileButtonClick}"
             android:text="Edit Profile"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:onClick="@{profilePresenter::onEditProfileButtonClick}"/>
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/changePaswordButton"
+            style="@style/ButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
+            android:onClick="@{profilePresenter::onChangePasswordButtonClick}"
             android:text="Change Password"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editProfileButton"
-            android:onClick="@{profilePresenter::onChangePasswordButtonClick}"/>
+            app:layout_constraintTop_toBottomOf="@+id/editProfileButton" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>
