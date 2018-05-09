@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 0;
     private String phoneNo;
     private String OTP;
+    private String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -134,7 +135,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
         return this;
     }
 
-    protected void sendSMSMessage()
+    public void sendSMSMessage()
     {
         OTP = Integer.toString(new GenerateOTP().getOTP());
         message = "PayBeam OTP: "+OTP;
@@ -195,14 +196,14 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String m_Text = input.getText().toString();
+                userName = m_Text;
+                loginPresenter.getPhoneNo(m_Text);
 
-                phoneNo = loginPresenter.getPhoneNo(m_Text);
-
-                sendSMSMessage();
+                //sendSMSMessage();
 
                 dialog.cancel();
 
-                verifyOTP();
+                //verifyOTP();
             }
         });
 
@@ -240,11 +241,13 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
 
                 if(m_Text.equals(OTP))
                 {
-                    message = "PayBeam new password: "+loginPresenter.getNewPassword();
+                    loginPresenter.getNewPassword(userName);
+
+                    //message = "PayBeam new password: "+loginPresenter.getNewPassword(userName);
 
                     dialog.cancel();
                     
-                    sendSMSMessage2();
+                    //sendSMSMessage2();
                 }
             }
         });
@@ -261,7 +264,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
         builder.show();
     }
 
-    protected void sendSMSMessage2()
+    public void sendSMSMessage2()
     {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED)
         {
@@ -278,5 +281,13 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
         {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, MY_PERMISSIONS_REQUEST_SEND_SMS);
         }
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
     }
 }

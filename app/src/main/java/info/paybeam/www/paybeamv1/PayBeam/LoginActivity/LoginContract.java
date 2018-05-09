@@ -18,14 +18,20 @@ public interface LoginContract
         void showServerError();
         Activity getActivity();
         void forgotPassword();
+        void sendSMSMessage();
+        void sendSMSMessage2();
+        void verifyOTP();
+        void setMessage(String message);
+        void setPhoneNo(String phoneNo);
     }
 
     interface LoginPresenter
     {
         void onLoginButtonClick(View view);
         void onCreateAccountButtonClick(View view);
+        void onForgotPasswordClick(View view);
         void handleAuthentication(String username, String password);
-        String getPhoneNo(String username);
-        String getNewPassword();
+        void getPhoneNo(String username);
+        void getNewPassword(String username);
     }
 }

@@ -114,14 +114,6 @@ public class LoginPresenter implements LoginContract.LoginPresenter
             };
 
             sc.execute(null,null,null);
-            //String response = new ServerConnection().sendMessage(ServerConnection.createMessage("Login", "User", memberNames, values), loginView.getActivity());
-            /*
-            try {
-                response.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            */
 
         } catch (Exception e) {
             loginView.showServerError();
@@ -133,22 +125,77 @@ public class LoginPresenter implements LoginContract.LoginPresenter
         //if response null, show server error
     }
 
-    public void onForgotPasswordClick()
+    public void onForgotPasswordClick(View view)
     {
         loginView.forgotPassword();
     }
 
-    public String getPhoneNo(String username)
+    public void getPhoneNo(final String username)
     {
         //retrieve phone number from server and return string value
+        JsonObject msg = new JsonObject();
+        msg.addProperty("Header", "GetPhoneNumber");
+        msg.addProperty("LoginName", username);
 
-        return "phoneNo";
+        @SuppressLint("StaticFieldLeak")
+        ServerConnection sc = new ServerConnection(msg, loginView.getActivity()) {
+            @Override
+            public void receiveResponse(String response) {
+                try {
+                    JsonParser jParser = new JsonParser();
+                    JsonObject jResponse = (JsonObject)jParser.parse(response);
+
+                    if (jResponse.get("result").getAsString().equals("Success")) {
+                        String phoneNumber = jResponse.get("PhoneNumber").getAsString();
+                        InternalStorage.writeString(loginView.getActivity(), "PhoneNumber", phoneNumber);
+                        //System.out.println("PhoneNumber");
+                        loginView.setPhoneNo(phoneNumber);
+                        loginView.sendSMSMessage();
+                        loginView.verifyOTP();
+                    } else {
+                        //loginView.showErrorMessage("Failed to retr");
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    loginView.showErrorMessage("A System Error has Occurred, Please try again later.");
+                }
+            }
+        };
+        sc.execute(null,null,null);
     }
 
-    public String getNewPassword()
+    public void getNewPassword(String username)
     {
-        //get new password from server
-        //set new password on database
-        return "new password";
+        //retrieve phone number from server and return string value
+        JsonObject msg = new JsonObject();
+        msg.addProperty("Header", "GetNewPassword");
+        msg.addProperty("LoginName", username);
+
+        @SuppressLint("StaticFieldLeak")
+        ServerConnection sc = new ServerConnection(msg, loginView.getActivity()) {
+            @Override
+            public void receiveResponse(String response) {
+                try {
+                    JsonParser jParser = new JsonParser();
+                    JsonObject jResponse = (JsonObject)jParser.parse(response);
+
+                    if (jResponse.get("result").getAsString().equals("Success")) {
+                        String newPassword = jResponse.get("NewPassword").getAsString();
+                        String message = "PayBeam new password: " + newPassword;
+                        loginView.setMessage(message);
+                        loginView.sendSMSMessage2();
+                        //InternalStorage.writeString(loginView.getActivity(), "NewPassword", newPassword);
+                    } else {
+                        //loginView.showErrorMessage("Failed to retr");
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    loginView.showErrorMessage("A System Error has Occurred, Please try again later.");
+                }
+            }
+        };
+        sc.execute(null,null,null);
     }
 }

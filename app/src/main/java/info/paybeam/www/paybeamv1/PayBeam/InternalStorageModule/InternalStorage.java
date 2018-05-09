@@ -158,6 +158,14 @@ public class InternalStorage {
         }
     }
 
+    public static String readPhoneNumber (Context context, String filename) throws Exception {
+        FileInputStream fis = context.openFileInput(filename);
+        InputStreamReader isr = new InputStreamReader(fis);
+        BufferedReader bufferedReader = new BufferedReader(isr);
+        String line = bufferedReader.readLine();
+        return line;
+    }
+
     //get String
     public static String readString (Context context, String filename)
     {
