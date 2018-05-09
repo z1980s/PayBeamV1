@@ -251,7 +251,7 @@ public static void writeCardToFile(Context context, String filename, String card
         //MODE_APPEND FOR APPEND
         outputStream = context.openFileOutput(filename, context.MODE_APPEND);
         outputStream.write(obj.toString().getBytes());
-        outputStream.write("\n".toString().getBytes());
+        outputStream.write("\n".getBytes());
         outputStream.close();
     } catch (Exception e) {
         e.printStackTrace();
@@ -273,7 +273,7 @@ public static void writeCardToFile(Context context, String filename, String card
             if (cardList.size() != 0) {
                 for (JsonObject obj : cardList) {
                     outputStream.write(obj.toString().getBytes());
-                    outputStream.write("\n".toString().getBytes());
+                    outputStream.write("\n".getBytes());
                 }
             } else {
                 outputStream.write("".getBytes());
@@ -472,7 +472,7 @@ public static void writeCardToFile(Context context, String filename, String card
             //for loop through the ArrayList
             for(JsonObject obj: transactionList) {
                 outputStream.write(obj.toString().getBytes());
-                outputStream.write("\n".toString().getBytes());
+                outputStream.write("\n".getBytes());
             }
             outputStream.close();
         } catch (Exception e) {

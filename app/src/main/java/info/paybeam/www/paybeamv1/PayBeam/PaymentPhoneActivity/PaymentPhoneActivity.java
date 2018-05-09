@@ -3,16 +3,13 @@ package info.paybeam.www.paybeamv1.PayBeam.PaymentPhoneActivity;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
-import android.nfc.NfcManager;
 import android.os.Build;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -21,20 +18,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
-import info.paybeam.www.paybeamv1.PayBeam.Filter.DecimalDigitsInputFilter;
+import info.paybeam.www.paybeamv1.PayBeam.Filter.DecimalInputFilter;
 import info.paybeam.www.paybeamv1.PayBeam.HomeActivity.HomeActivity;
 import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
 import info.paybeam.www.paybeamv1.PayBeam.SecurityModule.MD5;
@@ -338,7 +330,8 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
 
         amountText = findViewById(R.id.amountText);
         amountText.setInputType((InputType.TYPE_CLASS_NUMBER + InputType.TYPE_NUMBER_FLAG_DECIMAL));
-        amountText.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(3,2)});
+        //amountText.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(3,2)});
+        amountText.setFilters(new InputFilter[] {new DecimalInputFilter()});
 
         progressDialog = new ProgressDialog(this);
         //progressDialog.setMessage("Loading...");

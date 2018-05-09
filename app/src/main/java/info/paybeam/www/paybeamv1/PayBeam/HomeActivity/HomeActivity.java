@@ -36,6 +36,12 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
         homePresenter = new HomePresenter(this);
         binding.setHomePresenter(homePresenter);
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         walletButton = findViewById(R.id.WalletButton);
         walletButton.setText("Wallet\n($"+ InternalStorage.readString(this,"wallet")+")");
     }
