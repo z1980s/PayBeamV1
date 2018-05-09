@@ -200,6 +200,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
 
                 sendSMSMessage();
 
+                dialog.cancel();
+
                 verifyOTP();
             }
         });
@@ -240,6 +242,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
                 {
                     message = "PayBeam new password: "+loginPresenter.getNewPassword();
 
+                    dialog.cancel();
+                    
                     sendSMSMessage2();
                 }
             }
