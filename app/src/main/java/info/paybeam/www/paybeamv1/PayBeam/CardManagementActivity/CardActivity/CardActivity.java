@@ -84,6 +84,30 @@ public class CardActivity extends AppCompatActivity implements CardContract.Card
 
         for(JsonObject card : cards)
         {
+            int resID = 0;
+
+            if(card.get("cardType2").getAsString().equals("VISA")) {
+                resID = R.drawable.bt_ic_visa;
+            } else if (card.get("cardType2").getAsString().equals("MASTERCARD")) {
+                resID = R.drawable.bt_ic_mastercard;
+            } else if (card.get("cardType2").getAsString().equals("DISCOVER")) {
+                resID = R.drawable.bt_ic_discover;
+            } else if (card.get("cardType2").getAsString().equals("AMEX")) {
+                resID = R.drawable.bt_ic_amex;
+            } else if (card.get("cardType2").getAsString().equals("DINERS_CLUB")) {
+                resID = R.drawable.bt_ic_diners_club;
+            } else if (card.get("cardType2").getAsString().equals("JCB")) {
+                resID = R.drawable.bt_ic_jcb;
+            } else if (card.get("cardType2").getAsString().equals("MAESTRO")) {
+                resID = R.drawable.bt_ic_maestro;
+            } else if (card.get("cardType2").getAsString().equals("UNIONPAY")) {
+                resID = R.drawable.bt_ic_unionpay;
+            } else if (card.get("cardType2").getAsString().equals("UNKNOWN")) {
+                resID = R.drawable.bt_ic_unknown;
+            } else {
+                resID = R.drawable.bt_ic_unknown;
+            }
+
             //String [] x = card.split(",");
             /*
             //Set the cardType
@@ -99,8 +123,8 @@ public class CardActivity extends AppCompatActivity implements CardContract.Card
             //image, number then, expiry date
 
             //cardsList.add(new Cards(Integer.parseInt(x[2]), x[0] , x[1]));
-            int drawableResourceId = this.getResources().getIdentifier("ic_done_black_48dp", "drawable", this.getPackageName());
-            cardsList.add(new Cards(card.get("cardType").getAsInt(), card.get("cardNum").getAsString() , card.get("expiryDate").getAsString(), card.get("primary").getAsBoolean(),R.drawable.ic_done_black_48dp));
+            //int drawableResourceId = this.getResources().getIdentifier("ic_done_black_48dp", "drawable", this.getPackageName());
+            cardsList.add(new Cards(resID, card.get("cardNum").getAsString() , card.get("expiryDate").getAsString(), card.get("primary").getAsBoolean(),R.drawable.ic_done_black_48dp));
             //Toast.makeText(this,card.get("cardNum").getAsString()+ " "+card.get("primary").getAsBoolean(),Toast.LENGTH_SHORT).show();
         }
 

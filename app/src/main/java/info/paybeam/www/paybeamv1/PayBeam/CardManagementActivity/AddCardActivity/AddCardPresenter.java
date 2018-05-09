@@ -91,6 +91,7 @@ public class AddCardPresenter implements AddCardContract.AddCardPresenter{
         msg.addProperty("LoginName", credentials[0]);
         msg.addProperty("CardNo", cardNumber.substring(length-4,length));
         msg.addProperty("CardType", Integer.toString(cardType.getFrontResource()));
+        msg.addProperty("CardType2", cardType.name());
         msg.addProperty("ExpiryDate", expirationMonth + "/" + expirationYear);
         JsonObject cardInfo = new JsonObject();
         cardInfo.addProperty("FullCardNo", cardNumber);
@@ -126,7 +127,7 @@ public class AddCardPresenter implements AddCardContract.AddCardPresenter{
                             }
 
                             //write masked cardnumber to the card file
-                            InternalStorage.writeCardToFile(addCardView.getActivity(),"cards", maskCardNum, (expirationMonth+"/"+expirationYear), Integer.toString(cardType.getFrontResource()), primary);
+                            InternalStorage.writeCardToFile(addCardView.getActivity(),"cards", maskCardNum, (expirationMonth+"/"+expirationYear), Integer.toString(cardType.getFrontResource()), cardType.name(), primary);
                             addCardView.showSuccessMessage(jResponse.get("reason").getAsString());
                             //InternalStorage.delete(addCardView.getActivity().getApplicationContext(),"card");
 
