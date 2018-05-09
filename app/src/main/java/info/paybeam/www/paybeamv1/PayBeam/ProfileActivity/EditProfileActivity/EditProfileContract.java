@@ -5,15 +5,13 @@ import android.view.View;
 
 import com.google.gson.JsonObject;
 
-import org.json.JSONObject;
-
 public interface EditProfileContract
 {
     interface EditProfileView
     {
         void displayFieldDetails(JsonObject obj);
         Activity getActivity();
-        JsonObject extractValues();
+        void extractValues();
         void showSuccess(String message);
         void showErrorMessage(String errorMsg);
         void finishActivity();
@@ -23,5 +21,6 @@ public interface EditProfileContract
     {
         void onPageDisplayed();
         void onSubmitButtonClick(View view);
+        void submitProfileChanges(JsonObject newObj);
     }
 }
