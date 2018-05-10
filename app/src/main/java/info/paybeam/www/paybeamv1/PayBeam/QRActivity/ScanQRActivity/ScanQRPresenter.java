@@ -41,7 +41,7 @@ public class ScanQRPresenter implements ScanQRContract.ScanQRPresenter
 
                     JsonObject msg = new JsonObject();
                     msg.addProperty("Header", "DecodeQR");
-                    msg.addProperty("Payee", username);
+                    msg.addProperty("Payer", username);
                     JsonParser jParser = new JsonParser();
                     //username + DESPP(Json(username + Amount))
                     JsonObject data = (JsonObject) jParser.parse(result);
