@@ -388,10 +388,49 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
         dlgAlert.create().show();
     }
 
+    String m_Text;
+
+    public void getAmount()
+    {
+        //progressDialog.dismiss();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Please Enter OTP to receive new password");
+
+        // Set up the input
+        final EditText input = new EditText(this);
+        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        builder.setView(input);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                m_Text = input.getText().toString();
+                dialog.cancel();
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
     @Override
     public void checkAmount() {
-        amountText.getText().toString();
-        boolean validInput = amountText.getText().toString().matches("-?\\d+(\\.\\d+)?");
+
+        //amountText.getText().toString();
+        //boolean validInput = amountText.getText().toString().matches("-?\\d+(\\.\\d+)?");
+        boolean validInput = m_Text.matches("-?\\d+(\\.\\d+)?");
+
         if(validInput && Double.parseDouble(amountText.getText().toString())>0)
         {
             addMessage();
@@ -434,6 +473,7 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
                     public void onClick(DialogInterface dialog, int which)
                     {
                         //CreateAccountActivity.this.finish();
+                        progressDialog.dismiss();
                         finish();
                     }
                 });
@@ -444,5 +484,11 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
     @Override
     public Activity getActivity() {
         return this;
+    }
+
+    public void showReceiveDialog()
+    {
+        progressDialog.setMessage("Please hold phones close together ... ");
+        progressDialog.show();
     }
 }

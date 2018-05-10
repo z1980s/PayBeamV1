@@ -41,6 +41,11 @@ public class PaymentPhonePresenter implements PaymentPhoneContract.PaymentPhoneP
 
     }
 
+    public void onReceiveButtonClick(View view)
+    {
+        ppView.showReceiveDialog();
+    }
+
     @Override
     public void messageSent()
     {

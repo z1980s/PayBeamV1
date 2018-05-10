@@ -19,6 +19,7 @@ public interface PaymentPhoneContract
         void showSuccess(String message);
         void showErrorMessage(String errorMsg);
         void checkAmount();
+        void showReceiveDialog();
     }
 
     interface PaymentPhonePresenter
@@ -27,5 +28,6 @@ public interface PaymentPhoneContract
         void messageSent();
         void messageReceived();
         void handleIncomingMessage(String receivedMessage);
+        void onReceiveButtonClick(View view);
     }
 }
