@@ -473,7 +473,6 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
                     public void onClick(DialogInterface dialog, int which)
                     {
                         //CreateAccountActivity.this.finish();
-                        progressDialog.dismiss();
                         finish();
                     }
                 });
