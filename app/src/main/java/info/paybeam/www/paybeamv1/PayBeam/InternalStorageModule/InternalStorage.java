@@ -232,7 +232,7 @@ public class InternalStorage {
         }
     }
     */
-public static void writeCardToFile(Context context, String filename, String cardNum, String expiryDate, String cardType, String cardType2, boolean primary)
+public static void writeCardToFile(Context context, String filename, String cardNum, String expiryDate, String cardType, boolean primary)
 {
 
     //Create JSON object containing the card details
@@ -240,7 +240,6 @@ public static void writeCardToFile(Context context, String filename, String card
     obj.addProperty("cardNum",cardNum);
     obj.addProperty("expiryDate",expiryDate);
     obj.addProperty("cardType",cardType);
-    obj.addProperty("cardType2", cardType2);
     obj.addProperty("primary",primary);
 
 

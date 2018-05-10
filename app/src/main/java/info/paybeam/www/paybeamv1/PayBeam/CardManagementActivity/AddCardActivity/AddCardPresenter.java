@@ -90,8 +90,7 @@ public class AddCardPresenter implements AddCardContract.AddCardPresenter{
         msg.addProperty("Header", "AddCard");
         msg.addProperty("LoginName", credentials[0]);
         msg.addProperty("CardNo", cardNumber.substring(length-4,length));
-        msg.addProperty("CardType", Integer.toString(cardType.getFrontResource()));
-        msg.addProperty("CardType2", cardType.name());
+        msg.addProperty("CardType", cardType.name());
         msg.addProperty("ExpiryDate", expirationMonth + "/" + expirationYear);
         JsonObject cardInfo = new JsonObject();
         cardInfo.addProperty("FullCardNo", cardNumber);

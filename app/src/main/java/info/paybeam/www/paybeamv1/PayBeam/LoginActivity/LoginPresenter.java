@@ -86,18 +86,14 @@ public class LoginPresenter implements LoginContract.LoginPresenter
                                     String cardNo = card.get("CardNo").getAsString();
                                     String cardExpiry = card.get("CardExpiry").getAsString();
                                     String cardType = card.get("CardType").getAsString();
-                                    String cardType2 = card.get("CardType2").getAsString();
                                     Boolean isDefault = card.get("Default").getAsBoolean();
                                     JsonObject newCard = new JsonObject();
                                     newCard.addProperty("cardNum", cardNo);
                                     newCard.addProperty("expiryDate", cardExpiry);
                                     newCard.addProperty("cardType", cardType);
-                                    newCard.addProperty("cardType2",cardType2);
                                     newCard.addProperty("primary", isDefault);
                                     cardArrayList.add(newCard);
                                 }
-
-                            } else {
 
                             }
                             InternalStorage.writeCardListToFile(loginView.getActivity(),"cards", cardArrayList);
