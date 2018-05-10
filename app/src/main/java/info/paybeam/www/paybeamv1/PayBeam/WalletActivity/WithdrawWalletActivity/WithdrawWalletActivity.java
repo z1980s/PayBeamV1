@@ -68,7 +68,31 @@ public class WithdrawWalletActivity extends AppCompatActivity implements Withdra
 
         for(JsonObject card : cards)
         {
-            cardsList.add(new Cards(card.get("cardType").getAsInt(), card.get("cardNum").getAsString() , card.get("expiryDate").getAsString(), card.get("primary").getAsBoolean(),R.drawable.ic_done_black_48dp));
+            int resID = 0;
+
+            if(card.get("cardType").getAsString().equals("VISA")) {
+                resID = R.drawable.bt_ic_visa;
+            } else if (card.get("cardType").getAsString().equals("MASTERCARD")) {
+                resID = R.drawable.bt_ic_mastercard;
+            } else if (card.get("cardType").getAsString().equals("DISCOVER")) {
+                resID = R.drawable.bt_ic_discover;
+            } else if (card.get("cardType").getAsString().equals("AMEX")) {
+                resID = R.drawable.bt_ic_amex;
+            } else if (card.get("cardType").getAsString().equals("DINERS_CLUB")) {
+                resID = R.drawable.bt_ic_diners_club;
+            } else if (card.get("cardType").getAsString().equals("JCB")) {
+                resID = R.drawable.bt_ic_jcb;
+            } else if (card.get("cardType").getAsString().equals("MAESTRO")) {
+                resID = R.drawable.bt_ic_maestro;
+            } else if (card.get("cardType").getAsString().equals("UNIONPAY")) {
+                resID = R.drawable.bt_ic_unionpay;
+            } else if (card.get("cardType").getAsString().equals("UNKNOWN")) {
+                resID = R.drawable.bt_ic_unknown;
+            } else {
+                resID = R.drawable.bt_ic_unknown;
+            }
+
+            cardsList.add(new Cards(resID, card.get("cardNum").getAsString() , card.get("expiryDate").getAsString(), card.get("primary").getAsBoolean(),R.drawable.ic_done_black_48dp));
         }
 
         //Put the cardList into cardAdapter
