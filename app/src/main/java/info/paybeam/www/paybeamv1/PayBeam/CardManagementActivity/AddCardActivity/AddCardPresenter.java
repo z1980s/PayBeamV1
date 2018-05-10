@@ -126,7 +126,7 @@ public class AddCardPresenter implements AddCardContract.AddCardPresenter{
                             }
 
                             //write masked cardnumber to the card file
-                            InternalStorage.writeCardToFile(addCardView.getActivity(),"cards", maskCardNum, (expirationMonth+"/"+expirationYear), Integer.toString(cardType.getFrontResource()), cardType.name(), primary);
+                            InternalStorage.writeCardToFile(addCardView.getActivity(),"cards", maskCardNum, (expirationMonth+"/"+expirationYear), cardType.name(), primary);
                             addCardView.showSuccessMessage(jResponse.get("reason").getAsString());
                             //InternalStorage.delete(addCardView.getActivity().getApplicationContext(),"card");
 
