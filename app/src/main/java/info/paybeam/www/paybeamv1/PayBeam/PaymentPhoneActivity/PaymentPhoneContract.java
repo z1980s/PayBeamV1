@@ -20,6 +20,7 @@ public interface PaymentPhoneContract
         void showErrorMessage(String errorMsg);
         void checkAmount();
         void showReceiveDialog();
+        void getAmount();
     }
 
     interface PaymentPhonePresenter

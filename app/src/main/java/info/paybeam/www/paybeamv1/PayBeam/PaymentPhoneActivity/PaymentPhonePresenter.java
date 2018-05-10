@@ -37,7 +37,8 @@ public class PaymentPhonePresenter implements PaymentPhoneContract.PaymentPhoneP
         //ppView.addMessage();
 
         //Here we check the amount added before we call addMessage
-        ppView.checkAmount();
+        //ppView.checkAmount();
+        ppView.getAmount();
 
     }
 

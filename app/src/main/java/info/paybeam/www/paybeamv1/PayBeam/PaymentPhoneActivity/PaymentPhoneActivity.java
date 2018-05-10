@@ -410,6 +410,7 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
             public void onClick(DialogInterface dialog, int which) {
                 m_Text = input.getText().toString();
                 dialog.cancel();
+                checkAmount();
             }
         });
 
@@ -426,7 +427,6 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
     }
     @Override
     public void checkAmount() {
-
         //amountText.getText().toString();
         //boolean validInput = amountText.getText().toString().matches("-?\\d+(\\.\\d+)?");
         boolean validInput = m_Text.matches("-?\\d+(\\.\\d+)?");
