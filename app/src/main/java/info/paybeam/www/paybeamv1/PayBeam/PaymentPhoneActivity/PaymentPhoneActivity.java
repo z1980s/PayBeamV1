@@ -395,7 +395,7 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
         //progressDialog.dismiss();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Please Enter OTP to receive new password");
+        builder.setTitle("Please enter amount");
 
         // Set up the input
         final EditText input = new EditText(this);
@@ -431,7 +431,7 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
         //boolean validInput = amountText.getText().toString().matches("-?\\d+(\\.\\d+)?");
         boolean validInput = m_Text.matches("-?\\d+(\\.\\d+)?");
 
-        if(validInput && Double.parseDouble(amountText.getText().toString())>0)
+        if(validInput && Double.parseDouble(m_Text)>0)
         {
             addMessage();
         }
