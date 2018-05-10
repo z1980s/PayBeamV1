@@ -86,23 +86,23 @@ public class CardActivity extends AppCompatActivity implements CardContract.Card
         {
             int resID = 0;
 
-            if(card.get("cardType2").getAsString().equals("VISA")) {
+            if(card.get("cardType").getAsString().equals("VISA")) {
                 resID = R.drawable.bt_ic_visa;
-            } else if (card.get("cardType2").getAsString().equals("MASTERCARD")) {
+            } else if (card.get("cardType").getAsString().equals("MASTERCARD")) {
                 resID = R.drawable.bt_ic_mastercard;
-            } else if (card.get("cardType2").getAsString().equals("DISCOVER")) {
+            } else if (card.get("cardType").getAsString().equals("DISCOVER")) {
                 resID = R.drawable.bt_ic_discover;
-            } else if (card.get("cardType2").getAsString().equals("AMEX")) {
+            } else if (card.get("cardType").getAsString().equals("AMEX")) {
                 resID = R.drawable.bt_ic_amex;
-            } else if (card.get("cardType2").getAsString().equals("DINERS_CLUB")) {
+            } else if (card.get("cardType").getAsString().equals("DINERS_CLUB")) {
                 resID = R.drawable.bt_ic_diners_club;
-            } else if (card.get("cardType2").getAsString().equals("JCB")) {
+            } else if (card.get("cardType").getAsString().equals("JCB")) {
                 resID = R.drawable.bt_ic_jcb;
-            } else if (card.get("cardType2").getAsString().equals("MAESTRO")) {
+            } else if (card.get("cardType").getAsString().equals("MAESTRO")) {
                 resID = R.drawable.bt_ic_maestro;
-            } else if (card.get("cardType2").getAsString().equals("UNIONPAY")) {
+            } else if (card.get("cardType").getAsString().equals("UNIONPAY")) {
                 resID = R.drawable.bt_ic_unionpay;
-            } else if (card.get("cardType2").getAsString().equals("UNKNOWN")) {
+            } else if (card.get("cardType").getAsString().equals("UNKNOWN")) {
                 resID = R.drawable.bt_ic_unknown;
             } else {
                 resID = R.drawable.bt_ic_unknown;
