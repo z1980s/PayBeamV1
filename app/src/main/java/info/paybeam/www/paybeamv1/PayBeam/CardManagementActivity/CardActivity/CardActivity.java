@@ -82,6 +82,9 @@ public class CardActivity extends AppCompatActivity implements CardContract.Card
 
         ArrayList<Cards> cardsList = new ArrayList<>();
 
+
+        cardsList.add(new Cards(R.drawable.bt_ic_unknown,"Wallet","",false,R.drawable.ic_done_black_48dp));
+
         for(JsonObject card : cards)
         {
             int resID = 0;
