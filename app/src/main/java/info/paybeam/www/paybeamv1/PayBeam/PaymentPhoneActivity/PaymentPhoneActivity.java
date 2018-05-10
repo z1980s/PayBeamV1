@@ -38,7 +38,7 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
         NfcAdapter.CreateNdefMessageCallback
 {
     private PaymentPhonePresenter ppPresenter;
-    private EditText amountText;
+    //private EditText amountText;
     ProgressDialog progressDialog;
 
     private PaymentPhonePresenter paymentPhonePresenter;
@@ -63,8 +63,8 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
 
         JsonObject paymentData = new JsonObject();
         paymentData.addProperty("SenderLoginName", user);
-        paymentData.addProperty("Amount", amountText.getText().toString());
-        String hash = new MD5().getHash(token + amountText.getText().toString());
+        paymentData.addProperty("Amount", m_Text);
+        String hash = new MD5().getHash(token + m_Text);
         paymentData.addProperty("hash", hash);
 
         //String newMessage = amountText.getText().toString();
@@ -328,10 +328,10 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
             dlgAlert.create().show();
         }
 
-        amountText = findViewById(R.id.amountText);
-        amountText.setInputType((InputType.TYPE_CLASS_NUMBER + InputType.TYPE_NUMBER_FLAG_DECIMAL));
+        //amountText = findViewById(R.id.amountText);
+        //amountText.setInputType((InputType.TYPE_CLASS_NUMBER + InputType.TYPE_NUMBER_FLAG_DECIMAL));
         //amountText.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(3,2)});
-        amountText.setFilters(new InputFilter[] {new DecimalInputFilter()});
+        //amountText.setFilters(new InputFilter[] {new DecimalInputFilter()});
 
         progressDialog = new ProgressDialog(this);
         //progressDialog.setMessage("Loading...");
