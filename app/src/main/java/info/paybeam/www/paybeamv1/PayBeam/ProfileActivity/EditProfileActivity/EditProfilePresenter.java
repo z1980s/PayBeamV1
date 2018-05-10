@@ -28,14 +28,19 @@ public class EditProfilePresenter implements EditProfileContract.EditProfilePres
         editProfileView.displayFieldDetails(InternalStorage.readProfileFromFile(editProfileView.getActivity(),"profile"));
     }
 
-
     @Override
     public void onSubmitButtonClick(View view) {
+        editProfileView.extractValues();
+    }
+
+
+    @Override
+    public void submitProfileChanges(final JsonObject newObj) {
         //check for any changes
         //JSONObject currentObj= InternalStorage.readProfileFromFile(editProfileView.getActivity(),"profile");
         //JSONObject newObj= editProfileView.extractValues();
         final JsonObject currentObj = InternalStorage.readProfileFromFile(editProfileView.getActivity(),"profile");
-        final JsonObject newObj = editProfileView.extractValues();
+        //final JsonObject newObj = editProfileView.extractValues();
 
         boolean changed = false;
 
