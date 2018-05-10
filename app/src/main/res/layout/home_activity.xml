@@ -11,196 +11,132 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/button_transaction"
-        app:layout_constraintStart_toStartOf="@+id/button_transaction"
-        tools:context="info.paybeam.www.paybeamv1.PayBeam.HomeActivity.HomeActivity">
+        android:background="@color/white">
 
 
         <Button
             android:id="@+id/PhoneToReaderImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginStart="40dp"
             android:background="@color/transparent"
             android:drawableTop="@drawable/pay_merchant"
             android:onClick="@{homePresenter::onPaymentReaderImageClick}"
-            android:text="Pay Merchant"
+            android:text="Tap Reader"
             android:textAllCaps="false"
             android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/WalletButton" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.55" />
 
         <Button
             android:id="@+id/WalletButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="44dp"
+            android:layout_marginBottom="36dp"
+            android:layout_marginStart="40dp"
             android:background="@color/transparent"
             android:drawableTop="@drawable/wallet"
             android:onClick="@{homePresenter::onWalletImageClick}"
-            android:text="Wallet\nAmount"
+            android:text="Wallet\n"
             android:textAllCaps="false"
             android:textSize="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/CardManagementImageButton" />
+            app:layout_constraintBottom_toTopOf="@+id/PhoneToReaderImageButton"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/ScanQRButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
             android:background="@color/transparent"
             android:drawableTop="@drawable/qr_code"
             android:onClick="@{homePresenter::onScanQRImageClick}"
             android:text="QR"
             android:textAllCaps="false"
             android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.483"
-            app:layout_constraintStart_toEndOf="@+id/WalletButton"
-            app:layout_constraintTop_toBottomOf="@+id/TransactionImageButton" />
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.55" />
 
         <Button
             android:id="@+id/PhoneToPhoneImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
+            android:layout_marginEnd="36dp"
+            android:layout_marginTop="1dp"
             android:background="@color/transparent"
             android:drawableTop="@drawable/p2p"
             android:onClick="@{homePresenter::onPaymentPhoneImageClick}"
-            android:text="Phone to Phone"
+            android:text="P2P"
             android:textAllCaps="false"
             android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.459"
-            app:layout_constraintStart_toEndOf="@+id/PhoneToReaderImageButton"
-            app:layout_constraintTop_toBottomOf="@+id/ScanQRButton" />
+            app:layout_constraintTop_toTopOf="@+id/ScanQRButton" />
 
         <Button
             android:id="@+id/ProfileImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginTop="52dp"
             android:background="@color/transparent"
             android:drawableTop="@drawable/profile"
             android:onClick="@{homePresenter::onProfileImageClick}"
             android:text="Profile"
             android:textAllCaps="false"
             android:textSize="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/PhoneToReaderImageButton"
-            app:layout_constraintVertical_bias="0.578" />
+            app:layout_constraintEnd_toStartOf="@+id/SettingsImageButton"
+            app:layout_constraintTop_toBottomOf="@+id/ScanQRButton" />
 
         <Button
             android:id="@+id/SettingsImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginEnd="84dp"
+            android:layout_marginStart="84dp"
             android:background="@color/transparent"
             android:drawableTop="@drawable/about"
             android:onClick="@{homePresenter::onSettingsImageClick}"
             android:text="About"
             android:textAllCaps="false"
             android:textSize="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBaseline_toBaselineOf="@+id/ProfileImageButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.483"
-            app:layout_constraintStart_toEndOf="@+id/ProfileImageButton"
-            app:layout_constraintTop_toBottomOf="@+id/PhoneToPhoneImageButton"
-            app:layout_constraintVertical_bias="0.578" />
+            app:layout_constraintHorizontal_bias="0.629"
+            app:layout_constraintStart_toEndOf="@+id/PhoneToReaderImageButton" />
 
         <Button
             android:id="@+id/CardManagementImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/TransactionImageButton"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="28dp"
-            android:layout_toEndOf="@+id/TransactionImageButton"
+            android:layout_marginStart="160dp"
             android:background="@color/transparent"
-            android:baselineAlignBottom="true"
             android:drawableTop="@drawable/cards"
             android:onClick="@{homePresenter::onCardManagementImageClick}"
             android:text="Cards"
             android:textAllCaps="false"
             android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/WalletButton" />
 
 
         <Button
             android:id="@+id/TransactionImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:layout_marginStart="32dp"
             android:background="@color/transparent"
             android:drawableTop="@drawable/receipt"
             android:onClick="@{homePresenter::onTransactionImageClick}"
             android:text="Transactions"
             android:textAllCaps="false"
-            android:textSize="18dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/CardManagementImageButton"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="108dp" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="155dp" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="438dp" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintGuide_begin="255dp"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="154dp" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="303dp" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="200dp" />
+            android:textSize="16dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/CardManagementImageButton"
+            app:layout_constraintStart_toEndOf="@+id/CardManagementImageButton" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>
