@@ -21,16 +21,14 @@
             android:id="@+id/PhoneToReaderImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="6dp"
-            android:layout_marginStart="11dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="36dp"
             android:background="@color/transparent"
             android:drawableTop="@drawable/pay_merchant"
             android:onClick="@{homePresenter::onPaymentReaderImageClick}"
             android:text="Pay Merchant"
             android:textAllCaps="false"
             android:textSize="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/ProfileImageButton"
-            app:layout_constraintEnd_toStartOf="@+id/PhoneToPhoneImageButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/WalletButton" />
 
@@ -38,16 +36,14 @@
             android:id="@+id/WalletButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:layout_marginStart="7dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="44dp"
             android:background="@color/transparent"
             android:drawableTop="@drawable/wallet"
             android:onClick="@{homePresenter::onWalletImageClick}"
             android:text="Wallet\nAmount"
             android:textAllCaps="false"
             android:textSize="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/PhoneToReaderImageButton"
-            app:layout_constraintEnd_toStartOf="@+id/ScanQRButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/CardManagementImageButton" />
 
@@ -55,15 +51,15 @@
             android:id="@+id/ScanQRButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginTop="48dp"
             android:background="@color/transparent"
             android:drawableTop="@drawable/qr_code"
             android:onClick="@{homePresenter::onScanQRImageClick}"
             android:text="QR"
             android:textAllCaps="false"
             android:textSize="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/PhoneToPhoneImageButton"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.483"
             app:layout_constraintStart_toEndOf="@+id/WalletButton"
             app:layout_constraintTop_toBottomOf="@+id/TransactionImageButton" />
 
@@ -71,15 +67,15 @@
             android:id="@+id/PhoneToPhoneImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
+            android:layout_marginTop="48dp"
             android:background="@color/transparent"
             android:drawableTop="@drawable/p2p"
             android:onClick="@{homePresenter::onPaymentPhoneImageClick}"
             android:text="Phone to Phone"
             android:textAllCaps="false"
             android:textSize="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/SettingsImageButton"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.459"
             app:layout_constraintStart_toEndOf="@+id/PhoneToReaderImageButton"
             app:layout_constraintTop_toBottomOf="@+id/ScanQRButton" />
 
@@ -88,7 +84,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginStart="7dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="8dp"
             android:background="@color/transparent"
             android:drawableTop="@drawable/profile"
             android:onClick="@{homePresenter::onProfileImageClick}"
@@ -96,15 +93,16 @@
             android:textAllCaps="false"
             android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/SettingsImageButton"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/PhoneToReaderImageButton" />
+            app:layout_constraintTop_toBottomOf="@+id/PhoneToReaderImageButton"
+            app:layout_constraintVertical_bias="0.578" />
 
         <Button
             android:id="@+id/SettingsImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
             android:background="@color/transparent"
             android:drawableTop="@drawable/about"
             android:onClick="@{homePresenter::onSettingsImageClick}"
@@ -113,22 +111,26 @@
             android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.483"
             app:layout_constraintStart_toEndOf="@+id/ProfileImageButton"
-            app:layout_constraintTop_toBottomOf="@+id/PhoneToPhoneImageButton" />
+            app:layout_constraintTop_toBottomOf="@+id/PhoneToPhoneImageButton"
+            app:layout_constraintVertical_bias="0.578" />
 
         <Button
             android:id="@+id/CardManagementImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="17dp"
+            android:layout_alignBaseline="@+id/TransactionImageButton"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="28dp"
+            android:layout_toEndOf="@+id/TransactionImageButton"
             android:background="@color/transparent"
+            android:baselineAlignBottom="true"
             android:drawableTop="@drawable/cards"
             android:onClick="@{homePresenter::onCardManagementImageClick}"
             android:text="Cards"
             android:textAllCaps="false"
             android:textSize="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/WalletButton"
-            app:layout_constraintEnd_toStartOf="@+id/TransactionImageButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -137,18 +139,68 @@
             android:id="@+id/TransactionImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="2dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="28dp"
             android:background="@color/transparent"
             android:drawableTop="@drawable/receipt"
             android:onClick="@{homePresenter::onTransactionImageClick}"
             android:text="Transactions"
             android:textAllCaps="false"
             android:textSize="18dp"
-            app:layout_constraintBottom_toTopOf="@+id/ScanQRButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/CardManagementImageButton"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="108dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="155dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="438dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_begin="255dp"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="154dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="303dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="200dp" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>
