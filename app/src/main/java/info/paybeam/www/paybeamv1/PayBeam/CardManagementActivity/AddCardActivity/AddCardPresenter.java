@@ -151,7 +151,6 @@ public class AddCardPresenter implements AddCardContract.AddCardPresenter{
         } catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
     public void getPhoneNo()
@@ -193,8 +192,4 @@ public class AddCardPresenter implements AddCardContract.AddCardPresenter{
         };
         sc.execute(null,null,null);
     }
-
-
-
-
 }

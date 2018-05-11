@@ -237,4 +237,26 @@ public class AddCardActivity extends AppCompatActivity implements AddCardContrac
     public void setPhoneNo(String phoneNo) {
         this.phoneNo = phoneNo;
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults)
+    {
+        switch (requestCode)
+        {
+            case MY_PERMISSIONS_REQUEST_SEND_SMS:
+            {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                {
+                    SmsManager smsManager = SmsManager.getDefault();
+                    smsManager.sendTextMessage(phoneNo, null, message, null, null);
+                    //Toast.makeText(context, "SMS sent.", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    //Toast.makeText(context, "SMS faild, please try again.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }
+        }
+    }
 }
