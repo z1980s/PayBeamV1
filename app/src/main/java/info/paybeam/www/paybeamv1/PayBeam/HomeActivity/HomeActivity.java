@@ -45,6 +45,12 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        showNewWalletBalance();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         showNewWalletBalance();

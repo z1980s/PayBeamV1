@@ -42,7 +42,8 @@ public class AddCardPresenter implements AddCardContract.AddCardPresenter{
         if (valid)
         {
             //addCardView.extractValues();
-            addCardView.verifyOTP();
+            //addCardView.verifyOTP();
+            getPhoneNo();
         }
     }
 
@@ -159,6 +160,38 @@ public class AddCardPresenter implements AddCardContract.AddCardPresenter{
         //make server connection
         //return phoneNo
         //call addCardView.setPhoneNo
+
+        String[] credentials = InternalStorage.readString(addCardView.getActivity(), "Credentials").split(",");
+        String username = credentials[0];
+        //retrieve phone number from server and return string value
+        JsonObject msg = new JsonObject();
+        msg.addProperty("Header", "GetPhoneNumber");
+        msg.addProperty("LoginName", username);
+
+        @SuppressLint("StaticFieldLeak")
+        ServerConnection sc = new ServerConnection(msg, addCardView.getActivity()) {
+            @Override
+            public void receiveResponse(String response) {
+                try {
+                    JsonParser jParser = new JsonParser();
+                    JsonObject jResponse = (JsonObject)jParser.parse(response);
+
+                    if (jResponse.get("result").getAsString().equals("Success")) {
+                        String phoneNumber = jResponse.get("PhoneNumber").getAsString();
+                        addCardView.setPhoneNo(phoneNumber);
+                        addCardView.sendSMSMessage();
+                        addCardView.verifyOTP();
+                    } else {
+                        //loginView.showErrorMessage("Failed to retr");
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    addCardView.showErrorMessage("A System Error has Occurred, Please try again later.");
+                }
+            }
+        };
+        sc.execute(null,null,null);
     }
 
 

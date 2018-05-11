@@ -22,6 +22,7 @@ public interface AddCardContract {
         boolean validate();
         void verifyOTP();
         void setPhoneNo(String phoneNo);
+        void sendSMSMessage();
     }
 
     interface AddCardPresenter

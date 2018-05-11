@@ -165,8 +165,6 @@ public class AddCardActivity extends AppCompatActivity implements AddCardContrac
     public void verifyOTP()
     {
         //progressDialog.dismiss();
-        addCardPresenter.getPhoneNo();
-        sendSMSMessage();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Please Enter OTP to validate card");
