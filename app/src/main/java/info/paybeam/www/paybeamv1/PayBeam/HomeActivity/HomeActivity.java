@@ -1,5 +1,6 @@
 package info.paybeam.www.paybeamv1.PayBeam.HomeActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.nfc.NfcAdapter;
@@ -8,9 +9,13 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import java.io.File;
 
 import info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity.CardActivity;
+import info.paybeam.www.paybeamv1.PayBeam.ConnectionModule.ServerConnection;
 import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
 import info.paybeam.www.paybeamv1.PayBeam.PaymentPhoneActivity.PaymentPhoneActivity;
 import info.paybeam.www.paybeamv1.PayBeam.PaymentReaderActivity.PaymentReaderActivity;
@@ -36,14 +41,13 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
         homePresenter = new HomePresenter(this);
         binding.setHomePresenter(homePresenter);
 
-
+        showNewWalletBalance();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        walletButton = findViewById(R.id.WalletButton);
-        walletButton.setText("Wallet\n($"+ InternalStorage.readString(this,"wallet")+")");
+        showNewWalletBalance();
     }
 
     @Override
@@ -109,5 +113,36 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
         //Toast.makeText(this,"Show QR View", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, QRActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void showNewWalletBalance() {
+        walletButton = findViewById(R.id.WalletButton);
+
+        String credentials[] = InternalStorage.readString(this,"Credentials").split(",");
+        JsonObject msg = new JsonObject();
+        msg.addProperty("Header", "GetWalletAmount");
+        msg.addProperty("LoginName", credentials[0]);
+        msg.addProperty("Token", InternalStorage.readString(this,"Token"));
+
+        @SuppressLint("StaticFieldLeak")
+        ServerConnection sc = new ServerConnection(msg,this) {
+            @Override
+            public void receiveResponse(String response) {
+                try {
+                    JsonParser jParser = new JsonParser();
+                    JsonObject jResponse = (JsonObject) jParser.parse(response);
+                    if (jResponse.get("result").getAsString().equals("Success")) {
+                        String balance = jResponse.get("NewAmount").getAsString();
+                        walletButton.setText("Wallet\n($" + balance +")");
+                    } else {
+                        System.out.println(jResponse.get("reason").getAsString());
+                    }
+                } catch (Exception e) {
+                    System.out.println("Unable to connect to server to retrieve Wallet balance");
+                }
+            }
+        };
+        sc.execute(null,null,null);
     }
 }

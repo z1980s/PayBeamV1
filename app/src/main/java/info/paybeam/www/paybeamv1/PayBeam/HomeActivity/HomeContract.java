@@ -18,6 +18,7 @@ public interface HomeContract
         void showSettingsView();
         void showWalletView();
         void showScanQRView();
+        void showNewWalletBalance();
     }
 
     interface HomePresenter
