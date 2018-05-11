@@ -28,7 +28,6 @@ public class AddCardPresenter implements AddCardContract.AddCardPresenter{
 
     AddCardContract.AddCardView addCardView;
 
-
     AddCardPresenter(AddCardContract.AddCardView view)
     {
         addCardView = view;
@@ -42,12 +41,9 @@ public class AddCardPresenter implements AddCardContract.AddCardPresenter{
         boolean valid = addCardView.validate();
         if (valid)
         {
-            addCardView.extractValues();
+            //addCardView.extractValues();
+            addCardView.verifyOTP();
         }
-
-
-
-
     }
 
     @Override
@@ -155,6 +151,14 @@ public class AddCardPresenter implements AddCardContract.AddCardPresenter{
             e.printStackTrace();
         }
 
+    }
+
+    public void getPhoneNo()
+    {
+        //retrieve username from internal storage
+        //make server connection
+        //return phoneNo
+        //call addCardView.setPhoneNo
     }
 
 

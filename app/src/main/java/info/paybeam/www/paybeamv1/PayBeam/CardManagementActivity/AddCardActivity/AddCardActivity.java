@@ -1,13 +1,21 @@
 package info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.AddCardActivity;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.SmsManager;
+import android.text.InputType;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.braintreepayments.cardform.OnCardFormSubmitListener;
@@ -17,6 +25,7 @@ import com.braintreepayments.cardform.view.SupportedCardTypesView;
 
 import info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity.CardActivity;
 import info.paybeam.www.paybeamv1.PayBeam.LoginActivity.LoginActivity;
+import info.paybeam.www.paybeamv1.PayBeam.OTPModule.GenerateOTP;
 import info.paybeam.www.paybeamv1.PayBeam.ProfileActivity.ChangePasswordActivity.ChangePasswordActivity;
 import info.paybeam.www.paybeamv1.R;
 import info.paybeam.www.paybeamv1.databinding.AddcardActivityBinding;
@@ -26,6 +35,12 @@ public class AddCardActivity extends AppCompatActivity implements AddCardContrac
     private AddCardContract.AddCardPresenter addCardPresenter;
     private CardForm cardForm;
 
+    private ProgressDialog progressDialog;
+    private String message;
+    private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 0;
+    private String userName;
+    private String OTP;
+    private String phoneNo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,9 +157,86 @@ public class AddCardActivity extends AppCompatActivity implements AddCardContrac
         return valid;
     }
 
-
     @Override
     public void onCardFormSubmit() {
         addCardPresenter.onAddCardButtonClick(findViewById(R.id.card_form));
+    }
+
+    public void verifyOTP()
+    {
+        //progressDialog.dismiss();
+        addCardPresenter.getPhoneNo();
+        sendSMSMessage();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Please Enter OTP to validate card");
+
+        // Set up the input
+        final EditText input = new EditText(this);
+        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        builder.setView(input);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String m_Text = input.getText().toString();
+
+                if(m_Text.equals(OTP))
+                {
+                    extractValues();
+
+                    //message = "PayBeam new password: "+loginPresenter.getNewPassword(userName);
+
+                    dialog.cancel();
+
+                    //sendSMSMessage2();
+                }
+                else
+                {
+                    dialog.cancel();
+                    showErrorMessage("OTP invalid, please try again");
+                }
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
+    public void sendSMSMessage()
+    {
+        OTP = Integer.toString(new GenerateOTP().getOTP());
+        message = "Bank OTP: "+OTP;
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED)
+        {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.SEND_SMS))
+            {
+
+            }
+            else
+            {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, MY_PERMISSIONS_REQUEST_SEND_SMS);
+            }
+        }
+        else
+        {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, MY_PERMISSIONS_REQUEST_SEND_SMS);
+        }
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
     }
 }

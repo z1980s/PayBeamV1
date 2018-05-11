@@ -21,8 +21,8 @@
             android:id="@+id/PhoneToReaderImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="6dp"
-            android:layout_marginStart="11dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="13dp"
             android:background="@color/transparent"
             android:drawableTop="@drawable/pay_merchant"
             android:onClick="@{homePresenter::onPaymentReaderImageClick}"
@@ -55,40 +55,36 @@
             android:id="@+id/ScanQRButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:background="@color/transparent"
             android:drawableTop="@drawable/qr_code"
             android:onClick="@{homePresenter::onScanQRImageClick}"
             android:text="QR"
             android:textAllCaps="false"
             android:textSize="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/PhoneToPhoneImageButton"
+            app:layout_constraintBaseline_toBaselineOf="@+id/WalletButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/WalletButton"
-            app:layout_constraintTop_toBottomOf="@+id/TransactionImageButton" />
+            app:layout_constraintStart_toEndOf="@+id/WalletButton" />
 
         <Button
             android:id="@+id/PhoneToPhoneImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
             android:background="@color/transparent"
             android:drawableTop="@drawable/p2p"
             android:onClick="@{homePresenter::onPaymentPhoneImageClick}"
             android:text="Phone to Phone"
             android:textAllCaps="false"
             android:textSize="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/SettingsImageButton"
+            app:layout_constraintBaseline_toBaselineOf="@+id/PhoneToReaderImageButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/PhoneToReaderImageButton"
-            app:layout_constraintTop_toBottomOf="@+id/ScanQRButton" />
+            app:layout_constraintStart_toEndOf="@+id/PhoneToReaderImageButton" />
 
         <Button
             android:id="@+id/ProfileImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="7dp"
+            android:layout_marginBottom="72dp"
+            android:layout_marginEnd="11dp"
             android:background="@color/transparent"
             android:drawableTop="@drawable/profile"
             android:onClick="@{homePresenter::onProfileImageClick}"
@@ -97,14 +93,14 @@
             android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/SettingsImageButton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/PhoneToReaderImageButton" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/SettingsImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="72dp"
+            android:layout_marginEnd="2dp"
             android:background="@color/transparent"
             android:drawableTop="@drawable/about"
             android:onClick="@{homePresenter::onSettingsImageClick}"
@@ -113,8 +109,7 @@
             android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ProfileImageButton"
-            app:layout_constraintTop_toBottomOf="@+id/PhoneToPhoneImageButton" />
+            app:layout_constraintStart_toEndOf="@+id/ProfileImageButton" />
 
         <Button
             android:id="@+id/CardManagementImageButton"
@@ -144,7 +139,7 @@
             android:onClick="@{homePresenter::onTransactionImageClick}"
             android:text="Transactions"
             android:textAllCaps="false"
-            android:textSize="18dp"
+            android:textSize="16dp"
             app:layout_constraintBottom_toTopOf="@+id/ScanQRButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/CardManagementImageButton"

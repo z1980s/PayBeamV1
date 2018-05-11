@@ -20,11 +20,14 @@ public interface AddCardContract {
         Activity getActivity();
         void finishAddCard();
         boolean validate();
+        void verifyOTP();
+        void setPhoneNo(String phoneNo);
     }
 
     interface AddCardPresenter
     {
         void onAddCardButtonClick(View view);
         void addCard(String cardNumber, String expirationMonth, String expirationYear, String cvv, String postalCode, String countryCode, String mobileNo);
+        void getPhoneNo();
     }
 }

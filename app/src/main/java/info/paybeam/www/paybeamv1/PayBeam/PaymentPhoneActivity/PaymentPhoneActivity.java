@@ -18,7 +18,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.view.Gravity;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
@@ -397,12 +399,20 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Please enter amount");
 
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setGravity(Gravity.CENTER_HORIZONTAL);
+
+
         // Set up the input
         final EditText input = new EditText(this);
         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
         input.setInputType((InputType.TYPE_CLASS_NUMBER + InputType.TYPE_NUMBER_FLAG_DECIMAL));
         input.setFilters(new InputFilter[] {new DecimalInputFilter()});
-        builder.setView(input);
+        input.setSingleLine(true);
+        layout.setPadding(50, 0, 50, 0);
+        layout.addView(input);
+        builder.setView(layout);
 
         // Set up the buttons
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener()

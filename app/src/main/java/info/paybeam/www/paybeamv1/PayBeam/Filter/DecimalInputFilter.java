@@ -11,7 +11,7 @@ import android.text.method.DigitsKeyListener;
 
 public class DecimalInputFilter extends DigitsKeyListener implements  InputFilter{
 
-        final int maxDigitsBeforeDecimalPoint=3;
+        final int maxDigitsBeforeDecimalPoint=4;
         final int maxDigitsAfterDecimalPoint=2;
 
         @Override
