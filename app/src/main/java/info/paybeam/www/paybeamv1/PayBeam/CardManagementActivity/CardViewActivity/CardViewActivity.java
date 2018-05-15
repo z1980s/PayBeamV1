@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -42,6 +43,7 @@ public class CardViewActivity extends AppCompatActivity implements CardViewContr
     TextView expiry_text;
     //TextView primary_text;
     Switch primary_switch;
+    Button deleteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,8 @@ public class CardViewActivity extends AppCompatActivity implements CardViewContr
         expiry_text = findViewById(R.id.expiry_text);
         //primary_text = findViewById(R.id.primary_text);
         primary_switch = findViewById(R.id.primary_switch);
+
+        deleteButton = findViewById(R.id.delete_card_button);
 
         cardViewPresenter.onPageDisplayed();
 
@@ -115,7 +119,7 @@ public class CardViewActivity extends AppCompatActivity implements CardViewContr
     public void setCard() {
         Bundle extras = getIntent().getExtras();
         card = (Cards) extras.getSerializable("card");
-        //Toast.makeText(this,  card.getCardNum() +" "+card.getExpiryDate()+" "+ card.getCardImage(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,  card.getCardNum() +" "+card.getExpiryDate()+" "+ card.getCardImage(),Toast.LENGTH_SHORT).show();
 
         card_image.setImageResource(card.getCardImage());
         card_num_text.setText("Card Number: " + card.getCardNum());
@@ -127,6 +131,18 @@ public class CardViewActivity extends AppCompatActivity implements CardViewContr
             primary_switch.setChecked(true);
             primary_switch.setEnabled(false);
         }
+
+        //Toast.makeText(this,card.getCardNum().toString(),Toast.LENGTH_SHORT).show();
+
+        if(card.getCardNum().toString().equals("Wallet"))
+        {
+            deleteButton.setVisibility(View.GONE);
+            card_num_text.setText(card.getCardNum());
+            card_num_text.setAllCaps(true);
+            expiry_text.setText("Amount: $"+ InternalStorage.readString(this,"wallet"));
+            primary_switch.setText("Primary Payment: ");
+        }
+
 
     }
 
@@ -205,12 +221,22 @@ public class CardViewActivity extends AppCompatActivity implements CardViewContr
         card_image.setImageResource(card.getCardImage());
         card_num_text.setText("Card Number: " + card.getCardNum());
         expiry_text.setText("Expiry Date: "+ card.getExpiryDate());
-        //primary_text.setText("Primary: "+obj.get("primary").getAsBoolean());
+        //primary_text.setText("Primary: "+card.getPrimary().toString());
 
-        if(obj.get("primary").getAsBoolean())
+        if(card.getPrimary())
         {
             primary_switch.setChecked(true);
             primary_switch.setEnabled(false);
+        }
+
+
+        if(card.getCardNum().toString().equals("Wallet"))
+        {
+            deleteButton.setVisibility(View.GONE);
+            card_num_text.setText(card.getCardNum());
+            card_num_text.setAllCaps(true);
+            expiry_text.setText("Amount: $"+ InternalStorage.readString(this,"wallet"));
+            primary_switch.setText("Primary Payment: ");
         }
 
     }

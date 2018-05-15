@@ -91,6 +91,11 @@ public class TransactionActivity extends AppCompatActivity implements Transactio
         month.setText(m.toString());
     }
 
+    @Override
+    public void showNoTransactions() {
+        
+    }
+
 
     @Override
     public void displayTransactions(ArrayList<JsonObject>transactions) {

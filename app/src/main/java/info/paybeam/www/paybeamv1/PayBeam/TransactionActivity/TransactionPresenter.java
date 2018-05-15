@@ -49,17 +49,26 @@ public class TransactionPresenter implements TransactionContract.TransactionPres
                         JsonObject transactionList = jResponse.getAsJsonObject("TransactionList");
                         int count = transactionList.get("Count").getAsInt();
 
-                        ArrayList<JsonObject> transactions = new ArrayList<>();
+                        if(count >0 )
+                        {
+                            ArrayList<JsonObject> transactions = new ArrayList<>();
 
-                        for (int a = 1; a < count+1; a++) {
-                            //membernames are "Name", "DateTime", "Card" and "Amount"
-                            JsonObject transaction = transactionList.get("transaction_" + a).getAsJsonObject();
-                            transactions.add(transaction);
+                            for (int a = 1; a < count+1; a++) {
+                                //membernames are "Name", "DateTime", "Card" and "Amount"
+                                JsonObject transaction = transactionList.get("transaction_" + a).getAsJsonObject();
+                                transactions.add(transaction);
+                            }
+                            //do whatever to display transactions.
+                            //InternalStorage.writeTransaction(transactionView.getActivity(),"transactions", transactions);
+                            transactionView.displayMonth();
+                            transactionView.displayTransactions(transactions);
                         }
-                        //do whatever to display transactions.
-                        //InternalStorage.writeTransaction(transactionView.getActivity(),"transactions", transactions);
-                        transactionView.displayMonth();
-                        transactionView.displayTransactions(transactions);
+                        else
+                        {
+                            //Show no transactions for month
+                        }
+
+
                     } else {
                         //show error message
                         transactionView.showErrorMessage(jResponse.get("reason").getAsString());

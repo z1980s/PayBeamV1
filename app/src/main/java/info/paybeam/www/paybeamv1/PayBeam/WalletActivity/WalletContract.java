@@ -10,11 +10,12 @@ public interface WalletContract
         Activity getActivity();
         void showTopUpWalletView();
         void showWithdrawFromWalletView();
+        void setWalletBalance(String amount);
     }
 
     interface WalletPresenter
     {
-        String getWalletAmount();
+        void getWalletAmount();
         void onWithdrawFromWalletButtonClick(View view);
         void onTopUpWalletButtonClick(View view);
     }

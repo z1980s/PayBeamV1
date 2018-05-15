@@ -83,13 +83,19 @@ public class TopUpWalletActivity extends AppCompatActivity implements TopUpWalle
                 resID = R.drawable.bt_ic_maestro;
             } else if (card.get("cardType").getAsString().equals("UNIONPAY")) {
                 resID = R.drawable.bt_ic_unionpay;
+            } else if (card.get("cardType").getAsString().equals("WALLET")) {
+                resID = R.drawable.bt_ic_unknown;
             } else if (card.get("cardType").getAsString().equals("UNKNOWN")) {
                 resID = R.drawable.bt_ic_unknown;
             } else {
                 resID = R.drawable.bt_ic_unknown;
             }
 
-            cardsList.add(new Cards(resID, card.get("cardNum").getAsString() , card.get("expiryDate").getAsString(), card.get("primary").getAsBoolean(),R.drawable.ic_done_black_48dp));
+            if(!card.get("cardType").getAsString().equals("WALLET"))
+            {
+                cardsList.add(new Cards(resID, card.get("cardNum").getAsString() , card.get("expiryDate").getAsString(), card.get("primary").getAsBoolean(),R.drawable.ic_done_black_48dp));
+
+            }
         }
 
         //Put the cardList into cardAdapter

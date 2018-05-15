@@ -42,13 +42,16 @@ public class WalletActivity extends AppCompatActivity implements WalletContract.
 
         walletAmount = findViewById(R.id.walletAmount);
         //Retrieve the Wallet amount here and set to the textview
-        walletAmount.setText(walletPresenter.getWalletAmount());
+        //walletAmount.setText(walletPresenter.getWalletAmount());
     }
+
+
 
     @Override
     protected void onResume() {
         super.onResume();
-        walletAmount.setText(walletPresenter.getWalletAmount());
+        //walletAmount.setText(walletPresenter.getWalletAmount());
+        walletPresenter.getWalletAmount();
     }
 
     @Override
@@ -68,6 +71,11 @@ public class WalletActivity extends AppCompatActivity implements WalletContract.
         //Toast.makeText(this,"Show Withdraw wallet activity", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, WithdrawWalletActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void setWalletBalance(String amount) {
+        walletAmount.setText(amount);
     }
 
 

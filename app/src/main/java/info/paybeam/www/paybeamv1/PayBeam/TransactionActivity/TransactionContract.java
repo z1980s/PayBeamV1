@@ -18,6 +18,7 @@ public interface TransactionContract
         Activity getActivity();
         void showErrorMessage(String errorMsg);
         void displayMonth();
+        void showNoTransactions();
     }
 
     interface TransactionPresenter

@@ -85,6 +85,7 @@ public class CardActivity extends AppCompatActivity implements CardContract.Card
 
         //cardsList.add(new Cards(R.drawable.bt_ic_unknown,"Wallet","",false,R.drawable.ic_done_black_48dp));
 
+
         for(JsonObject card : cards)
         {
             int resID = 0;
@@ -105,6 +106,8 @@ public class CardActivity extends AppCompatActivity implements CardContract.Card
                 resID = R.drawable.bt_ic_maestro;
             } else if (card.get("cardType").getAsString().equals("UNIONPAY")) {
                 resID = R.drawable.bt_ic_unionpay;
+            } else if (card.get("cardType").getAsString().equals("WALLET")) {
+                resID = R.drawable.wallet_icon;
             } else if (card.get("cardType").getAsString().equals("UNKNOWN")) {
                 resID = R.drawable.bt_ic_unknown;
             } else {
