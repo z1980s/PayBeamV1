@@ -16,6 +16,7 @@ import android.telephony.SmsManager;
 import android.text.InputType;
 import android.widget.EditText;
 
+import info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.AddCardActivity.AddCardActivity;
 import info.paybeam.www.paybeamv1.PayBeam.CreateAccountActivity.CreateAccountActivity;
 import info.paybeam.www.paybeamv1.PayBeam.HomeActivity.HomeActivity;
 import info.paybeam.www.paybeamv1.PayBeam.HomeActivity.HomePresenter;
@@ -54,10 +55,10 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
         password = findViewById(R.id.passwordText);
 
 
-        //For testing purposes we assume successful login and call menu here
-        //Intent intent = new Intent(this, HomeActivity.class);
-        //startActivity(intent);
 
+        //For testing purposes we assume successful login and call menu here
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
 
     }
 
