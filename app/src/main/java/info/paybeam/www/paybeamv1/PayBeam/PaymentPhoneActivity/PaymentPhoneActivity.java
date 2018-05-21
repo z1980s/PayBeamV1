@@ -1,5 +1,6 @@
 package info.paybeam.www.paybeamv1.PayBeam.PaymentPhoneActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
@@ -11,6 +12,8 @@ import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -28,6 +31,7 @@ import com.google.gson.JsonObject;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
+import info.paybeam.www.paybeamv1.PayBeam.CreateAccountActivity.CreateAccountActivity;
 import info.paybeam.www.paybeamv1.PayBeam.Filter.DecimalInputFilter;
 import info.paybeam.www.paybeamv1.PayBeam.HomeActivity.HomeActivity;
 import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
@@ -57,7 +61,7 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
 
     private NfcAdapter mNfcAdapter;
     private PendingIntent nfcPendingIntent;
-
+    private static final int MESSAGE_SENT = 1;
     @Override
     public void addMessage()
     {
@@ -90,13 +94,40 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
         //This is called when the system detects that our NdefMessage was
         //Successfully sent
         progressDialog.dismiss();
-
-        Intent intent = new Intent(this, HomeActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |  Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        startActivity(intent);
-
         //showDialog();
+        vHandler.obtainMessage(MESSAGE_SENT).sendToTarget();
     }
+
+    @SuppressLint("HandlerLeak")
+    private final Handler vHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case MESSAGE_SENT:
+                    AlertDialog.Builder dlgAlert = new AlertDialog.Builder(getActivity());
+
+                    dlgAlert.setMessage("Payment Sent!");
+                    dlgAlert.setTitle("Message");
+                    dlgAlert.setPositiveButton("OK", null);
+                    dlgAlert.setCancelable(true);
+
+                    dlgAlert.setPositiveButton("Ok",
+                            new DialogInterface.OnClickListener()
+                            {
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+                                    //CreateAccountActivity.this.finish();
+                                    finish();
+                                }
+                            });
+
+                    dlgAlert.create().show();
+                    break;
+            }
+        }
+    };
+
+
 
     public void showDialog()
     {
@@ -296,6 +327,7 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
         PaymentPhoneActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.payment_phone_activity);
         ppPresenter = new PaymentPhonePresenter(this);
         binding.setPpPresenter(ppPresenter);
+
 
         //Check if NFC is available on device
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
@@ -508,5 +540,9 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
     {
         progressDialog.setMessage("Please hold phones close together ... ");
         progressDialog.show();
+    }
+
+    public void hideProgressDialog() {
+        progressDialog.hide();
     }
 }

@@ -28,6 +28,7 @@ public class PaymentPhonePresenter implements PaymentPhoneContract.PaymentPhoneP
 
     public void messageReceived()
     {
+        ppView.hideProgressDialog();
         ppView.handleIncomingMessage();
     }
 
@@ -89,7 +90,7 @@ public class PaymentPhonePresenter implements PaymentPhoneContract.PaymentPhoneP
                     } else {
                         System.out.println("Failure!");
                         //do failure
-                        //ppView.showErrorMessage(jResponse.get("reason").getAsString());
+                        ppView.showErrorMessage(jResponse.get("reason").getAsString());
                     }
                 } catch (com.google.gson.JsonSyntaxException jse){
                     System.err.println("[ERROR] Malformed Json Received! Server is most likely offline.");
