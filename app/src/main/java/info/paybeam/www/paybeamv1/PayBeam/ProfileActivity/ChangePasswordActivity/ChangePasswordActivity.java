@@ -66,11 +66,11 @@ public class ChangePasswordActivity extends AppCompatActivity implements ChangeP
     }
 
     @Override
-    public void showErrorMessage(String message) {
+    public void showErrorMessage(final String message) {
         AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
 
         dlgAlert.setMessage(message);
-        dlgAlert.setTitle("Message");
+        dlgAlert.setTitle("Error");
         dlgAlert.setPositiveButton("OK", null);
         dlgAlert.setCancelable(true);
 
@@ -79,10 +79,13 @@ public class ChangePasswordActivity extends AppCompatActivity implements ChangeP
                 {
                     public void onClick(DialogInterface dialog, int which)
                     {
-                        finish();
+                        if (message.contains("Token Invalid or Expired")) {
+                            Intent intent = new Intent(ChangePasswordActivity.this, LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |  Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
+                        }
                     }
                 });
-
         dlgAlert.create().show();
     }
 

@@ -28,6 +28,7 @@ import info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.AddCardActivity
 import info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity.CardActivity;
 import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
 import info.paybeam.www.paybeamv1.PayBeam.ListAdapter.Cards;
+import info.paybeam.www.paybeamv1.PayBeam.LoginActivity.LoginActivity;
 import info.paybeam.www.paybeamv1.R;
 import info.paybeam.www.paybeamv1.databinding.CardViewActivityBinding;
 
@@ -179,7 +180,7 @@ public class CardViewActivity extends AppCompatActivity implements CardViewContr
     }
 
     @Override
-    public void showErrorMessage(String errorMsg)
+    public void showErrorMessage(final String errorMsg)
     {
         AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
 
@@ -187,16 +188,20 @@ public class CardViewActivity extends AppCompatActivity implements CardViewContr
         dlgAlert.setTitle("Error");
         dlgAlert.setPositiveButton("OK", null);
         dlgAlert.setCancelable(true);
-        dlgAlert.create().show();
 
         dlgAlert.setPositiveButton("Ok",
                 new DialogInterface.OnClickListener()
                 {
                     public void onClick(DialogInterface dialog, int which)
                     {
-
+                        if (errorMsg.contains("Token Invalid or Expired")) {
+                            Intent intent = new Intent(CardViewActivity.this, LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |  Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
+                        }
                     }
                 });
+        dlgAlert.create().show();
     }
 
     @Override

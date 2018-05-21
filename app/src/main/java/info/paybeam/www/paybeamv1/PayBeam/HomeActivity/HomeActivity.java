@@ -41,13 +41,13 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
         homePresenter = new HomePresenter(this);
         binding.setHomePresenter(homePresenter);
 
-        showNewWalletBalance();
+        //showNewWalletBalance();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        showNewWalletBalance();
+        //showNewWalletBalance();
     }
 
     @Override

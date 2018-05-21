@@ -15,6 +15,7 @@ import android.widget.EditText;
 
 import com.google.gson.JsonObject;
 
+import info.paybeam.www.paybeamv1.PayBeam.LoginActivity.LoginActivity;
 import info.paybeam.www.paybeamv1.PayBeam.ProfileActivity.ProfileActivity;
 import info.paybeam.www.paybeamv1.R;
 import info.paybeam.www.paybeamv1.databinding.EditProfileActivityBinding;
@@ -220,11 +221,11 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
 
 
     @Override
-    public void showErrorMessage(String message) {
+    public void showErrorMessage(final String message) {
         AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
 
         dlgAlert.setMessage(message);
-        dlgAlert.setTitle("Message");
+        dlgAlert.setTitle("Error");
         dlgAlert.setPositiveButton("OK", null);
         dlgAlert.setCancelable(true);
 
@@ -233,10 +234,13 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
                 {
                     public void onClick(DialogInterface dialog, int which)
                     {
-                        finish();
+                        if (message.contains("Token Invalid or Expired")) {
+                            Intent intent = new Intent(EditProfileActivity.this, LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |  Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
+                        }
                     }
                 });
-
         dlgAlert.create().show();
     }
 

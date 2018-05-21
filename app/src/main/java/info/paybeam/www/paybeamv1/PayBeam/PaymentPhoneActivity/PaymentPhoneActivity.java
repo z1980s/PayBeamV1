@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import info.paybeam.www.paybeamv1.PayBeam.Filter.DecimalInputFilter;
 import info.paybeam.www.paybeamv1.PayBeam.HomeActivity.HomeActivity;
 import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
+import info.paybeam.www.paybeamv1.PayBeam.LoginActivity.LoginActivity;
 import info.paybeam.www.paybeamv1.PayBeam.QRActivity.ScanQRActivity.ScanQRActivity;
 import info.paybeam.www.paybeamv1.PayBeam.SecurityModule.MD5;
 import info.paybeam.www.paybeamv1.R;
@@ -371,11 +372,11 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
     }
 
     @Override
-    public void showErrorMessage(String message) {
+    public void showErrorMessage(final String message) {
         AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
 
         dlgAlert.setMessage(message);
-        dlgAlert.setTitle("Message");
+        dlgAlert.setTitle("Error");
         dlgAlert.setPositiveButton("OK", null);
         dlgAlert.setCancelable(true);
 
@@ -384,10 +385,13 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
                 {
                     public void onClick(DialogInterface dialog, int which)
                     {
-                        finish();
+                        if (message.contains("Token Invalid or Expired")) {
+                            Intent intent = new Intent(PaymentPhoneActivity.this, LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |  Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
+                        }
                     }
                 });
-
         dlgAlert.create().show();
     }
 
