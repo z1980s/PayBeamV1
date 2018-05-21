@@ -85,14 +85,17 @@ public class PaymentPhonePresenter implements PaymentPhoneContract.PaymentPhoneP
                     JsonObject jResponse = (JsonObject) jParser.parse(response);
                     if (jResponse.get("result").getAsString().equals("Success")) {
                         //do success
+                        ppView.hideProgressDialog();
                         ppView.showSuccess(jResponse.get("reason").getAsString());
                         System.out.println("Success!");
                     } else {
+                        ppView.hideProgressDialog();
                         System.out.println("Failure!");
                         //do failure
                         ppView.showErrorMessage(jResponse.get("reason").getAsString());
                     }
                 } catch (com.google.gson.JsonSyntaxException jse){
+                    ppView.hideProgressDialog();
                     System.err.println("[ERROR] Malformed Json Received! Server is most likely offline.");
                     ppView.showErrorMessage(response);
                 }

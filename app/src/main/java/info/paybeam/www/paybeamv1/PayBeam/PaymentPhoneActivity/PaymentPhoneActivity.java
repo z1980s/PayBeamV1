@@ -90,10 +90,8 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
     @Override
     public void onNdefPushComplete(NfcEvent event)
     {
-        messagesToSendArray.clear();
         //This is called when the system detects that our NdefMessage was
         //Successfully sent
-        progressDialog.dismiss();
         //showDialog();
         vHandler.obtainMessage(MESSAGE_SENT).sendToTarget();
     }
@@ -104,6 +102,8 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case MESSAGE_SENT:
+                    progressDialog.dismiss();
+                    messagesToSendArray.clear();
                     AlertDialog.Builder dlgAlert = new AlertDialog.Builder(getActivity());
 
                     dlgAlert.setMessage("Payment Sent!");
@@ -543,6 +543,6 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
     }
 
     public void hideProgressDialog() {
-        progressDialog.hide();
+        progressDialog.dismiss();
     }
 }
