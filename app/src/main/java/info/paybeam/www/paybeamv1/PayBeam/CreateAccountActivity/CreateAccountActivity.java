@@ -7,11 +7,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.widget.EditText;
 
 import java.util.Timer;
@@ -30,6 +33,13 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
     private EditText email;
     private EditText phoneNo;
     private EditText address;
+
+    TextInputLayout nameLayout;
+    TextInputLayout usernameLayout;
+    TextInputLayout passwordLayout;
+    TextInputLayout emailLayout;
+    TextInputLayout phoneNoLayout;
+    TextInputLayout addressLayout;
 
     private ProgressDialog progressDialog;
     private String message;
@@ -54,6 +64,15 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+
+
+        nameLayout = findViewById(R.id.edit_name_layout);
+        usernameLayout = findViewById(R.id.edit_username_layout);
+        passwordLayout = findViewById(R.id.edit_password_layout);
+        emailLayout = findViewById(R.id.edit_email_layout);
+        phoneNoLayout = findViewById(R.id.edit_phoneNo_layout);
+        addressLayout = findViewById(R.id.edit_address_layout);
+
     }
 
     public void onSuccessView()
@@ -157,12 +176,191 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
 
     @Override
     public void extractValues() {
-        caPresenter.verifyDetails(name.getText().toString(),
-                username.getText().toString(),
-                password.getText().toString(),
-                email.getText().toString(),
-                address.getText().toString(),
-                phoneNo.getText().toString());
+        //do checks here before getting the
+        boolean nameValid = false;
+        boolean usernameValid = false;
+        boolean passwordValid = false;
+        boolean emailValid = false;
+        boolean phoneNoValid = false;
+        boolean addressValid = false;
+
+        if(name.getText().length()==0)
+        {
+            nameLayout.setError("You need to enter a name");
+        }
+        else
+        {
+            nameValid = true;
+        }
+
+        if(username.getText().length()==0)
+        {
+            usernameLayout.setError("You need to enter a username");
+        }
+        else
+        {
+            usernameValid = true;
+        }
+
+        if(password.getText().length()==0)
+        {
+            passwordLayout.setError("You need to enter a password");
+        }
+        else
+        {
+            passwordValid = true;
+        }
+
+        if(email.getText().length()==0)
+        {
+            emailLayout.setError("You need to enter an email");
+        }
+        else
+        {
+            emailValid = isEmailValid(email.getText().toString());
+            if(!emailValid)
+            {
+                emailLayout.setError("You need to enter a valid email");
+            }
+        }
+
+        if(phoneNo.getText().length()==0)
+        {
+            phoneNoLayout.setError("You need to enter a phone number");
+        }
+        else
+        {
+            phoneNoValid = true;
+        }
+
+        if(address.getText().length()==0)
+        {
+            addressLayout.setError("You need to enter an address");
+        }
+        else
+        {
+            addressValid = true;
+        }
+
+
+
+        name.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                nameLayout.setError("");
+            }
+        });
+
+        username.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                usernameLayout.setError("");
+            }
+        });
+
+        password.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                passwordLayout.setError("");
+            }
+        });
+
+        email.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                emailLayout.setError("");
+            }
+        });
+
+        phoneNo.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                phoneNoLayout.setError("");
+            }
+        });
+
+        address.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                addressLayout.setError("");
+            }
+        });
+
+
+        if(nameValid && usernameValid && passwordValid && emailValid && phoneNoValid && addressValid)
+        {
+            caPresenter.verifyDetails(name.getText().toString(),
+                    username.getText().toString(),
+                    password.getText().toString(),
+                    email.getText().toString(),
+                    address.getText().toString(),
+                    phoneNo.getText().toString());
+        }
+
+    }
+
+    boolean isEmailValid(CharSequence email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     @Override
@@ -224,6 +422,8 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
 
         builder.show();
     }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults)
