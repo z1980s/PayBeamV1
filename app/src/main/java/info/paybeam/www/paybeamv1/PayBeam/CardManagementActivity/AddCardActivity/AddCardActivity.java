@@ -105,7 +105,7 @@ public class AddCardActivity extends AppCompatActivity implements AddCardContrac
     }
 
     @Override
-    public void showErrorMessage(String errorMsg)
+    public void showErrorMessage(final String errorMsg)
     {
         AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
 
@@ -119,10 +119,13 @@ public class AddCardActivity extends AppCompatActivity implements AddCardContrac
                 {
                     public void onClick(DialogInterface dialog, int which)
                     {
-
+                        if (errorMsg.contains("Token Invalid or Expired")) {
+                            Intent intent = new Intent(AddCardActivity.this, LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |  Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
+                        }
                     }
                 });
-
         dlgAlert.create().show();
     }
 

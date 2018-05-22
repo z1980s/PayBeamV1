@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import info.paybeam.www.paybeamv1.PayBeam.Filter.DecimalInputFilter;
 import info.paybeam.www.paybeamv1.PayBeam.ListAdapter.Cards;
 import info.paybeam.www.paybeamv1.PayBeam.ListAdapter.CardsAdapter;
+import info.paybeam.www.paybeamv1.PayBeam.LoginActivity.LoginActivity;
 import info.paybeam.www.paybeamv1.PayBeam.WalletActivity.WalletActivity;
 import info.paybeam.www.paybeamv1.R;
 import info.paybeam.www.paybeamv1.databinding.TopUpWalletActivityBinding;
@@ -192,11 +193,11 @@ public class TopUpWalletActivity extends AppCompatActivity implements TopUpWalle
     }
 
     @Override
-    public void showErrorMessage(String message) {
+    public void showErrorMessage(final String message) {
         AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
 
         dlgAlert.setMessage(message);
-        dlgAlert.setTitle("Message");
+        dlgAlert.setTitle("Error");
         dlgAlert.setPositiveButton("OK", null);
         dlgAlert.setCancelable(true);
 
@@ -205,10 +206,13 @@ public class TopUpWalletActivity extends AppCompatActivity implements TopUpWalle
                 {
                     public void onClick(DialogInterface dialog, int which)
                     {
-                        finish();
+                        if (message.contains("Token Invalid or Expired")) {
+                            Intent intent = new Intent(TopUpWalletActivity.this, LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |  Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
+                        }
                     }
                 });
-
         dlgAlert.create().show();
     }
 

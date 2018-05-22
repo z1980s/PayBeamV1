@@ -2,6 +2,7 @@ package info.paybeam.www.paybeamv1.PayBeam.TransactionActivity;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,7 @@ import info.paybeam.www.paybeamv1.PayBeam.ListAdapter.Cards;
 import info.paybeam.www.paybeamv1.PayBeam.ListAdapter.CardsAdapter;
 import info.paybeam.www.paybeamv1.PayBeam.ListAdapter.Transaction;
 import info.paybeam.www.paybeamv1.PayBeam.ListAdapter.TransactionAdapter;
+import info.paybeam.www.paybeamv1.PayBeam.LoginActivity.LoginActivity;
 import info.paybeam.www.paybeamv1.R;
 import info.paybeam.www.paybeamv1.databinding.TransactionActivityBinding;
 
@@ -54,7 +56,7 @@ public class TransactionActivity extends AppCompatActivity implements Transactio
     }
 
     @Override
-    public void showErrorMessage(String errorMsg)
+    public void showErrorMessage(final String errorMsg)
     {
         AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
 
@@ -62,16 +64,20 @@ public class TransactionActivity extends AppCompatActivity implements Transactio
         dlgAlert.setTitle("Error");
         dlgAlert.setPositiveButton("OK", null);
         dlgAlert.setCancelable(true);
-        dlgAlert.create().show();
 
         dlgAlert.setPositiveButton("Ok",
                 new DialogInterface.OnClickListener()
                 {
                     public void onClick(DialogInterface dialog, int which)
                     {
-
+                        if (errorMsg.contains("Token Invalid or Expired")) {
+                            Intent intent = new Intent(TransactionActivity.this, LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |  Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
+                        }
                     }
                 });
+        dlgAlert.create().show();
     }
 
     @Override

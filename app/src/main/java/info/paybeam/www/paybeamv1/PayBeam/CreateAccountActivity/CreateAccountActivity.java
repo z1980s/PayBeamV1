@@ -107,28 +107,28 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
     }
 
     @Override
-    public void onFailureView(String errorMessage)
+    public void onFailureView(final String errorMessage)
     {
-        //progressDialog.hide();
-        //remain on the same screen, show failure message
         AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
 
         dlgAlert.setMessage(errorMessage);
-        dlgAlert.setTitle("Error Message");
+        dlgAlert.setTitle("Error");
         dlgAlert.setPositiveButton("OK", null);
         dlgAlert.setCancelable(true);
-        dlgAlert.create().show();
 
         dlgAlert.setPositiveButton("Ok",
                 new DialogInterface.OnClickListener()
                 {
                     public void onClick(DialogInterface dialog, int which)
                     {
-
+                        if (errorMessage.contains("Token Invalid or Expired")) {
+                            Intent intent = new Intent(CreateAccountActivity.this, LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |  Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
+                        }
                     }
                 });
-
-        //check and remove trace of added account
+        dlgAlert.create().show();
     }
 
     @Override

@@ -15,6 +15,9 @@ import com.google.gson.JsonParser;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import info.paybeam.www.paybeamv1.PayBeam.ConnectionModule.ServerConnection;
 import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
 import info.paybeam.www.paybeamv1.PayBeam.OTPModule.GenerateOTP;
@@ -121,40 +124,46 @@ public class CreateAccountPresenter implements CreateAccountContract.CreateAccou
         //create connection to server
         //verify details, check if username, email, phone number already exists
         //return boolean value
-        String[] memberNames = new String[]{"Name", "LoginName", "Password", "Email", "Address", "PhoneNumber"};
-        String[] values = new String[]{name, username, password, email, address, phoneNo};
+        Pattern password_policy = Pattern.compile("\\A(?=\\S*?[0-9])(?=\\S*?[a-z])(?=\\S*?[A-Z])\\S{8,}\\z");
+        Matcher pwMatcher = password_policy.matcher(password);
+        if (pwMatcher.matches()) {
+            String[] memberNames = new String[]{"Name", "LoginName", "Password", "Email", "Address", "PhoneNumber"};
+            String[] values = new String[]{name, username, password, email, address, phoneNo};
 
-        try {
-            //change this line to only verfiy details and not store
-            //String response = new ServerConnection().sendMessage(ServerConnection.createMessage("CheckAccountExists", "User", memberNames, values), caView.getActivity());
-            JsonObject msg = ServerConnection.createMessage("CheckAccountExists", "User", memberNames, values);
-            @SuppressLint("StaticFieldLeak")
-            ServerConnection sc = new ServerConnection(msg, caView.getActivity()) {
-                @Override
-                public void receiveResponse(String response) {
+            try {
+                //change this line to only verfiy details and not store
+                //String response = new ServerConnection().sendMessage(ServerConnection.createMessage("CheckAccountExists", "User", memberNames, values), caView.getActivity());
+                JsonObject msg = ServerConnection.createMessage("CheckAccountExists", "User", memberNames, values);
+                @SuppressLint("StaticFieldLeak")
+                ServerConnection sc = new ServerConnection(msg, caView.getActivity()) {
+                    @Override
+                    public void receiveResponse(String response) {
 
-                    try {
-                        JsonParser jParser = new JsonParser();
-                        JsonObject jResponse = (JsonObject) jParser.parse(response);
-                        if (jResponse.get("result").getAsString().equals("Success")) {
-                            //do success
-                            sendSMSMessage();
-                            //caView.hideProgressDialog();
-                            caView.requestOTP();
-                        } else {
-                            //do failure
-                            //caView.hideProgressDialog();
-                            caView.onFailureView(jResponse.get("reason").getAsString());
+                        try {
+                            JsonParser jParser = new JsonParser();
+                            JsonObject jResponse = (JsonObject) jParser.parse(response);
+                            if (jResponse.get("result").getAsString().equals("Success")) {
+                                //do success
+                                sendSMSMessage();
+                                //caView.hideProgressDialog();
+                                caView.requestOTP();
+                            } else {
+                                //do failure
+                                //caView.hideProgressDialog();
+                                caView.onFailureView(jResponse.get("reason").getAsString());
+                            }
+                        } catch (com.google.gson.JsonSyntaxException jse){
+                            System.err.println("[ERROR] Malformed Json Received! Server is most likely offline.");
+                            caView.onFailureView(response);
                         }
-                    } catch (com.google.gson.JsonSyntaxException jse){
-                        System.err.println("[ERROR] Malformed Json Received! Server is most likely offline.");
-                        caView.onFailureView(response);
                     }
-                }
-            };
-            sc.execute(null,null,null);
-        } catch (Exception e) {
-            e.printStackTrace();
+                };
+                sc.execute(null,null,null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            caView.onFailureView("Password needs to be 8 characters long, with at least 1 Upper-case character and 1 digit.");
         }
     }
 

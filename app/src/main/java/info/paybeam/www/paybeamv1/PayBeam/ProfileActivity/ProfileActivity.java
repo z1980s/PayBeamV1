@@ -85,6 +85,4 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
         Intent intent = new Intent(this, ChangePasswordActivity.class);
         startActivity(intent);
     }
-
-
 }
