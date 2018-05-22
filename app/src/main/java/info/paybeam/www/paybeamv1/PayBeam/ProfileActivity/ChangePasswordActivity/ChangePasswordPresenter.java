@@ -31,14 +31,16 @@ public class ChangePasswordPresenter implements ChangePasswordContract.ChangePas
 
     @Override
     public void localPasswordCheck(String oldPass, String newPass, String retypePass) {
-
+        /*
         //Check for blank fields
         if(oldPass.equals("")||newPass.equals("")||retypePass.equals(""))
         {
             cpView.showDialog("Error","Empty fields detected");
         }
+        */
+
         //newPass equals retypePass
-        else if(newPass.equals(retypePass))
+        if(newPass.equals(retypePass))
         {
                 //to be sent to server for changing password
                 changePassword(oldPass, newPass);
