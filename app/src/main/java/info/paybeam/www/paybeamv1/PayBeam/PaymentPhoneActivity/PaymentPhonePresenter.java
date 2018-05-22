@@ -57,6 +57,8 @@ public class PaymentPhonePresenter implements PaymentPhoneContract.PaymentPhoneP
     @Override
     public void handleIncomingMessage(String receivedMessage)
     {
+        ppView.hideProgressDialog();
+
         String token = InternalStorage.readToken(ppView.getActivity(),"Token");
         String[] credentials = InternalStorage.readString(ppView.getActivity(),"Credentials").split(",");
         String user = credentials[0];
@@ -74,7 +76,7 @@ public class PaymentPhonePresenter implements PaymentPhoneContract.PaymentPhoneP
         //add the hash to the msg
         msg.addProperty("PayeeHash", hash);
         //add the message from the sender.
-        msg.add("PaymentData", (JsonObject)jParser.parse(receivedMessage));
+        msg.add("PaymentData", paymentData);
 
         @SuppressLint("StaticFieldLeak")
         ServerConnection sc = new ServerConnection(msg, ppView.getActivity()) {
@@ -85,17 +87,14 @@ public class PaymentPhonePresenter implements PaymentPhoneContract.PaymentPhoneP
                     JsonObject jResponse = (JsonObject) jParser.parse(response);
                     if (jResponse.get("result").getAsString().equals("Success")) {
                         //do success
-                        ppView.hideProgressDialog();
                         ppView.showSuccess(jResponse.get("reason").getAsString());
                         System.out.println("Success!");
                     } else {
-                        ppView.hideProgressDialog();
                         System.out.println("Failure!");
                         //do failure
                         ppView.showErrorMessage(jResponse.get("reason").getAsString());
                     }
                 } catch (com.google.gson.JsonSyntaxException jse){
-                    ppView.hideProgressDialog();
                     System.err.println("[ERROR] Malformed Json Received! Server is most likely offline.");
                     ppView.showErrorMessage(response);
                 }

@@ -11,6 +11,7 @@ public interface WalletContract
         void showTopUpWalletView();
         void showWithdrawFromWalletView();
         void setWalletBalance(String amount);
+        void showErrorMessage(String message);
     }
 
     interface WalletPresenter

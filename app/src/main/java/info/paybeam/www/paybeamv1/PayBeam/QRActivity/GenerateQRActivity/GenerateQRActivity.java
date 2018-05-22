@@ -3,6 +3,7 @@ package info.paybeam.www.paybeamv1.PayBeam.QRActivity.GenerateQRActivity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.support.v7.app.AlertDialog;
@@ -19,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import info.paybeam.www.paybeamv1.PayBeam.Filter.DecimalInputFilter;
+import info.paybeam.www.paybeamv1.PayBeam.LoginActivity.LoginActivity;
+import info.paybeam.www.paybeamv1.PayBeam.WalletActivity.TopUpWalletActivity.TopUpWalletActivity;
 import info.paybeam.www.paybeamv1.R;
 import info.paybeam.www.paybeamv1.databinding.GenerateQrActivityBinding;
 
@@ -78,7 +81,29 @@ public class GenerateQRActivity extends AppCompatActivity implements GenerateQRC
         return null;
     }
 
+    @Override
+    public void showErrorMessage(final String message) {
+        AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
 
+        dlgAlert.setMessage(message);
+        dlgAlert.setTitle("Error");
+        dlgAlert.setPositiveButton("OK", null);
+        dlgAlert.setCancelable(true);
+
+        dlgAlert.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        if (message.contains("Token Invalid or Expired")) {
+                            Intent intent = new Intent(GenerateQRActivity.this, LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |  Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
+                        }
+                    }
+                });
+        dlgAlert.create().show();
+    }
 
     public void showDialog(String text) {
 

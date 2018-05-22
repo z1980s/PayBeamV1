@@ -113,6 +113,7 @@ public class GenerateQRPresenter implements GenerateQRContract.GenerateQRPresent
                             }
                         } catch (Exception e) {
                             System.out.println("Unknown error");
+                            generateQRView.showErrorMessage("Failed to generate QR Code!");
                             //generateQRView.showErrorMessage(response);
                         }
                     } else {

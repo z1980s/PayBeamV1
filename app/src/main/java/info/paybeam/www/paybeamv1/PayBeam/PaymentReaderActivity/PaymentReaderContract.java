@@ -11,6 +11,7 @@ public interface PaymentReaderContract
     interface PaymentReaderView
     {
         Activity getActivity();
+        void showErrorMessage(String message);
     }
 
     interface PaymentReaderPresenter

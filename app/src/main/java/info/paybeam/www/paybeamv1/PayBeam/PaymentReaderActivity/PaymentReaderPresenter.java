@@ -56,10 +56,12 @@ public class PaymentReaderPresenter implements PaymentReaderContract.PaymentRead
                         CardInfo.SetData(phoneMsg.toString());
                     } else {
                         System.out.println("Failed to receieve hash");
+                        prView.showErrorMessage("Unable to complete encryption! Please re-login and try again.");
                     }
 
                 } catch (Exception e) {
                     System.out.println("A System Error has occured");
+                    prView.showErrorMessage("A System Error has occured");
                 }
             }
         };

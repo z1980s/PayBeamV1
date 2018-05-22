@@ -117,6 +117,7 @@ public class WithdrawWalletPresenter implements WithdrawWalletContract.WithdrawW
                                     }
                                 } catch (com.google.gson.JsonSyntaxException jse) {
                                     System.err.println("[ERROR] Malformed Json Received! Server is most likely offline.");
+                                    withdrawWalletView.showErrorMessage("Unable to Connect to Server!");
                                 }
                             }
                         };

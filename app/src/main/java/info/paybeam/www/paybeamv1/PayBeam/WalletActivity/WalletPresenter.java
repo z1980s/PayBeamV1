@@ -42,9 +42,11 @@ public class WalletPresenter implements WalletContract.WalletPresenter
                         walletView.setWalletBalance(balance);
                     } else {
                         System.out.println(jResponse.get("reason").getAsString());
+                        walletView.showErrorMessage(jResponse.get("reason").getAsString());
                     }
                 } catch (Exception e) {
                     System.out.println("Unable to connect to server to retrieve Wallet balance");
+                    walletView.showErrorMessage("Unable to connect to server to retrieve Wallet balance");
                 }
             }
         };

@@ -49,7 +49,7 @@ public class TransactionPresenter implements TransactionContract.TransactionPres
                         JsonObject transactionList = jResponse.getAsJsonObject("TransactionList");
                         int count = transactionList.get("Count").getAsInt();
 
-                        if(count >0 )
+                        if(count > 0)
                         {
                             ArrayList<JsonObject> transactions = new ArrayList<>();
 
@@ -74,7 +74,7 @@ public class TransactionPresenter implements TransactionContract.TransactionPres
                         transactionView.showErrorMessage(jResponse.get("reason").getAsString());
                     }
                 } catch (Exception e) {
-                    transactionView.showErrorMessage("A System Error has occured");
+                    transactionView.showErrorMessage("Unable to Connect to Server!");
                     e.printStackTrace();
                 }
 

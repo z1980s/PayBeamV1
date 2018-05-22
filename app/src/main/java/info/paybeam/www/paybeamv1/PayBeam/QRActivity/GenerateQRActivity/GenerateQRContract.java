@@ -12,6 +12,7 @@ public interface GenerateQRContract
         Activity getActivity();
         void displayQRImage(Bitmap qrImage, String amount);
         void showDialog(String text);
+        void showErrorMessage(String message);
 
     }
 

@@ -111,6 +111,7 @@ public class TopUpWalletPresenter implements TopUpWalletContract.TopUpWalletPres
                                     }
                                 } catch (com.google.gson.JsonSyntaxException jse) {
                                     System.err.println("[ERROR] Malformed Json Received! Server is most likely offline.");
+                                    topUpWalletView.showErrorMessage("Unable to Connect to Server!");
                                 }
                             }
                         };

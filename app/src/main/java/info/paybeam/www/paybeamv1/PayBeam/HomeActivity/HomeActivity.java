@@ -1,9 +1,11 @@
 package info.paybeam.www.paybeamv1.PayBeam.HomeActivity;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.nfc.NfcAdapter;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -17,6 +19,7 @@ import java.io.File;
 import info.paybeam.www.paybeamv1.PayBeam.CardManagementActivity.CardActivity.CardActivity;
 import info.paybeam.www.paybeamv1.PayBeam.ConnectionModule.ServerConnection;
 import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
+import info.paybeam.www.paybeamv1.PayBeam.LoginActivity.LoginActivity;
 import info.paybeam.www.paybeamv1.PayBeam.PaymentPhoneActivity.PaymentPhoneActivity;
 import info.paybeam.www.paybeamv1.PayBeam.PaymentReaderActivity.PaymentReaderActivity;
 import info.paybeam.www.paybeamv1.PayBeam.ProfileActivity.ProfileActivity;
@@ -143,6 +146,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
                         walletButton.setText("Wallet\n($" + balance +")");
                     } else {
                         System.out.println(jResponse.get("reason").getAsString());
+                        showErrorMessage(jResponse.get("reason").getAsString());
                     }
                 } catch (Exception e) {
                     System.out.println("Unable to connect to server to retrieve Wallet balance");
@@ -150,5 +154,28 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
             }
         };
         sc.execute(null,null,null);
+    }
+
+    public void showErrorMessage(final String message) {
+        AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+
+        dlgAlert.setMessage(message);
+        dlgAlert.setTitle("Error");
+        dlgAlert.setPositiveButton("OK", null);
+        dlgAlert.setCancelable(true);
+
+        dlgAlert.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        if (message.contains("Token Invalid or Expired")) {
+                            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |  Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
+                        }
+                    }
+                });
+        dlgAlert.create().show();
     }
 }
