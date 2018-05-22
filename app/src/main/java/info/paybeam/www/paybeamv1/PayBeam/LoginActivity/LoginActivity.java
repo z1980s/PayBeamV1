@@ -62,6 +62,13 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        username.setText("");
+        password.setText("");
+    }
+
     public void handleAuthentication()
     {
         if(username == null ||password == null)
