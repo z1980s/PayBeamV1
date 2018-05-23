@@ -119,7 +119,7 @@ public class AddCardActivity extends AppCompatActivity implements AddCardContrac
                 {
                     public void onClick(DialogInterface dialog, int which)
                     {
-                        if (errorMsg.contains("Token Invalid or Expired")) {
+                        if (errorMsg.contains("Invalid or Expired Session Token")) {
                             Intent intent = new Intent(AddCardActivity.this, LoginActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |  Intent.FLAG_ACTIVITY_SINGLE_TOP);
                             startActivity(intent);

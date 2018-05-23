@@ -70,7 +70,7 @@ public class TransactionActivity extends AppCompatActivity implements Transactio
                 {
                     public void onClick(DialogInterface dialog, int which)
                     {
-                        if (errorMsg.contains("Token Invalid or Expired")) {
+                        if (errorMsg.contains("Invalid or Expired Session Token")) {
                             Intent intent = new Intent(TransactionActivity.this, LoginActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |  Intent.FLAG_ACTIVITY_SINGLE_TOP);
                             startActivity(intent);

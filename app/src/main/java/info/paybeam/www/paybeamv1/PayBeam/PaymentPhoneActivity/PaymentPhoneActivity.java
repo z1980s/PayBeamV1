@@ -417,7 +417,7 @@ public class PaymentPhoneActivity extends AppCompatActivity implements PaymentPh
                 {
                     public void onClick(DialogInterface dialog, int which)
                     {
-                        if (message.contains("Token Invalid or Expired")) {
+                        if (message.contains("Invalid or Expired Session Token")) {
                             Intent intent = new Intent(PaymentPhoneActivity.this, LoginActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |  Intent.FLAG_ACTIVITY_SINGLE_TOP);
                             startActivity(intent);
