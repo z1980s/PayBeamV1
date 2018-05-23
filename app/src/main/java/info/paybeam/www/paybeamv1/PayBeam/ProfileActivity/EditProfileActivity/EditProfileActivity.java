@@ -120,6 +120,10 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
             {
                 emailLayout.setError("You need to enter a valid email");
             }
+            else
+            {
+                emailValid = true;
+            }
         }
 
         //Address
