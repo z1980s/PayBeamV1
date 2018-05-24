@@ -40,7 +40,7 @@ public class CardViewPresenter implements CardViewContract.CardViewPresenter {
 
     @Override
     public void onDeleteButtonClick(View view) {
-        Toast.makeText(cardViewView.getActivity(),"Delete",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(cardViewView.getActivity(),"Delete",Toast.LENGTH_SHORT).show();
 
 
         //Insert Progress Dialog here

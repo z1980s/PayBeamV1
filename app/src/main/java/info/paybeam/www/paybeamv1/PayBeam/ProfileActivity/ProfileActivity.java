@@ -74,7 +74,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
 
     @Override
     public void showEditProfileView() {
-        Toast.makeText(this,"Show Edit Profile Activity", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"Show Edit Profile Activity", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, EditProfileActivity.class);
         startActivity(intent);
     }

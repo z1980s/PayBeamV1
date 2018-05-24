@@ -53,7 +53,7 @@ public class AddCardPresenter implements AddCardContract.AddCardPresenter{
 
         //store values locally
         //extract last 4 digits and relevant display information, store locally into a list so it can be reloaded on cardActivity page
-        Toast.makeText(addCardView.getActivity(), cardNumber, Toast.LENGTH_SHORT);
+        //Toast.makeText(addCardView.getActivity(), cardNumber, Toast.LENGTH_SHORT);
         int length = cardNumber.length();
 
 

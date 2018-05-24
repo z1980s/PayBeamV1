@@ -38,7 +38,7 @@ public class WalletPresenter implements WalletContract.WalletPresenter
                     JsonParser jParser = new JsonParser();
                     JsonObject jResponse = (JsonObject) jParser.parse(response);
                     if (jResponse.get("result").getAsString().equals("Success")) {
-                        String balance = jResponse.get("NewAmount").getAsString();
+                        String balance = "$" + jResponse.get("NewAmount").getAsString();
                         walletView.setWalletBalance(balance);
                     } else {
                         System.out.println(jResponse.get("reason").getAsString());
