@@ -47,7 +47,7 @@ public class WithdrawWalletPresenter implements WithdrawWalletContract.WithdrawW
     @Override
     public void withdrawAmount(final String amount,String chosenCard) {
         //Processing to be done for withdraw amount
-        Toast.makeText(withdrawWalletView.getActivity(),"Amount: "+ amount,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(withdrawWalletView.getActivity(),"Amount: "+ amount,Toast.LENGTH_SHORT).show();
 
         //add progress dialog here then only dismiss after processing
         final ProgressDialog dialog = ProgressDialog.show(withdrawWalletView.getActivity(), "",
