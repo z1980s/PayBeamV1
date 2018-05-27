@@ -44,6 +44,7 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
     private ProgressDialog progressDialog;
     private String message;
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 0;
+    private static final int MY_PERMISSIONS_REQUEST_READ_PHONE_STATE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -388,10 +389,8 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
     public void requestOTP()
     {
         //progressDialog.dismiss();
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Please Enter OTP to verify your phone no.");
-
         // Set up the input
         final EditText input = new EditText(this);
         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
@@ -407,7 +406,13 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
                 //progressDialog.setMessage("Verifying OTP ...");
                 //progressDialog.show();
 
-                caPresenter.checkOTP(Integer.parseInt(m_Text));
+                try {
+                    caPresenter.checkOTP(Integer.parseInt(m_Text));
+                    dialog.dismiss();
+                } catch (NumberFormatException e) {
+                    caPresenter.checkOTP(-1);
+                    dialog.dismiss();
+                }
             }
         });
 
@@ -416,11 +421,16 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-                dialog.cancel();
+                dialog.dismiss();
             }
         });
 
-        builder.show();
+        //builder.show();
+        AlertDialog otp_dialog = builder.create();
+        otp_dialog.show();
+        input.setFocusable(true);
+        input.setFocusableInTouchMode(true);
+        input.requestFocus();
     }
 
 
@@ -437,6 +447,18 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
                     SmsManager smsManager = SmsManager.getDefault();
                     smsManager.sendTextMessage(phoneNo.getText().toString(), null, message, null, null);
                     //Toast.makeText(context, "SMS sent.", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    //Toast.makeText(context, "SMS faild, please try again.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }
+            case MY_PERMISSIONS_REQUEST_READ_PHONE_STATE:
+            {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                {
+
                 }
                 else
                 {

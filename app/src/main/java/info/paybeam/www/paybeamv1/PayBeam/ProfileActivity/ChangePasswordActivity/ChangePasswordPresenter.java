@@ -7,6 +7,9 @@ import android.widget.Toast;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import info.paybeam.www.paybeamv1.PayBeam.ConnectionModule.ServerConnection;
 import info.paybeam.www.paybeamv1.PayBeam.InternalStorageModule.InternalStorage;
 import info.paybeam.www.paybeamv1.PayBeam.SecurityModule.DESPassPhrase;
@@ -31,19 +34,15 @@ public class ChangePasswordPresenter implements ChangePasswordContract.ChangePas
 
     @Override
     public void localPasswordCheck(String oldPass, String newPass, String retypePass) {
-        /*
-        //Check for blank fields
-        if(oldPass.equals("")||newPass.equals("")||retypePass.equals(""))
-        {
-            cpView.showDialog("Error","Empty fields detected");
-        }
-        */
-
+        Pattern password_policy = Pattern.compile("\\A(?=\\S*?[0-9])(?=\\S*?[a-z])(?=\\S*?[A-Z])\\S{8,}\\z");
+        Matcher pwMatcher = password_policy.matcher(retypePass);
         //newPass equals retypePass
-        if(newPass.equals(retypePass))
+        if(newPass.equals(retypePass) && pwMatcher.matches())
         {
                 //to be sent to server for changing password
                 changePassword(oldPass, newPass);
+        } else if (!pwMatcher.matches()) {
+            cpView.showDialog("Error","Password needs to be 8 characters long, with at least 1 Upper-case character and 1 digit.");
         }
         else
         {
