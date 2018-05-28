@@ -44,7 +44,6 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
     private ProgressDialog progressDialog;
     private String message;
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 0;
-    private static final int MY_PERMISSIONS_REQUEST_READ_PHONE_STATE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -447,18 +446,6 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
                     SmsManager smsManager = SmsManager.getDefault();
                     smsManager.sendTextMessage(phoneNo.getText().toString(), null, message, null, null);
                     //Toast.makeText(context, "SMS sent.", Toast.LENGTH_LONG).show();
-                }
-                else
-                {
-                    //Toast.makeText(context, "SMS faild, please try again.", Toast.LENGTH_LONG).show();
-                    return;
-                }
-            }
-            case MY_PERMISSIONS_REQUEST_READ_PHONE_STATE:
-            {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                {
-
                 }
                 else
                 {

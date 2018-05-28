@@ -191,13 +191,13 @@ public class AddCardActivity extends AppCompatActivity implements AddCardContrac
 
                     //message = "PayBeam new password: "+loginPresenter.getNewPassword(userName);
 
-                    dialog.cancel();
+                    dialog.dismiss();
 
                     //sendSMSMessage2();
                 }
                 else
                 {
-                    dialog.cancel();
+                    dialog.dismiss();
                     showErrorMessage("OTP invalid, please try again");
                 }
             }
@@ -211,8 +211,12 @@ public class AddCardActivity extends AppCompatActivity implements AddCardContrac
                 dialog.cancel();
             }
         });
+        AlertDialog otp_dialog = builder.create();
+        otp_dialog.show();
 
-        builder.show();
+        input.setFocusable(true);
+        input.setFocusableInTouchMode(true);
+        input.requestFocus();
     }
 
     public void sendSMSMessage()

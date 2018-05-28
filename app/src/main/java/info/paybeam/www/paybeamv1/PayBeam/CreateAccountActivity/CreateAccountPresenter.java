@@ -31,7 +31,6 @@ public class CreateAccountPresenter implements CreateAccountContract.CreateAccou
     private CreateAccountContract.CreateAccountView caView;
     private Activity caActivity;
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 0;
-    private static final int MY_PERMISSIONS_READ_PHONE_STATE = 1;
     private int OTP;
 
     CreateAccountPresenter(CreateAccountContract.CreateAccountView view)
@@ -174,22 +173,6 @@ public class CreateAccountPresenter implements CreateAccountContract.CreateAccou
         String message = "PayBeam OTP: "+OTP;
 
         caView.setVariables(message);
-
-        if (ContextCompat.checkSelfPermission(caActivity, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED)
-        {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(caActivity, Manifest.permission.READ_PHONE_STATE))
-            {
-
-            }
-            else
-            {
-                ActivityCompat.requestPermissions(caActivity, new String[]{Manifest.permission.READ_PHONE_STATE}, MY_PERMISSIONS_READ_PHONE_STATE);
-            }
-        }
-        else
-        {
-            ActivityCompat.requestPermissions(caActivity, new String[]{Manifest.permission.READ_PHONE_STATE}, MY_PERMISSIONS_READ_PHONE_STATE);
-        }
 
         if (ContextCompat.checkSelfPermission(caActivity, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED)
         {
