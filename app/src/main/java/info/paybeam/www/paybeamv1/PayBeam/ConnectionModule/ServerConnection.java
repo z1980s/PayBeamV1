@@ -103,7 +103,7 @@ public abstract class ServerConnection extends AsyncTask<Void, Void, String> imp
             SSLSocketFactory factory = sslContext.getSocketFactory();
             SSLSocket clientSSLSocket = (SSLSocket) factory.createSocket();
             try {
-                clientSSLSocket.connect(new InetSocketAddress("182.55.236.211", 3333), DEFAULT_CONNECT_TIMEOUT);
+                clientSSLSocket.connect(new InetSocketAddress("www.paybeam.info", 3333), DEFAULT_CONNECT_TIMEOUT);
                 clientSSLSocket.startHandshake();
 
                 //define outputstream
